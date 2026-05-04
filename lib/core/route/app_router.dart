@@ -15,6 +15,8 @@ class AppRouter {
     // Prevents deep-linking to sensitive screens without authenticati
 
     switch (settings.name) {
+      case "/":
+        return _fadeRoute(const OnboardingScreen(), settings);
       case Routes.startupError:
         return _fadeRoute(const StartupErrorScreen(), settings);
       case Routes.onboardingScreen:
