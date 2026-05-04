@@ -89,12 +89,7 @@ class AppTheme {
         unselectedItemColor: Color(0xFF727784),
         type: BottomNavigationBarType.fixed,
       ),
-      // cardTheme: CardTheme(
-      //   color: Colors.white,
-      //   shadowColor: const Color(0xFF1E293B).withOpacity(0.05),
-      //   elevation: 4,
-      //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      // ),
+
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: Colors.white,
