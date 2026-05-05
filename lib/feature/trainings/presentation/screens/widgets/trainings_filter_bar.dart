@@ -19,8 +19,9 @@ class TrainingsFilterBar extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xFFE2E8F0),
+          color: Colors.white,
           borderRadius: BorderRadius.circular(24.r),
+          border: BoxBorder.all(color: const Color(0xFF0057B8), width: 1),
         ),
         child: Row(
           children: [
@@ -54,20 +55,16 @@ class TrainingsFilterBar extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
           decoration: BoxDecoration(
-            color: isSelected
-                ? const Color(0xFF0057B8)
-                : Colors.transparent,
+            color: isSelected ? const Color(0xFF0057B8) : Colors.transparent,
             borderRadius: BorderRadius.circular(24.r),
           ),
           child: Center(
             child: Text(
               label,
               style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                    color: isSelected
-                        ? Colors.white
-                        : const Color(0xFF191C22),
-                    fontSize: 14.sp,
-                  ),
+                color: isSelected ? Colors.white : const Color(0xFF191C22),
+                fontSize: 14.sp,
+              ),
             ),
           ),
         ),

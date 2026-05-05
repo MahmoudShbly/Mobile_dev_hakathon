@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile_dev_hakathon/core/models/pharmacy.dart';
 import 'package:mobile_dev_hakathon/feature/trainings/presentation/screens/widgets/trainings_filter_bar.dart';
 import 'package:mobile_dev_hakathon/feature/trainings/presentation/screens/widgets/trainings_list_view.dart';
@@ -54,7 +55,9 @@ class _TrainingsScreenBodyState extends State<TrainingsScreenBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 24.w),
+      child: Column(
         children: [
           // Filter bar widget
           TrainingsFilterBar(
@@ -66,6 +69,7 @@ class _TrainingsScreenBodyState extends State<TrainingsScreenBody> {
           // List view widget
           Expanded(child: TrainingsListView(pharmacies: filteredPharmacies)),
         ],
-      );
+      ),
+    );
   }
 }

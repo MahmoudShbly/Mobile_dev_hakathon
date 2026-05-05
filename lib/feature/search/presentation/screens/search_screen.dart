@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:mobile_dev_hakathon/core/route/routes.dart';
 import 'package:mobile_dev_hakathon/feature/search/model/medicine_model.dart';
 import 'package:mobile_dev_hakathon/feature/search/model/pharmacy_model.dart';
+import 'package:mobile_dev_hakathon/feature/search/model/hospital_model.dart';
 import 'package:mobile_dev_hakathon/feature/search/presentation/widgets/medicine_list.dart';
 import 'package:mobile_dev_hakathon/feature/search/presentation/widgets/search_field.dart';
 import 'package:mobile_dev_hakathon/feature/search/presentation/widgets/result_list.dart';
+import 'package:mobile_dev_hakathon/feature/search/presentation/widgets/hospital_list.dart';
 
 import '../../../../core/models/pharmacy.dart';
 
@@ -18,6 +20,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
+  String _selectedCategory = 'أدوية';
 
   @override
   void initState() {
@@ -45,6 +48,8 @@ class _SearchScreenState extends State<SearchScreen> {
         .toList();
   }
 
+  List<Hospital> get _filteredHospitals => searchHospitals;
+
   Widget _buildSearchField(ThemeData theme) {
     return SearchField(
       controller: _searchController,
@@ -59,6 +64,44 @@ class _SearchScreenState extends State<SearchScreen> {
       onTap: () {
         setState(() {});
       },
+    );
+  }
+
+  Widget _buildCategoryChips(ThemeData theme) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        _buildCategoryChip('أدوية', theme),
+        const SizedBox(width: 16),
+        _buildCategoryChip('أجهزة طبية', theme),
+      ],
+    );
+  }
+
+  Widget _buildCategoryChip(String category, ThemeData theme) {
+    final isSelected = _selectedCategory == category;
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _selectedCategory = category;
+        });
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected ? const Color(0xFF0040A1) : const Color(0xFFE7E7F2),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Text(
+          category,
+          style: TextStyle(
+            color: isSelected ? Colors.white : const Color(0xFF191B23),
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            fontFamily: 'Manrope',
+          ),
+        ),
+      ),
     );
   }
 
@@ -79,6 +122,10 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
+  Widget _buildHospitalList(ThemeData theme) {
+    return HospitalList(hospitals: _filteredHospitals);
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -86,29 +133,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
-      appBar: AppBar(
-        leading: null,
-        title: const Text('الدواء'),
-        centerTitle: false,
-        elevation: 0,
-        backgroundColor: colorScheme.onPrimary,
-        foregroundColor: colorScheme.onSurface,
-        actions: [
-          // IconButton(
-          //   onPressed: () {},
-          //   icon: Icon(Icons.tune, color: colorScheme.onSurfaceVariant),
-          //   tooltip: 'التصفية',
-          // ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.notifications,
-              color: colorScheme.onSurfaceVariant,
-            ),
-            tooltip: 'الإشعارات',
-          ),
-        ],
-      ),
+
       body: SafeArea(
         child: Align(
           alignment: Alignment.topCenter,
@@ -121,23 +146,29 @@ class _SearchScreenState extends State<SearchScreen> {
                 children: [
                   _buildSearchField(theme),
                   const SizedBox(height: 18),
+                  _buildCategoryChips(theme),
+                  const SizedBox(height: 18),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: Text(
-                      _hasSearchQuery
-                          ? 'نتائج البحث عن دواء'
-                          : 'نتائج البحث عن دواء في الصيدليات المجاورة',
+                      _selectedCategory == 'أدوية'
+                          ? (_hasSearchQuery
+                                ? 'نتائج البحث عن دواء'
+                                : 'نتائج البحث عن دواء في الصيدليات المجاورة')
+                          : 'المستشفيات والأقسام',
                       style: theme.textTheme.labelMedium?.copyWith(
                         color: colorScheme.secondary,
                       ),
                     ),
                   ),
                   const SizedBox(height: 16),
-                  if (_hasSearchQuery) ...[
-                    _buildMedicineList(theme),
-                  ] else ...[
-                    _buildPharmacyList(theme),
-                  ],
+                  Expanded(
+                    child: _selectedCategory == 'أدوية'
+                        ? (_hasSearchQuery
+                              ? _buildMedicineList(theme)
+                              : _buildPharmacyList(theme))
+                        : _buildHospitalList(theme),
+                  ),
                 ],
               ),
             ),

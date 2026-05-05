@@ -6,10 +6,10 @@ class SearchResultsHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      'نتائج البحث عن دواء في الصيدليات المجاورة',
+      '  الصيدليات المجاورة',
       style: Theme.of(context).textTheme.labelMedium?.copyWith(
-            color: Theme.of(context).colorScheme.secondary,
-          ),
+        color: Theme.of(context).colorScheme.secondary,
+      ),
     );
   }
 }
