@@ -38,6 +38,7 @@ class AppRouter {
         return _slideRoute(const EmailVerificationScreen(), settings);
       case Routes.homeScreen:
         return _fadeRoute(const MainScreen(), settings);
+      // <<<<<<< HEAD
       case Routes.pharmacyDetailScreen:
         final pharmacy = settings.arguments;
         if (pharmacy is Pharmacy) {
@@ -56,6 +57,8 @@ class AppRouter {
           );
         }
         return null;
+      // =======
+      // >>>>>>> 807f8a359ecd9a04e1594c8097541d4baffe67c3
       default:
         return null;
     }

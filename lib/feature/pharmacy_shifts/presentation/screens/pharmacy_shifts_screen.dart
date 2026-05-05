@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// <<<<<<< HEAD
 import 'package:mobile_dev_hakathon/feature/pharmacy_shifts/model/pharmacy_model.dart';
 import 'package:mobile_dev_hakathon/feature/pharmacy_shifts/presentation/widgets/search_section.dart';
 import 'package:mobile_dev_hakathon/feature/pharmacy_shifts/presentation/widgets/pharmacy_list.dart';

@@ -21,6 +21,13 @@ class _MainScreenState extends State<MainScreen> {
     SearchScreen(),
   ];
 
+  // static const List<Widget> _screens = <Widget>[
+  //   SearchScreen(),
+  //   ProfileScreen(),
+  //   TrainingsScreen(),
+  //   PharmacyShiftsScreen(),
+  // ];
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
