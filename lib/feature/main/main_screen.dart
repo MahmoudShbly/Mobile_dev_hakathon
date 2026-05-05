@@ -40,6 +40,41 @@ class _MainScreenState extends State<MainScreen> {
     final colorScheme = theme.colorScheme;
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: colorScheme.onPrimary,
+        elevation: 0,
+        leading: Container(
+          padding: const EdgeInsets.all(14.0),
+          child: Row(
+            children: [
+              CircleAvatar(
+                radius: 18,
+                backgroundColor: colorScheme.primary.withOpacity(0.1),
+                child: Icon(Icons.person, size: 20, color: colorScheme.primary),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                'أحمد خالد',
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: colorScheme.onSurface,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        ),
+        leadingWidth: 120,
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.notifications,
+              color: colorScheme.onSurfaceVariant,
+            ),
+            tooltip: 'الإشعارات',
+          ),
+        ],
+      ),
       body: _screens[_selectedIndex],
       bottomNavigationBar: Container(
         height: 80,
@@ -81,6 +116,7 @@ class _MainScreenState extends State<MainScreen> {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
