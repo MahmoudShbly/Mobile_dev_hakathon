@@ -1,110 +1,74 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-import 'package:mobile_dev_hakathon/MyApp.dart';
+import 'package:mobile_dev_hakathon/my_app.dart';
 import 'package:mobile_dev_hakathon/core/route/routes.dart';
 import 'package:mobile_dev_hakathon/core/utils/shared_preferences_helper.dart';
+import 'firebase_options.dart';
 
 void main() async {
+  // لضمان استمرارية التشغيل حتى لو فشلت بعض الخدمات
   WidgetsFlutterBinding.ensureInitialized();
-  final isOnboardingCompleted =
-      await SharedPreferencesHelper.isOnboardingCompleted();
-  final initialRoute = isOnboardingCompleted
-      ? Routes.homeScreen
-      : Routes.onboardingScreen;
-  runApp(MyApp(initialRoute: initialRoute));
-=======
-import 'package:mobile_dev_hakathon/my_app.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(const MyApp(initialRoute: '/'));
->>>>>>> main
-}
+  try {
+    // تهيئة Firebase باستخدام الخيارات المناسبة للمنصة (مهم جداً للويب)
+    try {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      ).timeout(const Duration(seconds: 10));
+    } catch (e) {
+      debugPrint('Firebase initialization error: $e');
+      // لا نتوقف هنا لنسمح للتطبيق بالظهور حتى لو فشل Firebase مؤقتاً
+    }
 
+    // التحقق من حالة Onboarding مع وقت انتظار محدد
+    bool isOnboardingCompleted = false;
+    try {
+      isOnboardingCompleted = await SharedPreferencesHelper.isOnboardingCompleted()
+          .timeout(const Duration(seconds: 3));
+    } catch (e) {
+      debugPrint('SharedPreferences timeout or error: $e');
+    }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+    // التحقق من حالة تسجيل الدخول
+    bool isUserLoggedIn = false;
+    try {
+      isUserLoggedIn = FirebaseAuth.instance.currentUser != null;
+    } catch (e) {
+      debugPrint('Auth check error: $e');
+    }
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+    String initialRoute;
+    if (!isOnboardingCompleted) {
+      initialRoute = Routes.onboardingScreen;
+    } else if (!isUserLoggedIn) {
+      initialRoute = Routes.loginScreen;
+    } else {
+      initialRoute = Routes.homeScreen;
+    }
+    
+    runApp(MyApp(initialRoute: initialRoute));
+  } catch (e) {
+    debugPrint('Fatal error during startup: $e');
+    runApp(
+      MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.error_outline, color: Colors.red, size: 60),
+                const SizedBox(height: 16),
+                const Text('خطأ في تشغيل التطبيق', style: TextStyle(fontSize: 18)),
+                TextButton(
+                  onPressed: () => main(),
+                  child: const Text('إعادة المحاولة'),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }

@@ -29,7 +29,7 @@ class MedicineList extends StatelessWidget {
       child: ListView.separated(
         physics: const BouncingScrollPhysics(),
         itemCount: medicines.length,
-        separatorBuilder: (_, __) => const SizedBox(height: 14),
+        separatorBuilder: (_, _) => const SizedBox(height: 14),
         itemBuilder: (context, index) {
           final medicine = medicines[index];
           final badgeColor =
@@ -52,11 +52,11 @@ class MedicineList extends StatelessWidget {
                 color: theme.colorScheme.onPrimary,
                 borderRadius: BorderRadius.circular(24),
                 border: Border.all(
-                  color: theme.colorScheme.outline.withOpacity(0.18),
+                  color: theme.colorScheme.outline.withValues(alpha: 0.18),
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
+                    color: Colors.black.withValues(alpha: 0.05),
                     blurRadius: 20,
                     offset: const Offset(0, 4),
                   ),

@@ -11,25 +11,32 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // نستخدم ScreenUtilInit لضمان تهيئة أحجام الشاشة
     return ScreenUtilInit(
       designSize: const Size(390, 844),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Syrian Wallet',
-
-        theme: AppTheme.lightTheme,
-        onGenerateRoute: AppRouter.generateRoute,
-        initialRoute: initialRoute,
-        locale: const Locale('ar'),
-        localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: const [Locale('ar'), Locale('en')],
-      ),
+      builder: (context, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Syrian Wallet',
+          theme: AppTheme.lightTheme,
+          onGenerateRoute: AppRouter.generateRoute,
+          initialRoute: initialRoute,
+          // إضافة home كخيار احتياطي في حال فشل initialRoute
+          // home: const Scaffold(body: Center(child: CircularProgressIndicator())),
+          locale: const Locale('ar'),
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('ar'),
+            Locale('en'),
+          ],
+        );
+      },
     );
   }
 }

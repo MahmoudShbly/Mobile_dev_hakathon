@@ -103,7 +103,7 @@ class PharmacyDetailScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(24),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.05),
+                                color: Colors.black.withValues(alpha: 0.05),
                                 blurRadius: 24,
                                 offset: const Offset(0, 10),
                               ),
@@ -135,7 +135,7 @@ class PharmacyDetailScreen extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         color: const Color(
                                           0xFF10B981,
-                                        ).withOpacity(0.14),
+                                        ).withValues(alpha: 0.14),
                                         borderRadius: BorderRadius.circular(
                                           999,
                                         ),
@@ -193,6 +193,8 @@ class PharmacyDetailScreen extends StatelessWidget {
                         _SectionCard(
                           title: 'أوقات العمل',
                           icon: Icons.schedule,
+                          colorScheme: colorScheme,
+                          theme: theme,
                           children: [
                             Text(
                               pharmacy.hours,
@@ -208,13 +210,13 @@ class PharmacyDetailScreen extends StatelessWidget {
                               ),
                             ),
                           ],
-                          colorScheme: colorScheme,
-                          theme: theme,
                         ),
                         const SizedBox(height: 16),
                         _SectionCard(
                           title: 'الموقع',
                           icon: Icons.near_me,
+                          colorScheme: colorScheme,
+                          theme: theme,
                           children: [
                             Text(
                               pharmacy.address,
@@ -233,8 +235,10 @@ class PharmacyDetailScreen extends StatelessWidget {
                                   width: double.infinity,
                                   loadingBuilder:
                                       (context, child, loadingProgress) {
-                                        if (loadingProgress == null)
+                                        if (loadingProgress == null) {
                                           return child;
+                                        }
+
                                         return Center(
                                           child: CircularProgressIndicator(
                                             value:
@@ -266,13 +270,13 @@ class PharmacyDetailScreen extends StatelessWidget {
                               ),
                             ),
                           ],
-                          colorScheme: colorScheme,
-                          theme: theme,
                         ),
                         const SizedBox(height: 16),
                         _SectionCard(
                           title: 'الخدمات المتاحة',
                           icon: Icons.medical_services,
+                          colorScheme: colorScheme,
+                          theme: theme,
                           children: [
                             GridView.builder(
                               shrinkWrap: true,
@@ -293,13 +297,13 @@ class PharmacyDetailScreen extends StatelessWidget {
                               },
                             ),
                           ],
-                          colorScheme: colorScheme,
-                          theme: theme,
                         ),
                         const SizedBox(height: 16),
                         _SectionCard(
                           title: 'عن الصيدلية',
                           icon: Icons.info,
+                          colorScheme: colorScheme,
+                          theme: theme,
                           children: [
                             Text(
                               pharmacy.description,
@@ -319,8 +323,10 @@ class PharmacyDetailScreen extends StatelessWidget {
                                   width: double.infinity,
                                   loadingBuilder:
                                       (context, child, loadingProgress) {
-                                        if (loadingProgress == null)
+                                        if (loadingProgress == null) {
                                           return child;
+                                        }
+
                                         return Center(
                                           child: CircularProgressIndicator(
                                             value:
@@ -352,8 +358,6 @@ class PharmacyDetailScreen extends StatelessWidget {
                               ),
                             ),
                           ],
-                          colorScheme: colorScheme,
-                          theme: theme,
                         ),
                         const SizedBox(height: 96),
                       ],
@@ -407,7 +411,7 @@ class _SectionCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: colorScheme.onPrimary,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: colorScheme.outline.withOpacity(0.14)),
+        border: Border.all(color: colorScheme.outline.withValues(alpha: 0.14)),
       ),
       padding: const EdgeInsets.all(20),
       child: Column(
@@ -499,10 +503,10 @@ class _ServiceTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: colorScheme.onPrimary,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: colorScheme.outline.withOpacity(0.14)),
+        border: Border.all(color: colorScheme.outline.withValues(alpha: 0.16)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             blurRadius: 14,
             offset: const Offset(0, 6),
           ),
@@ -516,7 +520,7 @@ class _ServiceTile extends StatelessWidget {
             width: 56,
             height: 56,
             decoration: BoxDecoration(
-              color: colorScheme.primary.withOpacity(0.12),
+              color: colorScheme.primary.withValues(alpha: 0.12),
               shape: BoxShape.circle,
             ),
             child: Center(

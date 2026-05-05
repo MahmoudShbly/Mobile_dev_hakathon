@@ -8,20 +8,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-<<<<<<< HEAD
-// import 'package:mobile_dev_hakathon/main.dart';
-=======
 import 'package:mobile_dev_hakathon/my_app.dart';
->>>>>>> main
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-<<<<<<< HEAD
-    // await tester.pumpWidget( MyApp());
-=======
     await tester.pumpWidget(const MyApp(initialRoute: '/'));
->>>>>>> main
+
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

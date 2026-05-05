@@ -14,17 +14,10 @@ class Routes {
 
   // Home
   static const String homeScreen = '/home';
-<<<<<<< HEAD
-  // <<<<<<< HEAD
+  static const String editProfileScreen = '/editProfile';
   static const String pharmacyDetailScreen = '/pharmacy-detail';
   static const String medicineDetailScreen = '/medicine-detail';
-  // =======
-  // >>>>>>> 807f8a359ecd9a04e1594c8097541d4baffe67c3
-=======
 
-  // Profile
-  static const String editProfileScreen = '/editProfile';
->>>>>>> main
 }
 
 
