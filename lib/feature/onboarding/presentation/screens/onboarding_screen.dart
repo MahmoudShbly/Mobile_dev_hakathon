@@ -21,7 +21,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       'title': 'ابحث عن صيدلية للتدريب',
       'description':
           'اكتشف أفضل الفرص التدريبية في كبرى الصيدليات القريبة منك، تواصل مع المشرفين مباشرة، وابدأ رحلتك المهنية في بيئة تعليمية متميزة تدعم طموحاتك العلمية والعملية.',
-      'showSkipButton': false,
+      'showSkipButton': true,
       'buttonText': 'ابدأ الآن',
     },
     {
@@ -37,7 +37,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       'title': 'الصيدليات المناوبة',
       'description':
           'اعثر على أقرب صيدلية مفتوحة في أي وقت من اليوم، حتى في الساعات المتأخرة من الليل مع تحديثات لحظية للمواقع وتفاصيل الاتصال المباشرة لضمان وصولك السريع للأدوية الضرورية.',
-      'showSkipButton': false,
+      'showSkipButton': true,
       'buttonText': 'التالي',
     },
   ];

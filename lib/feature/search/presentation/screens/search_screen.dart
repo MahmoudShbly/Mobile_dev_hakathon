@@ -87,17 +87,18 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
+        leading: null,
         title: const Text('الدواء'),
         centerTitle: false,
         elevation: 0,
         backgroundColor: colorScheme.onPrimary,
         foregroundColor: colorScheme.onSurface,
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.tune, color: colorScheme.onSurfaceVariant),
-            tooltip: 'التصفية',
-          ),
+          // IconButton(
+          //   onPressed: () {},
+          //   icon: Icon(Icons.tune, color: colorScheme.onSurfaceVariant),
+          //   tooltip: 'التصفية',
+          // ),
           IconButton(
             onPressed: () {},
             icon: Icon(
@@ -107,11 +108,6 @@ class _SearchScreenState extends State<SearchScreen> {
             tooltip: 'الإشعارات',
           ),
         ],
-        // leading: IconButton(
-        //   onPressed: () {},
-        //   icon: Icon(Icons.arrow_forward, color: colorScheme.primary),
-        //   tooltip: 'رجوع',
-        // ),
       ),
       body: SafeArea(
         child: Align(

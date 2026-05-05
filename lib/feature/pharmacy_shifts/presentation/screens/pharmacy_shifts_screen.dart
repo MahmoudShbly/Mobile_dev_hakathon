@@ -77,10 +77,7 @@ class _PharmacyShiftsScreenState extends State<PharmacyShiftsScreen> {
           ),
         ),
         centerTitle: false,
-        leading: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.menu, color: colorScheme.primary),
-        ),
+
         actions: [
           IconButton(
             onPressed: () {},

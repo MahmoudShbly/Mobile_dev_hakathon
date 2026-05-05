@@ -55,16 +55,10 @@ class OnboardingPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // Illustration
-                    Container(
-                      width: 320,
-                      height: 320,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.white,
-                      ),
+                    Expanded(
                       child: Image.asset(
                         imageUrl,
-                        fit: BoxFit.contain,
+                        fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
                           return Center(
                             child: Icon(
@@ -88,6 +82,8 @@ class OnboardingPage extends StatelessWidget {
                         letterSpacing: -0.01,
                       ),
                       textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
                     ),
                     const SizedBox(height: 16),
                     // Description
@@ -100,6 +96,8 @@ class OnboardingPage extends StatelessWidget {
                         height: 1.6,
                       ),
                       textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 4,
                     ),
                   ],
                 ),

@@ -160,13 +160,13 @@ class PharmacyDetailScreen extends StatelessWidget {
                                     color: const Color(0xFFF59E0B),
                                   ),
                                   const SizedBox(width: 6),
-                                  Text(
-                                    '${pharmacy.rating.toStringAsFixed(1)} (120+ تقييم)',
-                                    style: theme.textTheme.bodyMedium?.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      color: colorScheme.onSurfaceVariant,
-                                    ),
-                                  ),
+                                  // Text(
+                                  //   '${pharmacy.rating.toStringAsFixed(1)} (120+ تقييم)',
+                                  //   style: theme.textTheme.bodyMedium?.copyWith(
+                                  //     fontWeight: FontWeight.w600,
+                                  //     color: colorScheme.onSurfaceVariant,
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                               const SizedBox(height: 18),

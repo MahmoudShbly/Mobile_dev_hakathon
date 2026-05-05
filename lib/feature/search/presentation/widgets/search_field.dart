@@ -40,7 +40,6 @@ class _SearchFieldState extends State<SearchField> {
         ),
         filled: true,
         fillColor: theme.colorScheme.onPrimary,
-        prefixIcon: Icon(Icons.mic, color: theme.colorScheme.primary),
         suffixIcon: widget.controller.text.isNotEmpty
             ? IconButton(
                 icon: Icon(
