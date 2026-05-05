@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-// <<<<<<< HEAD
-// =======
 import 'package:flutter_localizations/flutter_localizations.dart';
-// >>>>>>> 807f8a359ecd9a04e1594c8097541d4baffe67c3
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/route/app_router.dart';
