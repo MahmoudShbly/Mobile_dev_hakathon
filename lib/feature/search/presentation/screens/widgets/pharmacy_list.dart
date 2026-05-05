@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_dev_hakathon/core/models/pharmacy.dart';
-import 'pharmacy_card.dart';
+import '../../../../../core/shared widgets/pharmacy_card.dart';
 
 class PharmacyList extends StatelessWidget {
   final List<Pharmacy> pharmacies;
