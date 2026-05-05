@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_dev_hakathon/core/route/routes.dart';
-import 'package:mobile_dev_hakathon/feature/auth/email_verification_screen.dart';
-import 'package:mobile_dev_hakathon/feature/auth/forgot_password_screen.dart';
-import 'package:mobile_dev_hakathon/feature/auth/login_screen.dart';
-import 'package:mobile_dev_hakathon/feature/auth/register_screen.dart';
-import 'package:mobile_dev_hakathon/feature/auth/reset_password_screen.dart';
+import 'package:mobile_dev_hakathon/feature/auth/presentation/screens/email_verification_screen.dart';
+import 'package:mobile_dev_hakathon/feature/auth/presentation/screens/forgot_password_screen.dart';
+import 'package:mobile_dev_hakathon/feature/auth/presentation/screens/login_screen.dart';
+import 'package:mobile_dev_hakathon/feature/auth/presentation/screens/register_screen.dart';
+import 'package:mobile_dev_hakathon/feature/auth/presentation/screens/reset_password_screen.dart';
 import 'package:mobile_dev_hakathon/feature/main/main_screen.dart';
 import 'package:mobile_dev_hakathon/feature/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:mobile_dev_hakathon/feature/startup/startup_error_screen.dart';
