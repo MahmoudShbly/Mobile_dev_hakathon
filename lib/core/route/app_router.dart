@@ -8,6 +8,8 @@ import 'package:mobile_dev_hakathon/feature/auth/reset_password_screen.dart';
 import 'package:mobile_dev_hakathon/feature/main/main_screen.dart';
 import 'package:mobile_dev_hakathon/feature/onboarding/onboarding_screen.dart';
 import 'package:mobile_dev_hakathon/feature/startup/startup_error_screen.dart';
+import 'package:mobile_dev_hakathon/feature/profile/presentation/screens/edit_profile_screen.dart';
+
 
 class AppRouter {
   static Route? generateRoute(RouteSettings settings) {
@@ -34,6 +36,9 @@ class AppRouter {
         return _slideRoute(const EmailVerificationScreen(), settings);
       case Routes.homeScreen:
         return _fadeRoute(const MainScreen(), settings);
+      case Routes.editProfileScreen:
+        return _slideRoute(const EditProfileScreen(), settings);
+
       default:
         return null;
     }

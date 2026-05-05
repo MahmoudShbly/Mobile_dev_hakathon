@@ -14,4 +14,9 @@ class Routes {
 
   // Home
   static const String homeScreen = '/home';
+
+  // Profile
+  static const String editProfileScreen = '/editProfile';
 }
+
+

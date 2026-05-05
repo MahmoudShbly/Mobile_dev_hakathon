@@ -15,10 +15,10 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
   static const List<Widget> _screens = <Widget>[
-    SearchScreen(),
     ProfileScreen(),
     TrainingsScreen(),
     PharmacyShiftsScreen(),
+    SearchScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -33,21 +33,35 @@ class _MainScreenState extends State<MainScreen> {
       body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'البحث'),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'الملف الشخصي',
+            icon: Icon(Icons.person_outline),
+            activeIcon: Icon(Icons.person),
+            label: 'حسابي',
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.school), label: 'التدريبات'),
           BottomNavigationBarItem(
-            icon: Icon(Icons.schedule),
-            label: 'المناوبات',
+            icon: Icon(Icons.school_outlined),
+            activeIcon: Icon(Icons.school),
+            label: 'تدريب',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.medical_services_outlined),
+            activeIcon: Icon(Icons.medical_services),
+            label: 'المناوبة',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            activeIcon: Icon(Icons.search),
+            label: 'بحث',
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
+        selectedItemColor: const Color(0xFF0057B8),
+        unselectedItemColor: const Color(0xFF727784),
+        showUnselectedLabels: true,
+        type: BottomNavigationBarType.fixed,
         onTap: _onItemTapped,
       ),
     );
   }
+
 }
