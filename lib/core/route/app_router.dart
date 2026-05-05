@@ -13,6 +13,9 @@ import 'package:mobile_dev_hakathon/feature/pharmacy_shifts/presentation/screens
 import 'package:mobile_dev_hakathon/feature/search/model/medicine_model.dart';
 import 'package:mobile_dev_hakathon/feature/search/presentation/screens/medicine_detail_screen.dart';
 import 'package:mobile_dev_hakathon/feature/profile/presentation/screens/edit_profile_screen.dart';
+import 'package:mobile_dev_hakathon/feature/map/presentation/screens/map_screen.dart';
+import 'package:mobile_dev_hakathon/feature/doctors/presentation/screens/doctors_screen.dart';
+import 'package:mobile_dev_hakathon/feature/profile/presentation/screens/favorites_screen.dart';
 
 class AppRouter {
   static Route? generateRoute(RouteSettings settings) {
@@ -34,7 +37,8 @@ class AppRouter {
       case Routes.verifyEmailScreen:
         return _slideRoute(const EmailVerificationScreen(), settings);
       case Routes.homeScreen:
-        return _fadeRoute(const MainScreen(), settings);
+        final index = settings.arguments as int? ?? 3;
+        return _fadeRoute(MainScreen(initialIndex: index), settings);
       case Routes.editProfileScreen:
         return _slideRoute(const EditProfileScreen(), settings);
       case Routes.pharmacyDetailScreen:
@@ -49,6 +53,19 @@ class AppRouter {
           return _slideRoute(MedicineDetailScreen(medicine: medicine), settings);
         }
         return null;
+      case Routes.mapScreen:
+        final args = settings.arguments as Map<String, dynamic>?;
+        return _slideRoute(
+          MapScreen(
+            initialLocation: args?['location'],
+            targetPharmacyName: args?['pharmacyName'],
+          ),
+          settings,
+        );
+      case Routes.doctorsScreen:
+        return _slideRoute(const DoctorsScreen(), settings);
+      case Routes.favoritesScreen:
+        return _slideRoute(const FavoritesScreen(), settings);
       default:
         return null;
     }

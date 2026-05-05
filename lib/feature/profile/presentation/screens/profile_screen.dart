@@ -23,11 +23,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void _loadUserData() async {
     try {
       final userData = await _authService.getUserData();
-      if (userData.exists) {
-        setState(() {
-          _userName = userData.get('name') ?? 'مستخدم';
-        });
-      }
+      setState(() {
+        _userName = userData['name'] ?? 'أحمد محمد';
+      });
     } catch (e) {
       setState(() {
         _userName = 'أحمد محمد'; // Fallback
@@ -74,7 +72,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ],
                       image: const DecorationImage(
-                        image: NetworkImage('https://via.placeholder.com/150'), // Placeholder for doctor image
+                        image: NetworkImage('https://images.unsplash.com/photo-1633332755192-727a05c4013d?auto=format&fit=crop&w=400&q=80'), // Professional user avatar
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -110,19 +108,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   _buildMenuItem(
                     icon: Icons.favorite_border,
                     title: 'المفضلة',
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(context, Routes.favoritesScreen);
+                    },
                   ),
                   SizedBox(height: 16.h),
                   _buildMenuItem(
                     icon: Icons.medical_services_outlined,
                     title: 'الصيدليات المناوبة',
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        Routes.homeScreen,
+                        (route) => false,
+                        arguments: 2,
+                      );
+                    },
                   ),
                   SizedBox(height: 16.h),
                   _buildMenuItem(
                     icon: Icons.help_outline,
                     title: 'حول التطبيق',
-                    onTap: () {},
+                    onTap: () {
+                      showAboutDialog(
+                        context: context,
+                        applicationName: 'تطبيق الدواء',
+                        applicationVersion: '1.0.0',
+                        applicationIcon: Image.network(
+                          'https://via.placeholder.com/100',
+                          width: 50,
+                          height: 50,
+                        ),
+                        children: [
+                          const Text(
+                            'تطبيق طبي متكامل يساعدك في الوصول إلى الأدوية والصيدليات المناوبة والمستشفيات والأطباء بكل سهولة.',
+                          ),
+                        ],
+                      );
+                    },
                   ),
                   SizedBox(height: 40.h),
                   // Logout

@@ -94,12 +94,26 @@ class _SearchScreenState extends State<SearchScreen> {
         foregroundColor: colorScheme.onSurface,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('قريباً: ميزة التصفية المتقدمة!', style: TextStyle(fontFamily: 'Cairo')),
+                  behavior: SnackBarBehavior.floating,
+                ),
+              );
+            },
             icon: Icon(Icons.tune, color: colorScheme.onSurfaceVariant),
             tooltip: 'التصفية',
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('لا توجد إشعارات جديدة حالياً', style: TextStyle(fontFamily: 'Cairo')),
+                  behavior: SnackBarBehavior.floating,
+                ),
+              );
+            },
             icon: Icon(
               Icons.notifications,
               color: colorScheme.onSurfaceVariant,
