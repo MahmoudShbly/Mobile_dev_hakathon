@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_dev_hakathon/feature/onboarding/presentation/widgets/page_indicator.dart';
 
 class OnboardingPage extends StatelessWidget {
   final String imageUrl;
@@ -8,6 +9,8 @@ class OnboardingPage extends StatelessWidget {
   final String? buttonText;
   final VoidCallback? onButtonPressed;
   final VoidCallback? onSkipPressed;
+  final int currentPage;
+  final int pageCount;
 
   const OnboardingPage({
     super.key,
@@ -18,6 +21,8 @@ class OnboardingPage extends StatelessWidget {
     this.buttonText,
     this.onButtonPressed,
     this.onSkipPressed,
+    required this.currentPage,
+    required this.pageCount,
   });
 
   @override
@@ -103,9 +108,11 @@ class OnboardingPage extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(height: 24),
+            PageIndicator(currentPage: currentPage, pageCount: pageCount),
             if (buttonText != null)
               Padding(
-                padding: const EdgeInsets.fromLTRB(24, 0, 24, 40),
+                padding: const EdgeInsets.fromLTRB(24, 24, 24, 40),
                 child: ElevatedButton(
                   onPressed: onButtonPressed,
                   style: ElevatedButton.styleFrom(

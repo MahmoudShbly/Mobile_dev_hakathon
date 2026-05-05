@@ -11,7 +11,11 @@ import 'package:mobile_dev_hakathon/feature/startup/startup_error_screen.dart';
 import 'package:mobile_dev_hakathon/feature/pharmacy_shifts/model/pharmacy_model.dart';
 import 'package:mobile_dev_hakathon/feature/pharmacy_shifts/presentation/screens/pharmacy_detail_screen.dart';
 import 'package:mobile_dev_hakathon/feature/search/model/medicine_model.dart';
+import 'package:mobile_dev_hakathon/feature/search/model/hospital_model.dart';
+import 'package:mobile_dev_hakathon/feature/search/model/doctor_model.dart';
 import 'package:mobile_dev_hakathon/feature/search/presentation/screens/medicine_detail_screen.dart';
+import 'package:mobile_dev_hakathon/feature/search/presentation/screens/hospital_detail_screen.dart';
+import 'package:mobile_dev_hakathon/feature/search/presentation/screens/doctors_list_screen.dart';
 
 class AppRouter {
   static Route? generateRoute(RouteSettings settings) {
@@ -38,7 +42,6 @@ class AppRouter {
         return _slideRoute(const EmailVerificationScreen(), settings);
       case Routes.homeScreen:
         return _fadeRoute(const MainScreen(), settings);
-      // <<<<<<< HEAD
       case Routes.pharmacyDetailScreen:
         final pharmacy = settings.arguments;
         if (pharmacy is Pharmacy) {
@@ -57,8 +60,28 @@ class AppRouter {
           );
         }
         return null;
-      // =======
-      // >>>>>>> 807f8a359ecd9a04e1594c8097541d4baffe67c3
+      case Routes.hospitalDetailScreen:
+        final hospital = settings.arguments;
+        if (hospital is Hospital) {
+          return _slideRoute(
+            HospitalDetailScreen(hospital: hospital),
+            settings,
+          );
+        }
+        return null;
+      case Routes.doctorsListScreen:
+        final args = settings.arguments as Map<String, dynamic>?;
+        if (args != null) {
+          return _slideRoute(
+            DoctorsListScreen(
+              departmentName: args['departmentName'] ?? 'قسم عام',
+              hospitalName: args['hospitalName'] ?? 'مشفى',
+              doctors: args['doctors'] ?? sampleDoctors,
+            ),
+            settings,
+          );
+        }
+        return null;
       default:
         return null;
     }
