@@ -65,29 +65,7 @@ class _PharmacyShiftsScreenState extends State<PharmacyShiftsScreen> {
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
-      appBar: AppBar(
-        backgroundColor: colorScheme.surface,
-        elevation: 0,
-        shadowColor: Colors.transparent,
-        title: Text(
-          'الصيدليات المناوبة',
-          style: theme.textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.w600,
-            color: colorScheme.onSurface,
-          ),
-        ),
-        centerTitle: false,
 
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.notifications,
-              color: colorScheme.onSurfaceVariant,
-            ),
-          ),
-        ],
-      ),
       body: SafeArea(
         child: Align(
           alignment: Alignment.topCenter,
