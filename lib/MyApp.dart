@@ -17,6 +17,13 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Syrian Wallet',
+        locale: const Locale('ar'),
+        builder: (context, child) {
+          return Directionality(
+            textDirection: TextDirection.rtl,
+            child: child!,
+          );
+        },
         theme: AppTheme.lightTheme,
         onGenerateRoute: AppRouter.generateRoute,
         initialRoute: initialRoute,

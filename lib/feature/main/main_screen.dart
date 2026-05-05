@@ -12,13 +12,13 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 3;
 
   static const List<Widget> _screens = <Widget>[
-    SearchScreen(),
     ProfileScreen(),
     TrainingsScreen(),
     PharmacyShiftsScreen(),
+    SearchScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -29,24 +29,72 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Scaffold(
       body: _screens[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'البحث'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'الملف الشخصي',
+      bottomNavigationBar: Container(
+        height: 80,
+        decoration: BoxDecoration(
+          color: colorScheme.onPrimary,
+          border: Border(
+            top: BorderSide(color: colorScheme.outline.withOpacity(0.1)),
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.school), label: 'التدريبات'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.schedule),
-            label: 'المناوبات',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
-        onTap: _onItemTapped,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 20,
+              offset: const Offset(0, -4),
+            ),
+          ],
+        ),
+        child: Row(
+          textDirection: TextDirection.rtl,
+          children: [
+            Expanded(child: _buildNavItem(0, Icons.person, 'حسابي')),
+            Expanded(child: _buildNavItem(1, Icons.school, 'تدريب')),
+            Expanded(
+              child: _buildNavItem(2, Icons.medical_services, 'المناوبة'),
+            ),
+            Expanded(child: _buildNavItem(3, Icons.search, 'بحث')),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNavItem(int index, IconData icon, String label) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final isSelected = _selectedIndex == index;
+
+    return GestureDetector(
+      onTap: () => _onItemTapped(index),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon,
+              color: isSelected
+                  ? colorScheme.primary
+                  : colorScheme.onSurfaceVariant,
+              fill: isSelected ? 1 : 0,
+            ),
+            const SizedBox(height: 4),
+            Text(
+              label,
+              style: theme.textTheme.labelSmall?.copyWith(
+                color: isSelected
+                    ? colorScheme.primary
+                    : colorScheme.onSurfaceVariant,
+                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

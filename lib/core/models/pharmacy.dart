@@ -4,6 +4,8 @@ class Pharmacy {
   final String distance;
   final String address;
   final bool isFavorite;
+  final bool isDisabled;
+  final bool isOnDuty;
 
   const Pharmacy({
     required this.name,
@@ -11,5 +13,7 @@ class Pharmacy {
     required this.distance,
     required this.address,
     this.isFavorite = false,
+    this.isDisabled = false,
+    this.isOnDuty = false,
   });
 }

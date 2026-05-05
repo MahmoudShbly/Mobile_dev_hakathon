@@ -6,8 +6,12 @@ import 'package:mobile_dev_hakathon/feature/auth/login_screen.dart';
 import 'package:mobile_dev_hakathon/feature/auth/register_screen.dart';
 import 'package:mobile_dev_hakathon/feature/auth/reset_password_screen.dart';
 import 'package:mobile_dev_hakathon/feature/main/main_screen.dart';
-import 'package:mobile_dev_hakathon/feature/onboarding/onboarding_screen.dart';
+import 'package:mobile_dev_hakathon/feature/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:mobile_dev_hakathon/feature/startup/startup_error_screen.dart';
+import 'package:mobile_dev_hakathon/feature/pharmacy_shifts/model/pharmacy_model.dart';
+import 'package:mobile_dev_hakathon/feature/pharmacy_shifts/presentation/screens/pharmacy_detail_screen.dart';
+import 'package:mobile_dev_hakathon/feature/search/model/medicine_model.dart';
+import 'package:mobile_dev_hakathon/feature/search/presentation/screens/medicine_detail_screen.dart';
 
 class AppRouter {
   static Route? generateRoute(RouteSettings settings) {
@@ -34,6 +38,24 @@ class AppRouter {
         return _slideRoute(const EmailVerificationScreen(), settings);
       case Routes.homeScreen:
         return _fadeRoute(const MainScreen(), settings);
+      case Routes.pharmacyDetailScreen:
+        final pharmacy = settings.arguments;
+        if (pharmacy is Pharmacy) {
+          return _slideRoute(
+            PharmacyDetailScreen(pharmacy: pharmacy),
+            settings,
+          );
+        }
+        return null;
+      case Routes.medicineDetailScreen:
+        final medicine = settings.arguments;
+        if (medicine is Medicine) {
+          return _slideRoute(
+            MedicineDetailScreen(medicine: medicine),
+            settings,
+          );
+        }
+        return null;
       default:
         return null;
     }

@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_dev_hakathon/MyApp.dart';
+import 'package:mobile_dev_hakathon/core/route/routes.dart';
+import 'package:mobile_dev_hakathon/core/utils/shared_preferences_helper.dart';
 
-void main() {
-  runApp(const MyApp(initialRoute: '/home'));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final isOnboardingCompleted =
+      await SharedPreferencesHelper.isOnboardingCompleted();
+  final initialRoute = isOnboardingCompleted
+      ? Routes.homeScreen
+      : Routes.onboardingScreen;
+  runApp(MyApp(initialRoute: initialRoute));
 }
 
 class MyHomePage extends StatefulWidget {
