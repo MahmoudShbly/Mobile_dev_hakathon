@@ -14,14 +14,15 @@ import 'package:mobile_dev_hakathon/feature/search/model/medicine_model.dart';
 import 'package:mobile_dev_hakathon/feature/search/model/hospital_model.dart';
 import 'package:mobile_dev_hakathon/feature/search/model/doctor_model.dart';
 import 'package:mobile_dev_hakathon/feature/search/presentation/screens/medicine_detail_screen.dart';
+// <<<<<<< HEAD
 import 'package:mobile_dev_hakathon/feature/search/presentation/screens/hospital_detail_screen.dart';
 import 'package:mobile_dev_hakathon/feature/search/presentation/screens/doctors_list_screen.dart';
+// =======
+import 'package:mobile_dev_hakathon/feature/profile/presentation/screens/edit_profile_screen.dart';
+// >>>>>>> fcac4cbd139e09b86577e8dd75c3c8a2465412bc
 
 class AppRouter {
   static Route? generateRoute(RouteSettings settings) {
-    // ✅ SECURITY: Validate protected routes before creating them
-    // Prevents deep-linking to sensitive screens without authenticati
-
     switch (settings.name) {
       case "/":
         return _fadeRoute(const OnboardingScreen(), settings);
@@ -29,7 +30,6 @@ class AppRouter {
         return _fadeRoute(const StartupErrorScreen(), settings);
       case Routes.onboardingScreen:
         return _fadeRoute(const OnboardingScreen(), settings);
-      // ========================== Auth Routes ==========================
       case Routes.loginScreen:
         return _slideRoute(const LoginScreen(), settings);
       case Routes.registerScreen:
@@ -42,6 +42,11 @@ class AppRouter {
         return _slideRoute(const EmailVerificationScreen(), settings);
       case Routes.homeScreen:
         return _fadeRoute(const MainScreen(), settings);
+      // <<<<<<< HEAD
+      // =======
+      case Routes.editProfileScreen:
+        return _slideRoute(const EditProfileScreen(), settings);
+      // >>>>>>> fcac4cbd139e09b86577e8dd75c3c8a2465412bc
       case Routes.pharmacyDetailScreen:
         final pharmacy = settings.arguments;
         if (pharmacy is Pharmacy) {
@@ -60,6 +65,7 @@ class AppRouter {
           );
         }
         return null;
+      // <<<<<<< HEAD
       case Routes.hospitalDetailScreen:
         final hospital = settings.arguments;
         if (hospital is Hospital) {
@@ -82,6 +88,8 @@ class AppRouter {
           );
         }
         return null;
+      // =======
+      // >>>>>>> fcac4cbd139e09b86577e8dd75c3c8a2465412bc
       default:
         return null;
     }

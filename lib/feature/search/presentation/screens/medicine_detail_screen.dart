@@ -10,8 +10,6 @@ class MedicineDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final isPrescription =
-        medicine.availability == MedicineAvailability.prescription;
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
@@ -56,7 +54,7 @@ class MedicineDetailScreen extends StatelessWidget {
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
+                      color: Colors.black.withValues(alpha: 0.05),
                       blurRadius: 28,
                       offset: const Offset(0, 10),
                     ),
@@ -103,7 +101,7 @@ class MedicineDetailScreen extends StatelessWidget {
                           vertical: 8,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.45),
+                          color: Colors.black.withValues(alpha: 0.45),
                           borderRadius: BorderRadius.circular(999),
                         ),
                         child: Text(
@@ -225,10 +223,10 @@ class MedicineDetailScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: colorScheme.onPrimary,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: colorScheme.outline.withOpacity(0.16)),
+        border: Border.all(color: colorScheme.outline.withValues(alpha: 0.16)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 20,
             offset: const Offset(0, 4),
           ),
@@ -261,7 +259,7 @@ class MedicineDetailScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            Divider(color: colorScheme.outline.withOpacity(0.4)),
+            Divider(color: colorScheme.outline.withValues(alpha: 0.4)),
             const SizedBox(height: 12),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -306,10 +304,10 @@ class MedicineDetailScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: colorScheme.onPrimary,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: colorScheme.outline.withOpacity(0.16)),
+        border: Border.all(color: colorScheme.outline.withValues(alpha: 0.16)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 20,
             offset: const Offset(0, 4),
           ),
@@ -350,7 +348,7 @@ class MedicineDetailScreen extends StatelessWidget {
                             color: colorScheme.surface,
                             borderRadius: BorderRadius.circular(18),
                             border: Border.all(
-                              color: colorScheme.outline.withOpacity(0.12),
+                              color: colorScheme.outline.withValues(alpha: 0.12),
                             ),
                           ),
                           child: Row(
@@ -399,10 +397,10 @@ class MedicineDetailScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: colorScheme.onPrimary,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: colorScheme.outline.withOpacity(0.16)),
+        border: Border.all(color: colorScheme.outline.withValues(alpha: 0.16)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 20,
             offset: const Offset(0, 4),
           ),
@@ -439,7 +437,6 @@ class MedicineDetailScreen extends StatelessWidget {
 
   Widget _buildWarningCard(BuildContext context) {
     final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
 
     return Container(
       decoration: BoxDecoration(

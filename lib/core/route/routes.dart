@@ -14,10 +14,15 @@ class Routes {
 
   // Home
   static const String homeScreen = '/home';
+  // <<<<<<< HEAD
   static const String pharmacyDetailScreen = '/pharmacy-detail';
   static const String medicineDetailScreen = '/medicine-detail';
 
   // Hospital & Doctor Routes
   static const String hospitalDetailScreen = '/hospital-detail';
   static const String doctorsListScreen = '/doctors-list';
+  // =======
+  static const String editProfileScreen = '/editProfile';
+
+  // >>>>>>> fcac4cbd139e09b86577e8dd75c3c8a2465412bc
 }

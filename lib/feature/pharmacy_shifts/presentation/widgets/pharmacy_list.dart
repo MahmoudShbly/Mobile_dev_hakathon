@@ -28,7 +28,7 @@ class PharmacyList extends StatelessWidget {
             child: ListView.separated(
               physics: const BouncingScrollPhysics(),
               itemCount: pharmacies.length,
-              separatorBuilder: (_, __) => const SizedBox(height: 14),
+              separatorBuilder: (_, _) => const SizedBox(height: 14),
               itemBuilder: (context, index) {
                 return PharmacyCard(
                   pharmacy: pharmacies[index],

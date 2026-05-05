@@ -21,13 +21,6 @@ class _MainScreenState extends State<MainScreen> {
     SearchScreen(),
   ];
 
-  // static const List<Widget> _screens = <Widget>[
-  //   SearchScreen(),
-  //   ProfileScreen(),
-  //   TrainingsScreen(),
-  //   PharmacyShiftsScreen(),
-  // ];
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -81,11 +74,11 @@ class _MainScreenState extends State<MainScreen> {
         decoration: BoxDecoration(
           color: colorScheme.onPrimary,
           border: Border(
-            top: BorderSide(color: colorScheme.outline.withOpacity(0.1)),
+            top: BorderSide(color: colorScheme.outline.withValues(alpha: 0.1)),
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 20,
               offset: const Offset(0, -4),
             ),
