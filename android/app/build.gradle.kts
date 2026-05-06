@@ -50,7 +50,7 @@ configurations.all {
         force("androidx.legacy:legacy-support-core-utils:1.0.0")
         force("androidx.slidingpanelayout:slidingpanelayout:1.2.0")
         force("androidx.fragment:fragment-ktx:1.6.2")
-        force("androidx.activity:activity-ktx:1.8.1")
+        force("androidx.activity:activity-ktx:1.12.4")
         force("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
         force("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
         force("androidx.datastore:datastore-preferences-android:1.1.7")

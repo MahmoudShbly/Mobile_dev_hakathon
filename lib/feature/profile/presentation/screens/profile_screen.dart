@@ -147,31 +147,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       );
                     },
                   ),
-                  SizedBox(height: 40.h),
-                  // Logout
-                  InkWell(
+                  SizedBox(height: 16.h),
+                   _buildMenuItem(
+                    icon:  Icons.logout,
+                    title: 'تسجيل الخروج',
+                    color: Colors.red,
                     onTap: () {
                       Navigator.pushNamedAndRemoveUntil(context, Routes.loginScreen, (route) => false);
                     },
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 12.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            'تسجيل الخروج',
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.red,
-                            ),
-                          ),
-                          SizedBox(width: 12.w),
-                          const Icon(Icons.logout, color: Colors.red),
-                        ],
-                      ),
-                    ),
                   ),
+                  SizedBox(height: 40.h),
+                  // Logout
+                 
                 ],
               ),
             ),
@@ -184,35 +171,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget _buildMenuItem({
     required IconData icon,
+    Color? color,
     required String title,
     required VoidCallback onTap,
   }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16.r),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.03),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: ListTile(
-        onTap: onTap,
-        contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 4.h),
-        leading: const Icon(Icons.arrow_back_ios, size: 14, color: Color(0xFF727784)),
-        title: Text(
-          title,
-          textAlign: TextAlign.right,
-          style: TextStyle(
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w600,
-            color: const Color(0xFF191C22),
-          ),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        height: 60,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 4,
+              offset: Offset(0, 2),
+            ),
+          ],
         ),
-        trailing: Icon(icon, color: const Color(0xFF0057B8)),
+        child: Row(
+          children: <Widget>[
+            Icon(icon, size: 24, color: color ?? const Color(0xFF00408B)),
+            SizedBox(width: 16),
+            Text(title, style: TextStyle(fontSize: 16, color: color ?? const Color(0xFF191C22))),
+            Spacer(),
+            Icon(Icons.arrow_forward_ios, size: 16,color: color, ),
+          ],
+        ),
       ),
     );
   }
