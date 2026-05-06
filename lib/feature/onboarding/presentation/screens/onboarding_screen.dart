@@ -65,7 +65,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   void _completeOnboarding() async {
     await SharedPreferencesHelper.setOnboardingCompleted(true);
     if (mounted) {
-      Navigator.pushReplacementNamed(context, Routes.loginScreen);
+      Navigator.pushReplacementNamed(context, Routes.homeScreen);
     }
   }
 

@@ -4,23 +4,30 @@ import 'package:mobile_dev_hakathon/core/route/routes.dart';
 import 'package:mobile_dev_hakathon/feature/pharmacy_shifts/presentation/screens/pharmacy_shifts_screen.dart';
 import 'package:mobile_dev_hakathon/feature/profile/presentation/screens/profile_screen.dart';
 import 'package:mobile_dev_hakathon/feature/search/presentation/screens/search_screen.dart';
-import 'package:mobile_dev_hakathon/feature/trainings/presentation/screens/trainings_screen.dart';
+import 'package:mobile_dev_hakathon/feature/map/presentation/screens/map_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+  final int initialIndex;
+  const MainScreen({super.key, this.initialIndex = 0});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _selectedIndex = 3;
+  late int _selectedIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.initialIndex;
+  }
 
   static const List<Widget> _screens = <Widget>[
-    ProfileScreen(),
-    TrainingsScreen(),
-    PharmacyShiftsScreen(),
     SearchScreen(),
+    PharmacyShiftsScreen(),
+    MapScreen(),
+    ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -110,12 +117,20 @@ class _MainScreenState extends State<MainScreen> {
         child: Row(
           textDirection: TextDirection.rtl,
           children: [
-            Expanded(child: _buildNavItem(0, Icons.person, 'حسابي')),
+            // <<<<<<< HEAD
             Expanded(child: _buildNavItem(1, Icons.work_outline, 'فرص')),
+            // =======
+            Expanded(child: _buildNavItem(0, Icons.home_outlined, 'الرئيسية')),
+            // >>>>>>> 7e3a522efadd6697fa381efcecdfcd323076b326
             Expanded(
-              child: _buildNavItem(2, Icons.medical_services, 'المناوبة'),
+              child: _buildNavItem(
+                1,
+                Icons.medical_services_outlined,
+                'المناوبة',
+              ),
             ),
-            Expanded(child: _buildNavItem(3, Icons.search, 'بحث')),
+            Expanded(child: _buildNavItem(2, Icons.map_outlined, 'الخريطة')),
+            Expanded(child: _buildNavItem(3, Icons.person_outline, 'حسابي')),
           ],
         ),
       ),

@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_dev_hakathon/core/route/routes.dart';
 import 'package:mobile_dev_hakathon/feature/pharmacy_shifts/model/pharmacy_model.dart';
+<<<<<<< HEAD
 import 'package:mobile_dev_hakathon/feature/trainings/presentation/screens/application_form_screen.dart';
+=======
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:latlong2/latlong.dart';
+>>>>>>> 7e3a522efadd6697fa381efcecdfcd323076b326
 
 class PharmacyDetailScreen extends StatelessWidget {
   final Pharmacy pharmacy;
@@ -28,7 +35,11 @@ class PharmacyDetailScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              SharePlus.instance.share(
+                ShareParams(text: 'صيدلية: ${pharmacy.name}\nالعنوان: ${pharmacy.address}\nتمت المشاركة من تطبيق الرعاية الطبية'),
+              );
+            },
             icon: Icon(Icons.share, color: colorScheme.onSurfaceVariant),
           ),
         ],
@@ -179,11 +190,40 @@ class PharmacyDetailScreen extends StatelessWidget {
                                     icon: Icons.location_on,
                                     label: 'الموقع',
                                     colorScheme: colorScheme,
+                                    onTap: () {
+                                      if (pharmacy.latitude != null &&
+                                          pharmacy.longitude != null) {
+                                        Navigator.pushNamed(
+                                          context,
+                                          Routes.mapScreen,
+                                          arguments: {
+                                            'location': LatLng(
+                                              pharmacy.latitude!,
+                                              pharmacy.longitude!,
+                                            ),
+                                            'pharmacyName': pharmacy.name,
+                                          },
+                                        );
+                                      } else {
+                                        // Fallback to external map if no coordinates
+                                        launchUrl(
+                                          Uri.parse(
+                                            'https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent("${pharmacy.name} ${pharmacy.address}")}',
+                                          ),
+                                          mode: LaunchMode.externalApplication,
+                                        );
+                                      }
+                                    },
                                   ),
                                   _DetailActionButton(
                                     icon: Icons.share,
                                     label: 'مشاركة',
                                     colorScheme: colorScheme,
+                                    onTap: () {
+                                      SharePlus.instance.share(
+                                        ShareParams(text: 'صيدلية: ${pharmacy.name}\nالعنوان: ${pharmacy.address}\nتمت المشاركة من تطبيق الرعاية الطبية'),
+                                      );
+                                    },
                                   ),
                                 ],
                               ),
@@ -382,12 +422,23 @@ class PharmacyDetailScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
             ),
           ),
+<<<<<<< HEAD
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => const ApplicationFormScreen(),
               ),
             );
+=======
+          onPressed: () async {
+            final Uri launchUri = Uri(
+              scheme: 'tel',
+              path: '+966500000000', // رقم افتراضي للتواصل
+            );
+            if (await canLaunchUrl(launchUri)) {
+              await launchUrl(launchUri);
+            }
+>>>>>>> 7e3a522efadd6697fa381efcecdfcd323076b326
           },
           icon: const Icon(Icons.chat_bubble),
           label: const Text('تواصل'),
@@ -449,35 +500,41 @@ class _DetailActionButton extends StatelessWidget {
   final IconData icon;
   final String label;
   final ColorScheme colorScheme;
+  final VoidCallback onTap;
 
   const _DetailActionButton({
     required this.icon,
     required this.label,
     required this.colorScheme,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 148,
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
-      decoration: BoxDecoration(
-        color: colorScheme.surfaceContainer,
-        borderRadius: BorderRadius.circular(18),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(icon, color: colorScheme.primary, size: 24),
-          const SizedBox(height: 10),
-          Text(
-            label,
-            style: TextStyle(
-              color: colorScheme.onSurface,
-              fontWeight: FontWeight.w700,
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(18),
+      child: Container(
+        width: 148,
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
+        decoration: BoxDecoration(
+          color: colorScheme.surfaceContainer,
+          borderRadius: BorderRadius.circular(18),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(icon, color: colorScheme.primary, size: 24),
+            const SizedBox(height: 10),
+            Text(
+              label,
+              style: TextStyle(
+                color: colorScheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

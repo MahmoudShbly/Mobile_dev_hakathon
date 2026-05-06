@@ -22,6 +22,9 @@ import 'package:mobile_dev_hakathon/feature/search/presentation/screens/doctors_
 import 'package:mobile_dev_hakathon/feature/report/presentation/screens/report_screen.dart';
 import 'package:mobile_dev_hakathon/feature/trainings/presentation/screens/opportunity_detail_screen.dart';
 import 'package:mobile_dev_hakathon/feature/profile/presentation/screens/edit_profile_screen.dart';
+import 'package:mobile_dev_hakathon/feature/map/presentation/screens/map_screen.dart';
+import 'package:mobile_dev_hakathon/feature/doctors/presentation/screens/doctors_screen.dart';
+import 'package:mobile_dev_hakathon/feature/profile/presentation/screens/favorites_screen.dart';
 
 class AppRouter {
   static Route? generateRoute(RouteSettings settings) {
@@ -43,7 +46,8 @@ class AppRouter {
       case Routes.verifyEmailScreen:
         return _slideRoute(const EmailVerificationScreen(), settings);
       case Routes.homeScreen:
-        return _fadeRoute(const MainScreen(), settings);
+        final index = settings.arguments as int? ?? 3;
+        return _fadeRoute(MainScreen(initialIndex: index), settings);
       case Routes.editProfileScreen:
         return _slideRoute(const EditProfileScreen(), settings);
       case Routes.pharmacyDetailScreen:
@@ -64,6 +68,7 @@ class AppRouter {
           );
         }
         return null;
+      // <<<<<<< HEAD
       case Routes.hospitalDetailScreen:
         final hospital = settings.arguments;
         if (hospital is Hospital) {
@@ -103,6 +108,21 @@ class AppRouter {
         return null;
       case Routes.reportScreen:
         return _slideRoute(const ReportScreen(), settings);
+      // =======
+      case Routes.mapScreen:
+        final args = settings.arguments as Map<String, dynamic>?;
+        return _slideRoute(
+          MapScreen(
+            initialLocation: args?['location'],
+            targetPharmacyName: args?['pharmacyName'],
+          ),
+          settings,
+        );
+      case Routes.doctorsScreen:
+        return _slideRoute(const DoctorsScreen(), settings);
+      case Routes.favoritesScreen:
+        return _slideRoute(const FavoritesScreen(), settings);
+      // >>>>>>> 7e3a522efadd6697fa381efcecdfcd323076b326
       default:
         return null;
     }
