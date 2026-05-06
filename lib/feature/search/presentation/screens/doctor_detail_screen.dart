@@ -29,13 +29,6 @@ class DoctorDetailScreen extends StatelessWidget {
             fontWeight: FontWeight.w700,
           ),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.share, color: Color(0xFF424752)),
-            tooltip: 'مشاركة',
-          ),
-        ],
       ),
       bottomNavigationBar: Container(
         color: backgroundColor,

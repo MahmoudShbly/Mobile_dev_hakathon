@@ -50,13 +50,6 @@ class DoctorsListScreen extends StatelessWidget {
         ),
         centerTitle: false,
         leadingWidth: 56,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.more_vert, color: colorScheme.onSurfaceVariant),
-            tooltip: 'خيارات إضافية',
-          ),
-        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
