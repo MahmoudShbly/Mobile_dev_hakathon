@@ -44,15 +44,15 @@ dev_dependencies:
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path: "assets/image/logo.jpg"
+  image_path: "assets/image/logoo.jpg"
   adaptive_icon_background: "#F9FAFF"
-  adaptive_icon_foreground: "assets/image/logo.jpg"
+  adaptive_icon_foreground: "assets/image/logoo.jpg"
 
 flutter_native_splash:
   color: "#F9FAFF"
-  image: "assets/image/logo.jpg"
+  image: "assets/image/logoo.jpg"
   android_12:
-    image: "assets/image/logo.jpg"
+    image: "assets/image/logoo.jpg"
     color: "#F9FAFF"
 
 flutter:

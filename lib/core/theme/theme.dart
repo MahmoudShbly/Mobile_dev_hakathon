@@ -5,7 +5,7 @@ class AppTheme {
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
-      fontFamily: GoogleFonts.manrope().fontFamily,
+      fontFamily: GoogleFonts.tajawal().fontFamily,
       colorScheme: const ColorScheme(
         brightness: Brightness.light,
         primary: Color(0xFF00408B),
@@ -38,40 +38,40 @@ class AppTheme {
         surfaceTint: Color(0xFF0D5BBC),
       ),
       textTheme: TextTheme(
-        headlineLarge: GoogleFonts.manrope(
+        headlineLarge: GoogleFonts.tajawal(
           fontSize: 40,
           fontWeight: FontWeight.w700,
           height: 1.2,
           letterSpacing: -0.02,
         ),
-        headlineMedium: GoogleFonts.manrope(
+        headlineMedium: GoogleFonts.tajawal(
           fontSize: 32,
           fontWeight: FontWeight.w700,
           height: 1.2,
           letterSpacing: -0.01,
         ),
-        headlineSmall: GoogleFonts.manrope(
+        headlineSmall: GoogleFonts.tajawal(
           fontSize: 24,
           fontWeight: FontWeight.w600,
           height: 1.3,
         ),
-        bodyLarge: GoogleFonts.manrope(
+        bodyLarge: GoogleFonts.tajawal(
           fontSize: 18,
           fontWeight: FontWeight.w400,
           height: 1.6,
         ),
-        bodyMedium: GoogleFonts.manrope(
+        bodyMedium: GoogleFonts.tajawal(
           fontSize: 16,
           fontWeight: FontWeight.w400,
           height: 1.6,
         ),
-        labelMedium: GoogleFonts.manrope(
+        labelMedium: GoogleFonts.tajawal(
           fontSize: 14,
           fontWeight: FontWeight.w600,
           height: 1.4,
           letterSpacing: 0.01,
         ),
-        labelSmall: GoogleFonts.manrope(
+        labelSmall: GoogleFonts.tajawal(
           fontSize: 12,
           fontWeight: FontWeight.w500,
           height: 1.4,

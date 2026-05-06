@@ -146,7 +146,7 @@ class _MainScreenState extends State<MainScreen> {
 
     return GestureDetector(
       onTap: () => _onItemTapped(index),
-      child: Container(
+      child: SizedBox(
         height: 70.h,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
