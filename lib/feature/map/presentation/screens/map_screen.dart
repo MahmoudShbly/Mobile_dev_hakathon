@@ -253,10 +253,6 @@ class _MapScreenState extends State<MapScreen> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('الخريطة الطبية'),
-        centerTitle: true,
-      ),
       body: Stack(
         children: [
           FlutterMap(

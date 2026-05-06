@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ReportScreen extends StatefulWidget {
   const ReportScreen({super.key});
@@ -9,9 +10,11 @@ class ReportScreen extends StatefulWidget {
 
 class _ReportScreenState extends State<ReportScreen> {
   final TextEditingController _descriptionController = TextEditingController();
+  final ImagePicker _imagePicker = ImagePicker();
   String _selectedEntity = 'صيدلية';
   String _selectedIssue = 'تسعير غير منطقي / مخالف';
   String? _selectedHospital;
+  XFile? _selectedImage;
 
   final List<String> _entities = ['صيدلية', 'مستشفى'];
 
@@ -66,6 +69,19 @@ class _ReportScreenState extends State<ReportScreen> {
       _selectedEntity = 'صيدلية';
       _selectedIssue = _pharmacyIssues.first;
       _selectedHospital = null;
+      _selectedImage = null;
+    });
+  }
+
+  Future<void> _pickReportImage() async {
+    final image = await _imagePicker.pickImage(source: ImageSource.gallery);
+
+    if (image == null) {
+      return;
+    }
+
+    setState(() {
+      _selectedImage = image;
     });
   }
 
@@ -327,7 +343,7 @@ class _ReportScreenState extends State<ReportScreen> {
                     ),
                     const SizedBox(height: 12),
                     ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: _pickReportImage,
                       icon: const Icon(Icons.add_a_photo),
                       label: const Text('رفع صورة البلاغ'),
                       style: ElevatedButton.styleFrom(
@@ -339,6 +355,15 @@ class _ReportScreenState extends State<ReportScreen> {
                         minimumSize: const Size.fromHeight(52),
                       ),
                     ),
+                    if (_selectedImage != null) ...[
+                      const SizedBox(height: 12),
+                      Text(
+                        'تم اختيار الصورة: ${_selectedImage!.name}',
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               ),
