@@ -27,32 +27,32 @@ class AuthService {
 
   // بيانات المستخدمين الوهمية حسب الأدوار
   final Map<String, Map<String, dynamic>> _mockUsersData = {
-    'user1': {
-      'uid': 'test_user_1',
-      'name': 'مستخدم تجريبي 1',
+    'user_account': {
+      'uid': 'mock_user_1',
+      'name': 'مريض تجريبي',
       'role': 'user',
-      'email': 'test1@gmail.com',
-      'password': 'password123',
-    },
-    'user2': {
-      'uid': 'test_user_2',
-      'name': 'مستخدم تجريبي 2',
-      'role': 'user',
-      'email': 'test2@gmail.com',
-      'password': 'password123',
-    },
-    '0938337165': {
-      'uid': 'user_123',
-      'name': 'خالد خالد',
-      'role': 'user',
-      'email': 'khaled@example.com',
+      'email': 'user@gmail.com',
       'password': '12345678',
     },
-    '0912345678': {
-      'uid': 'pharm_456',
-      'name': 'د. سارة المنصور',
+    'pharmacist_account': {
+      'uid': 'mock_pharm_1',
+      'name': 'صيدلي تجريبي',
       'role': 'pharmacist',
-      'email': 'sara@pharmacy.com',
+      'email': 'pharmacist@gmail.com',
+      'password': '12345678',
+    },
+    'doctor_account': {
+      'uid': 'mock_doc_1',
+      'name': 'طبيب تجريبي',
+      'role': 'doctor',
+      'email': 'doctor@gmail.com',
+      'password': '12345678',
+    },
+    'admin_account': {
+      'uid': 'mock_admin_1',
+      'name': 'مدير النظام',
+      'role': 'admin',
+      'email': 'admin@gmail.com',
       'password': '12345678',
     },
   };
