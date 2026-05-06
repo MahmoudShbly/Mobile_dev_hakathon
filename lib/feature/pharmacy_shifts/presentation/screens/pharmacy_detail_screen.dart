@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_dev_hakathon/core/route/routes.dart';
 import 'package:mobile_dev_hakathon/feature/pharmacy_shifts/model/pharmacy_model.dart';
-<<<<<<< HEAD
+// <<<<<<< HEAD
 import 'package:mobile_dev_hakathon/feature/trainings/presentation/screens/application_form_screen.dart';
-=======
+// =======
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:latlong2/latlong.dart';
->>>>>>> 7e3a522efadd6697fa381efcecdfcd323076b326
+// >>>>>>> 7e3a522efadd6697fa381efcecdfcd323076b326
 
 class PharmacyDetailScreen extends StatelessWidget {
   final Pharmacy pharmacy;
@@ -37,7 +37,10 @@ class PharmacyDetailScreen extends StatelessWidget {
           IconButton(
             onPressed: () {
               SharePlus.instance.share(
-                ShareParams(text: 'صيدلية: ${pharmacy.name}\nالعنوان: ${pharmacy.address}\nتمت المشاركة من تطبيق الرعاية الطبية'),
+                ShareParams(
+                  text:
+                      'صيدلية: ${pharmacy.name}\nالعنوان: ${pharmacy.address}\nتمت المشاركة من تطبيق الرعاية الطبية',
+                ),
               );
             },
             icon: Icon(Icons.share, color: colorScheme.onSurfaceVariant),
@@ -221,7 +224,10 @@ class PharmacyDetailScreen extends StatelessWidget {
                                     colorScheme: colorScheme,
                                     onTap: () {
                                       SharePlus.instance.share(
-                                        ShareParams(text: 'صيدلية: ${pharmacy.name}\nالعنوان: ${pharmacy.address}\nتمت المشاركة من تطبيق الرعاية الطبية'),
+                                        ShareParams(
+                                          text:
+                                              'صيدلية: ${pharmacy.name}\nالعنوان: ${pharmacy.address}\nتمت المشاركة من تطبيق الرعاية الطبية',
+                                        ),
                                       );
                                     },
                                   ),
@@ -422,23 +428,12 @@ class PharmacyDetailScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
             ),
           ),
-<<<<<<< HEAD
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => const ApplicationFormScreen(),
               ),
             );
-=======
-          onPressed: () async {
-            final Uri launchUri = Uri(
-              scheme: 'tel',
-              path: '+966500000000', // رقم افتراضي للتواصل
-            );
-            if (await canLaunchUrl(launchUri)) {
-              await launchUrl(launchUri);
-            }
->>>>>>> 7e3a522efadd6697fa381efcecdfcd323076b326
           },
           icon: const Icon(Icons.chat_bubble),
           label: const Text('تواصل'),
