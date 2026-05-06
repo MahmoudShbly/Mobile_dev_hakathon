@@ -4,6 +4,7 @@ import 'package:mobile_dev_hakathon/core/route/routes.dart';
 import 'package:mobile_dev_hakathon/core/shared%20widgets/custom_button.dart';
 import 'package:mobile_dev_hakathon/core/shared%20widgets/custom_text_field.dart';
 import 'package:mobile_dev_hakathon/core/services/auth_service.dart';
+import 'package:mobile_dev_hakathon/core/theme/app_spacing.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -98,10 +99,10 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: const Color(0xFFF9FAFF),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 24.w),
+          padding: AppSpacing.screenPadding,
           child: Column(
             children: [
-              SizedBox(height: 40.h),
+              AppSpacing.verticalSpaceXxl,
               ClipRRect(
                 borderRadius: BorderRadius.circular(20.r),
                 child: Image.asset(
@@ -111,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   fit: BoxFit.cover,
                 ),
               ),
-              SizedBox(height: 60.h),
+              AppSpacing.verticalSpaceXxxl,
               Container(
                 padding: EdgeInsets.all(24.w),
                 decoration: BoxDecoration(
@@ -136,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: const Color(0xFF191C22),
                       ),
                     ),
-                    SizedBox(height: 8.h),
+                    AppSpacing.verticalSpaceSm,
                     Text(
                       'مرحباً بك مجدداً في تطبيق بلسم',
                       style: TextStyle(
@@ -144,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: const Color(0xFF545F73),
                       ),
                     ),
-                    SizedBox(height: 32.h),
+                    AppSpacing.verticalSpaceXl,
                     CustomTextField(
                       labelText: 'البريد الإلكتروني',
                       hintText: 'example@mail.com',
@@ -152,7 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                     ),
-                    SizedBox(height: 20.h),
+                    AppSpacing.verticalSpaceMd,
                     CustomTextField(
                       labelText: 'كلمة المرور',
                       hintText: '********',
@@ -160,7 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       isPassword: true,
                       controller: _passwordController,
                     ),
-                    SizedBox(height: 12.h),
+                    AppSpacing.vertical(12),
                     TextButton(
                       onPressed: () {
                         Navigator.pushNamed(
@@ -177,13 +178,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 24.h),
+                    AppSpacing.verticalSpaceLg,
                     CustomButton(
                       text: 'دخول',
                       isLoading: _isLoading,
                       onPressed: _handleLogin,
                     ),
-                    SizedBox(height: 24.h),
+                    AppSpacing.verticalSpaceLg,
                     Row(
                       children: [
                         Expanded(
@@ -211,7 +212,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20.h),
+                    AppSpacing.verticalSpaceLg,
                     _GoogleSignInButton(
                       isLoading: _isGoogleLoading,
                       onPressed: _handleGoogleSignIn,
@@ -219,7 +220,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 32.h),
+              AppSpacing.verticalSpaceXl,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -245,7 +246,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 20.h),
+              AppSpacing.verticalSpaceXxl,
             ],
           ),
         ),

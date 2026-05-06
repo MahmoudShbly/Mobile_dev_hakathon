@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_dev_hakathon/feature/onboarding/presentation/widgets/page_indicator.dart';
+import 'package:mobile_dev_hakathon/core/theme/app_spacing.dart';
 
 class OnboardingPage extends StatelessWidget {
   final String imageUrl;
@@ -75,7 +76,7 @@ class OnboardingPage extends StatelessWidget {
                         },
                       ),
                     ),
-                    const SizedBox(height: 40),
+                    AppSpacing.verticalSpaceXxl,
                     // Title
                     Text(
                       title,
@@ -89,7 +90,7 @@ class OnboardingPage extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                     ),
-                    const SizedBox(height: 16),
+                    AppSpacing.verticalSpaceMd,
                     // Description
                     Text(
                       description,
@@ -107,11 +108,11 @@ class OnboardingPage extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 24),
+            AppSpacing.verticalSpaceLg,
             PageIndicator(currentPage: currentPage, pageCount: pageCount),
             if (buttonText != null)
               Padding(
-                padding: const EdgeInsets.fromLTRB(24, 24, 24, 40),
+                padding: EdgeInsets.fromLTRB(24, 24, 24, 40),
                 child: ElevatedButton(
                   onPressed: onButtonPressed,
                   style: ElevatedButton.styleFrom(

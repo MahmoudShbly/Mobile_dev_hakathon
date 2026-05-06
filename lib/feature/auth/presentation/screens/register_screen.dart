@@ -4,6 +4,7 @@ import 'package:mobile_dev_hakathon/core/route/routes.dart';
 import 'package:mobile_dev_hakathon/core/shared%20widgets/custom_button.dart';
 import 'package:mobile_dev_hakathon/core/shared%20widgets/custom_text_field.dart';
 import 'package:mobile_dev_hakathon/core/services/auth_service.dart';
+import 'package:mobile_dev_hakathon/core/theme/app_spacing.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -125,10 +126,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
       backgroundColor: const Color(0xFFF9FAFF),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 24.w),
+          padding: AppSpacing.screenPadding,
           child: Column(
             children: [
-              SizedBox(height: 30.h),
+              AppSpacing.verticalSpaceXl,
               ClipRRect(
                 borderRadius: BorderRadius.circular(20.r),
                 child: Image.asset(
@@ -138,7 +139,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   fit: BoxFit.cover,
                 ),
               ),
-              SizedBox(height: 40.h),
+              AppSpacing.verticalSpaceXxl,
               Container(
                 padding: EdgeInsets.all(24.w),
                 decoration: BoxDecoration(
@@ -162,7 +163,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         color: const Color(0xFF191C22),
                       ),
                     ),
-                    SizedBox(height: 8.h),
+                    AppSpacing.verticalSpaceSm,
                     Text(
                       'انضم الينا لجعل ايجاد دواءك ابسط',
                       textAlign: TextAlign.center,
@@ -171,7 +172,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         color: const Color(0xFF545F73),
                       ),
                     ),
-                    SizedBox(height: 24.h),
+                    AppSpacing.verticalSpaceLg,
                     _GoogleSignUpButton(
                       isLoading: _isGoogleLoading,
                       onPressed: _handleGoogleSignUp,
@@ -204,34 +205,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20.h),
+                    AppSpacing.verticalSpaceLg,
                     CustomTextField(
                       hintText: 'الاسم الكامل',
                       suffixIcon: Icons.person_outline,
                       controller: _nameController,
                     ),
-                    SizedBox(height: 16.h),
+                    AppSpacing.verticalSpaceMd,
                     CustomTextField(
                       hintText: 'البريد الإلكتروني',
                       suffixIcon: Icons.email_outlined,
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                     ),
-                    SizedBox(height: 16.h),
+                    AppSpacing.verticalSpaceMd,
                     CustomTextField(
                       hintText: 'رقم الجوال (اختياري)',
                       suffixIcon: Icons.phone_android_outlined,
                       controller: _phoneController,
                       keyboardType: TextInputType.phone,
                     ),
-                    SizedBox(height: 16.h),
+                    AppSpacing.verticalSpaceMd,
                     CustomTextField(
                       hintText: 'كلمة المرور',
                       suffixIcon: Icons.lock_outline,
                       isPassword: true,
                       controller: _passwordController,
                     ),
-                    SizedBox(height: 16.h),
+                    AppSpacing.verticalSpaceMd,
                     CustomTextField(
                       hintText: 'تأكيد كلمة المرور',
                       suffixIcon: Icons.lock_outline,
@@ -263,7 +264,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 24.h),
+                    AppSpacing.verticalSpaceLg,
                     CustomButton(
                       text: 'إنشاء حساب',
                       isLoading: _isLoading,
@@ -272,7 +273,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 32.h),
+              AppSpacing.verticalSpaceXl,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -298,7 +299,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 20.h),
+              AppSpacing.verticalSpaceXxl,
             ],
           ),
         ),
