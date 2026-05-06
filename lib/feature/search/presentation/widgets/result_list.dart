@@ -52,7 +52,7 @@ class ResultList extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
                       width: 80,
@@ -93,9 +93,11 @@ class ResultList extends StatelessWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Expanded(
@@ -110,6 +112,8 @@ class ResultList extends StatelessWidget {
                                 ),
                               ),
                               IconButton(
+                                visualDensity: VisualDensity.compact,
+                                padding: EdgeInsets.zero,
                                 onPressed: () {},
                                 icon: Icon(
                                   pharmacy.isFavorite
@@ -122,8 +126,8 @@ class ResultList extends StatelessWidget {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 6),
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Icon(
                                 Icons.location_on,
@@ -131,11 +135,13 @@ class ResultList extends StatelessWidget {
                                 color: theme.colorScheme.primary,
                               ),
                               const SizedBox(width: 6),
-                              Text(
-                                pharmacy.distance,
-                                style: theme.textTheme.labelSmall?.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                  color: theme.colorScheme.primary,
+                              Expanded(
+                                child: Text(
+                                  pharmacy.distance,
+                                  style: theme.textTheme.labelSmall?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                    color: theme.colorScheme.primary,
+                                  ),
                                 ),
                               ),
                             ],
@@ -147,6 +153,7 @@ class ResultList extends StatelessWidget {
                               color: theme.colorScheme.onSurfaceVariant,
                             ),
                           ),
+                          SizedBox(height: 6),
                         ],
                       ),
                     ),
