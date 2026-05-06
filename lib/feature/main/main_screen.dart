@@ -90,31 +90,6 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ),
         leadingWidth: 260,
-        actions: [
-          Row(
-            children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, Routes.reportScreen);
-                },
-                child: Text(
-                  'بلاغ',
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: Colors.red,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-              IconButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, Routes.reportScreen);
-                },
-                icon: Icon(Icons.report_problem, color: Colors.red),
-                tooltip: 'بلاغ',
-              ),
-            ],
-          ),
-        ],
       ),
       body: _screens[_selectedIndex],
       bottomNavigationBar: SafeArea(

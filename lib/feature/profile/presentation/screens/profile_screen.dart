@@ -137,6 +137,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   SizedBox(height: 16.h),
                   _buildMenuItem(
+                    icon: Icons.report_problem,
+                    title: 'بلاغ',
+                    color: Colors.red,
+                    onTap: () {
+                      Navigator.pushNamed(context, Routes.reportScreen);
+                    },
+                  ),
+                  SizedBox(height: 16.h),
+                  _buildMenuItem(
                     icon: Icons.logout,
                     title: 'تسجيل الخروج',
                     color: Colors.red,

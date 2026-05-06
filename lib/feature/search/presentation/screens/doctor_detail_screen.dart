@@ -37,7 +37,7 @@ class DoctorDetailScreen extends StatelessWidget {
       ),
       bottomNavigationBar: Container(
         color: backgroundColor,
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: Row(
           children: [
             Expanded(
@@ -50,7 +50,7 @@ class DoctorDetailScreen extends StatelessWidget {
                   foregroundColor: const Color(0xFF00408B),
                   elevation: 0,
                   side: const BorderSide(color: Color(0xFF00408B)),
-                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
@@ -68,7 +68,7 @@ class DoctorDetailScreen extends StatelessWidget {
               _buildHeroSection(context, theme, doctor),
               const SizedBox(height: 24),
               Padding(
-                padding: const EdgeInsets.all(14.0),
+                padding: const EdgeInsets.all(12.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -154,7 +154,7 @@ class DoctorDetailScreen extends StatelessWidget {
           const SizedBox(height: 14),
           Text(
             'متخصص في ${doctor.specialty} بخبرة تزيد عن ١٥ عاماً في أكبر المستشفيات الجامعية.',
-            style: theme.textTheme.bodyLarge?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: const Color(0xFF424752),
               height: 1.7,
             ),
@@ -197,7 +197,7 @@ class DoctorDetailScreen extends StatelessWidget {
   ) {
     return Expanded(
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         decoration: BoxDecoration(
           color: bgColor,
           borderRadius: BorderRadius.circular(20),
@@ -217,7 +217,7 @@ class DoctorDetailScreen extends StatelessWidget {
             Text(
               value,
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 14,
                 color: textColor,
                 fontWeight: FontWeight.w700,
               ),
@@ -234,7 +234,7 @@ class DoctorDetailScreen extends StatelessWidget {
       children: [
         Text(
           'حول الدكتور',
-          style: theme.textTheme.headlineSmall?.copyWith(
+          style: theme.textTheme.titleLarge?.copyWith(
             color: const Color(0xFF191C22),
             fontWeight: FontWeight.w700,
           ),
@@ -246,10 +246,10 @@ class DoctorDetailScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(24),
             border: Border.all(color: const Color(0xFFC2C6D4).withOpacity(0.2)),
           ),
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.all(16),
           child: Text(
             'يعتبر ${doctor.name} من الرواد في ${doctor.specialty}. يركز في ممارسته على تقديم أحدث التقنيات الطبية بأقل قدر من التدخل الجراحي لضمان أسرع تعافي للمرضى. يساهم بشكل فعال في الأبحاث الطبية وينشر مقالات علمية في المجلات الدولية.',
-            style: theme.textTheme.bodyLarge?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: const Color(0xFF424752),
               height: 1.7,
             ),
@@ -268,14 +268,14 @@ class DoctorDetailScreen extends StatelessWidget {
           children: [
             Text(
               'المستشفيات والعيادات',
-              style: theme.textTheme.headlineSmall?.copyWith(
+              style: theme.textTheme.titleLarge?.copyWith(
                 color: const Color(0xFF191C22),
                 fontWeight: FontWeight.w700,
               ),
             ),
             Text(
               'عرض الكل',
-              style: theme.textTheme.bodyMedium?.copyWith(
+              style: theme.textTheme.bodySmall?.copyWith(
                 color: const Color(0xFF0057B8),
                 fontWeight: FontWeight.w600,
               ),
@@ -351,7 +351,7 @@ class DoctorDetailScreen extends StatelessWidget {
           ),
         ],
       ),
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -359,8 +359,8 @@ class DoctorDetailScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                width: 48,
-                height: 48,
+                width: 40,
+                height: 40,
                 decoration: BoxDecoration(
                   color: iconBackground,
                   borderRadius: BorderRadius.circular(16),
@@ -388,7 +388,7 @@ class DoctorDetailScreen extends StatelessWidget {
           const SizedBox(height: 16),
           Row(
             children: [
-              const Icon(Icons.schedule, size: 18, color: Color(0xFF9B3C00)),
+              const Icon(Icons.schedule, size: 16, color: Color(0xFF9B3C00)),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
@@ -445,7 +445,7 @@ class DoctorDetailScreen extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                padding: const EdgeInsets.symmetric(vertical: 14),
+                padding: const EdgeInsets.symmetric(vertical: 12),
               ),
             ),
           ),
