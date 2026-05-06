@@ -27,13 +27,13 @@ class TrainingsFilterBar extends StatelessWidget {
           children: [
             _buildFilterButton(
               context,
-              label: 'دوام كامل',
+              label: 'فرص عمل ',
               isSelected: selectedFilter == 0,
               onTap: () => onFilterChanged(0),
             ),
             _buildFilterButton(
               context,
-              label: 'دوام جزئي',
+              label: 'فرص تدريب',
               isSelected: selectedFilter == 1,
               onTap: () => onFilterChanged(1),
             ),

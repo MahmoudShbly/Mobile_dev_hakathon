@@ -56,7 +56,7 @@ class _TrainingsScreenBodyState extends State<TrainingsScreenBody> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 24.w),
+      padding: EdgeInsets.symmetric(vertical: 14.w),
       child: Column(
         children: [
           // Filter bar widget
