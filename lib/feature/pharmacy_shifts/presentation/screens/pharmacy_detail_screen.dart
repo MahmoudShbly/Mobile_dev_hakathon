@@ -233,6 +233,7 @@ class PharmacyDetailScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
+                              const SizedBox(height: 20),
                             ],
                           ),
                         ),
@@ -416,28 +417,36 @@ class PharmacyDetailScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        color: colorScheme.surface,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        child: ElevatedButton.icon(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: colorScheme.primary,
-            foregroundColor: colorScheme.onPrimary,
-            minimumSize: const Size.fromHeight(56),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            color: colorScheme.surface,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            child: ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: colorScheme.primary,
+                foregroundColor: colorScheme.onPrimary,
+                minimumSize: const Size.fromHeight(56),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ApplicationFormScreen(),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.chat_bubble),
+              label: const Text('تواصل'),
             ),
           ),
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const ApplicationFormScreen(),
-              ),
-            );
-          },
-          icon: const Icon(Icons.chat_bubble),
-          label: const Text('تواصل'),
-        ),
+          SizedBox(
+            height: 12,
+          )
+        ],
       ),
     );
   }
@@ -528,6 +537,7 @@ class _DetailActionButton extends StatelessWidget {
                 fontWeight: FontWeight.w700,
               ),
             ),
+            const SizedBox(height: 20),
           ],
         ),
       ),
