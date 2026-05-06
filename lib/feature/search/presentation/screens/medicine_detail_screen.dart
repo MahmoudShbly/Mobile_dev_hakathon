@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:mobile_dev_hakathon/core/route/routes.dart';
 import 'package:mobile_dev_hakathon/feature/search/model/medicine_model.dart';
 
 class MedicineDetailScreen extends StatelessWidget {
@@ -29,7 +31,6 @@ class MedicineDetailScreen extends StatelessWidget {
           ),
         ),
         centerTitle: false,
-
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -321,7 +322,9 @@ class MedicineDetailScreen extends StatelessWidget {
                             color: colorScheme.surface,
                             borderRadius: BorderRadius.circular(18),
                             border: Border.all(
-                              color: colorScheme.outline.withValues(alpha: 0.12),
+                              color: colorScheme.outline.withValues(
+                                alpha: 0.12,
+                              ),
                             ),
                           ),
                           child: Row(
@@ -341,10 +344,34 @@ class MedicineDetailScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 14),
-                      Icon(
-                        Icons.check_circle,
-                        color: const Color(0xFF065F46),
-                        size: 22,
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                context,
+                                Routes.mapScreen,
+                                arguments: {
+                                  'location': LatLng(24.7136, 46.6753),
+                                  'pharmacyName': pharmacy,
+                                },
+                              );
+                            },
+                            icon: Icon(
+                              Icons.directions,
+                              color: theme.colorScheme.primary,
+                              size: 22,
+                            ),
+                            tooltip: 'الاتجاهات',
+                          ),
+                          const SizedBox(height: 2),
+                          Icon(
+                            Icons.check_circle,
+                            color: const Color(0xFF065F46),
+                            size: 22,
+                          ),
+                        ],
                       ),
                     ],
                   ),

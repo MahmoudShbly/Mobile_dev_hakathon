@@ -150,6 +150,34 @@ class MedicineList extends StatelessWidget {
                       ],
                     ),
                   ),
+
+                  // const SizedBox(width: 10),
+                  // Column(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     IconButton(
+                  //       onPressed: () {
+                  //         Navigator.pushNamed(
+                  //           context,
+                  //           Routes.mapScreen,
+                  //           arguments: {
+                  //             'location': LatLng(24.7136, 46.6753),
+                  //             'pharmacyName':
+                  //                 medicine.availablePharmacies.isNotEmpty
+                  //                 ? medicine.availablePharmacies.first
+                  //                 : 'صيدلية قريبة',
+                  //           },
+                  //         );
+                  //       },
+                  //       icon: Icon(
+                  //         Icons.location_on,
+                  //         color: theme.colorScheme.primary,
+                  //         size: 24,
+                  //       ),
+                  //       tooltip: 'عرض الخريطة',
+                  //     ),
+                  //   ],
+                  // ),
                 ],
               ),
             ),

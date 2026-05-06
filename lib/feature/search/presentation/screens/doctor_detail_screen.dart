@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:mobile_dev_hakathon/core/route/routes.dart';
 import 'package:mobile_dev_hakathon/feature/search/model/doctor_model.dart';
 
 class DoctorDetailScreen extends StatelessWidget {
@@ -159,71 +161,7 @@ class DoctorDetailScreen extends StatelessWidget {
               height: 1.7,
             ),
           ),
-          const SizedBox(height: 24),
-          Row(
-            children: [
-              _buildStatTile(
-                'الخبرة',
-                '+15 سنة',
-                const Color(0xFF191C22),
-                const Color(0xFFD8E3FB),
-              ),
-              const SizedBox(width: 12),
-              _buildStatTile(
-                'المرضى',
-                '+2,000',
-                const Color(0xFF191C22),
-                const Color(0xFFD8E3FB),
-              ),
-              const SizedBox(width: 12),
-              _buildStatTile(
-                'التقييم',
-                doctor.rating.toStringAsFixed(1),
-                const Color(0xFF191C22),
-                const Color(0xFFFFDBCC),
-              ),
-            ],
-          ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildStatTile(
-    String label,
-    String value,
-    Color textColor,
-    Color bgColor,
-  ) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        decoration: BoxDecoration(
-          color: bgColor,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              label,
-              style: const TextStyle(
-                fontSize: 12,
-                color: Color(0xFF727784),
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              value,
-              style: TextStyle(
-                fontSize: 14,
-                color: textColor,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -320,7 +258,7 @@ class DoctorDetailScreen extends StatelessWidget {
                   width: isWide
                       ? (constraints.maxWidth - 32) / 3
                       : double.infinity,
-                  child: _buildMapCard(theme),
+                  child: _buildMapCard(context, theme, doctor),
                 ),
               ],
             );
@@ -405,7 +343,7 @@ class DoctorDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildMapCard(ThemeData theme) {
+  Widget _buildMapCard(BuildContext context, ThemeData theme, Doctor doctor) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
@@ -424,10 +362,14 @@ class DoctorDetailScreen extends StatelessWidget {
           AspectRatio(
             aspectRatio: 4 / 3,
             child: Image.network(
-              'https://lh3.googleusercontent.com/aida/ADBb0ugAWfVaUjmHSfiN3nIkGPpFnRNE3usD9L2hkMTOeS-Ng1yT9kDryxURdSajY3S8ETPgRynWTkIdCy9w3CQC5JYoO_pog9Xin8nlo6Ha-E1kCkWrYkKxTzrbf1WxVINGENx6yZ7y2q762rzuSImp5GWWR3OendQfjmUgRTDJokhK1W8vBgk6njkWakHHuBsXr-F2KrLnBZeNWLjhbBF0MOh1OCHhb4v3X_aKg-W0oDR9NQqzfqPyr2VgzWVE',
+              'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop',
               fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) =>
-                  Container(color: const Color(0xFFD9D9E2)),
+              errorBuilder: (context, error, stackTrace) => Container(
+                color: const Color(0xFFD9D9E2),
+                child: const Center(
+                  child: Icon(Icons.map, size: 48, color: Color(0xFF727784)),
+                ),
+              ),
             ),
           ),
           Positioned(
@@ -435,7 +377,18 @@ class DoctorDetailScreen extends StatelessWidget {
             right: 16,
             left: 16,
             child: ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  Routes.mapScreen,
+                  arguments: {
+                    'location': LatLng(24.7136, 46.6753),
+                    'pharmacyName': doctor.hospitalName.isNotEmpty
+                        ? doctor.hospitalName
+                        : 'موقع الطبيب',
+                  },
+                );
+              },
               icon: const Icon(Icons.directions, color: Color(0xFF00408B)),
               label: const Text('فتح الخرائط'),
               style: ElevatedButton.styleFrom(

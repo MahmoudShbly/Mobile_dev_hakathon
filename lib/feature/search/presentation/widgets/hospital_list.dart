@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:mobile_dev_hakathon/core/route/routes.dart';
 import 'package:mobile_dev_hakathon/feature/search/model/hospital_model.dart';
 
 class HospitalList extends StatelessWidget {
@@ -92,18 +94,9 @@ class HospitalList extends StatelessWidget {
                   ),
                 ],
               ),
+
               SizedBox(height: 16.h),
-              const Divider(height: 1, color: Color(0xFFF1F5F9)),
-              SizedBox(height: 16.h),
-              Text(
-                'الأقسام المتاحة:',
-                style: theme.textTheme.labelSmall?.copyWith(
-                  fontWeight: FontWeight.w700,
-                  color: const Color(0xFF475569),
-                  fontSize: 12.sp,
-                ),
-              ),
-              SizedBox(height: 8.h),
+
               Wrap(
                 spacing: 8.w,
                 runSpacing: 8.h,
@@ -133,7 +126,13 @@ class HospitalList extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          Routes.hospitalDetailScreen,
+                          arguments: hospital,
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF0040A1),
                         foregroundColor: Colors.white,
@@ -144,7 +143,7 @@ class HospitalList extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        'عرض الأطباء',
+                        ' التفاصيل',
                         style: TextStyle(
                           fontSize: 13.sp,
                           fontWeight: FontWeight.w700,
@@ -159,7 +158,16 @@ class HospitalList extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12.r),
                     ),
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          Routes.mapScreen,
+                          arguments: {
+                            'location': LatLng(24.7136, 46.6753),
+                            'pharmacyName': hospital.name,
+                          },
+                        );
+                      },
                       icon: Icon(
                         Icons.directions_outlined,
                         color: const Color(0xFF0040A1),

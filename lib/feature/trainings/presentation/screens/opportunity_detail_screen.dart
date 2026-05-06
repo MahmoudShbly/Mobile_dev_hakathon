@@ -18,11 +18,7 @@ class OpportunityDetailScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: colorScheme.surface,
         foregroundColor: colorScheme.onSurface,
-        leading: IconButton(
-          onPressed: () => Navigator.of(context).pop(),
-          icon: const Icon(Icons.arrow_forward),
-          tooltip: 'رجوع',
-        ),
+
         title: Text(
           'تفاصيل الفرصة',
           style: theme.textTheme.titleLarge?.copyWith(
