@@ -132,7 +132,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Column(
                 children: [
                   Text(
-                    'دواء',
+                    'بلسمٌR',
                     style: TextStyle(
                       fontSize: 32.sp,
                       fontWeight: FontWeight.bold,

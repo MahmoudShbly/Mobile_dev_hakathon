@@ -41,9 +41,9 @@ void main() async {
   if (!isOnboardingCompleted) {
     initialRoute = Routes.onboardingScreen;
   } else if (isUserLoggedIn) {
-    initialRoute = Routes.loginScreen;
-  } else {
     initialRoute = Routes.homeScreen;
+  } else {
+    initialRoute = Routes.loginScreen;
   }
 
   runApp(MyApp(initialRoute: initialRoute));

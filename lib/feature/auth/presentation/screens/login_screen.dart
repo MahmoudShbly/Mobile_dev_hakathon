@@ -102,22 +102,14 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             children: [
               SizedBox(height: 40.h),
-              Column(
-                children: [
-                  Text(
-                    'دواء',
-                    style: TextStyle(
-                      fontSize: 32.sp,
-                      fontWeight: FontWeight.bold,
-                      color: const Color(0xFF00408B),
-                    ),
-                  ),
-                  Container(
-                    width: 40.w,
-                    height: 3.h,
-                    color: const Color(0xFF0057B8),
-                  ),
-                ],
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20.r),
+                child: Image.asset(
+                  'assets/image/logoo.jpg',
+                  height: 100.h,
+                  width: 100.h,
+                  fit: BoxFit.cover,
+                ),
               ),
               SizedBox(height: 60.h),
               Container(
@@ -146,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(height: 8.h),
                     Text(
-                      'مرحباً بك مجدداً في تطبيق دواء',
+                      'مرحباً بك مجدداً في تطبيق بلسم',
                       style: TextStyle(
                         fontSize: 14.sp,
                         color: const Color(0xFF545F73),
