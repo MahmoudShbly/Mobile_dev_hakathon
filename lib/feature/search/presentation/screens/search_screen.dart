@@ -3,6 +3,8 @@ import 'package:mobile_dev_hakathon/core/route/routes.dart';
 import 'package:mobile_dev_hakathon/feature/search/model/medicine_model.dart';
 import 'package:mobile_dev_hakathon/feature/search/model/pharmacy_model.dart';
 import 'package:mobile_dev_hakathon/feature/search/model/hospital_model.dart';
+import 'package:mobile_dev_hakathon/feature/search/model/doctor_model.dart';
+import 'package:mobile_dev_hakathon/feature/search/presentation/widgets/doctor_list.dart';
 import 'package:mobile_dev_hakathon/feature/search/presentation/widgets/medicine_list.dart';
 import 'package:mobile_dev_hakathon/feature/search/presentation/widgets/search_field.dart';
 import 'package:mobile_dev_hakathon/feature/search/presentation/widgets/result_list.dart';
@@ -39,7 +41,15 @@ class _SearchScreenState extends State<SearchScreen> {
 
   bool get _hasSearchQuery => _searchQuery.isNotEmpty;
 
-  List<Pharmacy> get _filteredPharmacies => searchPharmacies;
+  List<Pharmacy> get _filteredPharmacies {
+    if (_searchQuery.isEmpty) return searchPharmacies;
+    final lowerQuery = _searchQuery.toLowerCase();
+    return searchPharmacies.where((pharmacy) {
+      return pharmacy.name.toLowerCase().contains(lowerQuery) ||
+          pharmacy.address.toLowerCase().contains(lowerQuery) ||
+          pharmacy.distance.toLowerCase().contains(lowerQuery);
+    }).toList();
+  }
 
   List<Medicine> get _filteredMedicines {
     if (_searchQuery.isEmpty) return const [];
@@ -48,7 +58,28 @@ class _SearchScreenState extends State<SearchScreen> {
         .toList();
   }
 
-  List<Hospital> get _filteredHospitals => searchHospitals;
+  List<Hospital> get _filteredHospitals {
+    if (_searchQuery.isEmpty) return searchHospitals;
+    final lowerQuery = _searchQuery.toLowerCase();
+    return searchHospitals.where((hospital) {
+      return hospital.name.toLowerCase().contains(lowerQuery) ||
+          hospital.location.toLowerCase().contains(lowerQuery) ||
+          hospital.specialties.any(
+            (specialty) => specialty.toLowerCase().contains(lowerQuery),
+          );
+    }).toList();
+  }
+
+  List<Doctor> get _filteredDoctors {
+    if (_searchQuery.isEmpty) return sampleDoctors;
+    final lowerQuery = _searchQuery.toLowerCase();
+    return sampleDoctors.where((doctor) {
+      return doctor.name.toLowerCase().contains(lowerQuery) ||
+          doctor.specialty.toLowerCase().contains(lowerQuery) ||
+          doctor.hospitalName.toLowerCase().contains(lowerQuery) ||
+          doctor.departmentName.toLowerCase().contains(lowerQuery);
+    }).toList();
+  }
 
   Widget _buildSearchField(ThemeData theme) {
     return SearchField(
@@ -74,6 +105,8 @@ class _SearchScreenState extends State<SearchScreen> {
         _buildCategoryChip('أدوية', theme),
         const SizedBox(width: 16),
         _buildCategoryChip('أجهزة طبية', theme),
+        const SizedBox(width: 16),
+        _buildCategoryChip('أطباء', theme),
       ],
     );
   }
@@ -122,6 +155,10 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
+  Widget _buildDoctorList(ThemeData theme) {
+    return DoctorList(doctors: _filteredDoctors);
+  }
+
   Widget _buildHospitalList(ThemeData theme) {
     return HospitalList(hospitals: _filteredHospitals);
   }
@@ -155,6 +192,10 @@ class _SearchScreenState extends State<SearchScreen> {
                           ? (_hasSearchQuery
                                 ? 'نتائج البحث عن دواء'
                                 : 'نتائج البحث عن دواء في الصيدليات المجاورة')
+                          : _selectedCategory == 'أطباء'
+                          ? (_hasSearchQuery
+                                ? 'نتائج البحث عن الأطباء'
+                                : 'أفضل الأطباء المتاحين حالياً')
                           : 'المستشفيات والأقسام',
                       style: theme.textTheme.labelMedium?.copyWith(
                         color: colorScheme.secondary,
@@ -167,6 +208,8 @@ class _SearchScreenState extends State<SearchScreen> {
                         ? (_hasSearchQuery
                               ? _buildMedicineList(theme)
                               : _buildPharmacyList(theme))
+                        : _selectedCategory == 'أطباء'
+                        ? _buildDoctorList(theme)
                         : _buildHospitalList(theme),
                   ),
                 ],
