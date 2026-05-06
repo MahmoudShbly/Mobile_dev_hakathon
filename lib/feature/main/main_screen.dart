@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mobile_dev_hakathon/core/route/routes.dart';
 import 'package:mobile_dev_hakathon/feature/pharmacy_shifts/presentation/screens/pharmacy_shifts_screen.dart';
 import 'package:mobile_dev_hakathon/feature/profile/presentation/screens/profile_screen.dart';
 import 'package:mobile_dev_hakathon/feature/search/presentation/screens/search_screen.dart';
@@ -34,43 +36,64 @@ class _MainScreenState extends State<MainScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: colorScheme.onPrimary,
+        // backgroundColor: colorScheme.onPrimary,
         elevation: 0,
         leading: Container(
           padding: const EdgeInsets.all(14.0),
           child: Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
               CircleAvatar(
                 radius: 18,
-                backgroundColor: colorScheme.primary.withOpacity(0.1),
+                backgroundColor: colorScheme.primary.withValues(alpha: 0.1),
                 child: Icon(Icons.person, size: 20, color: colorScheme.primary),
               ),
               const SizedBox(width: 8),
-              Text(
-                'أحمد خالد',
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: colorScheme.onSurface,
-                  fontWeight: FontWeight.w600,
+              Flexible(
+                child: Text(
+                  'أحمد خالد',
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: colorScheme.onSurface,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
+              Spacer(),
             ],
           ),
         ),
-        leadingWidth: 120,
+        leadingWidth: 180,
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.notifications,
-              color: colorScheme.onSurfaceVariant,
-            ),
-            tooltip: 'الإشعارات',
+          Row(
+            children: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, Routes.reportScreen);
+                },
+                child: Text(
+                  'بلاغ',
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: Colors.red,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, Routes.reportScreen);
+                },
+                icon: Icon(Icons.report_problem, color: Colors.red),
+                tooltip: 'بلاغ',
+              ),
+            ],
           ),
         ],
       ),
       body: _screens[_selectedIndex],
       bottomNavigationBar: Container(
-        height: 80,
+        height: 70.h,
         decoration: BoxDecoration(
           color: colorScheme.onPrimary,
           border: Border(
@@ -88,7 +111,7 @@ class _MainScreenState extends State<MainScreen> {
           textDirection: TextDirection.rtl,
           children: [
             Expanded(child: _buildNavItem(0, Icons.person, 'حسابي')),
-            Expanded(child: _buildNavItem(1, Icons.school, 'تدريب')),
+            Expanded(child: _buildNavItem(1, Icons.work_outline, 'فرص')),
             Expanded(
               child: _buildNavItem(2, Icons.medical_services, 'المناوبة'),
             ),

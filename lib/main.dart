@@ -24,8 +24,10 @@ void main() async {
     // التحقق من حالة Onboarding مع وقت انتظار محدد
     bool isOnboardingCompleted = false;
     try {
-      isOnboardingCompleted = await SharedPreferencesHelper.isOnboardingCompleted()
-          .timeout(const Duration(seconds: 3));
+      isOnboardingCompleted =
+          await SharedPreferencesHelper.isOnboardingCompleted().timeout(
+            const Duration(seconds: 3),
+          );
     } catch (e) {
       debugPrint('SharedPreferences timeout or error: $e');
     }
@@ -41,12 +43,12 @@ void main() async {
     String initialRoute;
     if (!isOnboardingCompleted) {
       initialRoute = Routes.onboardingScreen;
-    } else if (!isUserLoggedIn) {
+    } else if (isUserLoggedIn) {
       initialRoute = Routes.loginScreen;
     } else {
       initialRoute = Routes.homeScreen;
     }
-    
+
     runApp(MyApp(initialRoute: initialRoute));
   } catch (e) {
     debugPrint('Fatal error during startup: $e');
@@ -60,7 +62,10 @@ void main() async {
               children: [
                 const Icon(Icons.error_outline, color: Colors.red, size: 60),
                 const SizedBox(height: 16),
-                const Text('خطأ في تشغيل التطبيق', style: TextStyle(fontSize: 18)),
+                const Text(
+                  'خطأ في تشغيل التطبيق',
+                  style: TextStyle(fontSize: 18),
+                ),
                 TextButton(
                   onPressed: () => main(),
                   child: const Text('إعادة المحاولة'),

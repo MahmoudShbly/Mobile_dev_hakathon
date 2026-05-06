@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_dev_hakathon/feature/pharmacy_shifts/model/pharmacy_model.dart';
+import 'package:mobile_dev_hakathon/feature/trainings/presentation/screens/application_form_screen.dart';
 
 class PharmacyDetailScreen extends StatelessWidget {
   final Pharmacy pharmacy;
@@ -381,7 +382,13 @@ class PharmacyDetailScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
             ),
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ApplicationFormScreen(),
+              ),
+            );
+          },
           icon: const Icon(Icons.chat_bubble),
           label: const Text('تواصل'),
         ),
