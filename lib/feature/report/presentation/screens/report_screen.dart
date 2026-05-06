@@ -11,14 +11,40 @@ class _ReportScreenState extends State<ReportScreen> {
   final TextEditingController _descriptionController = TextEditingController();
   String _selectedEntity = 'صيدلية';
   String _selectedIssue = 'تسعير غير منطقي / مخالف';
+  String? _selectedHospital;
 
   final List<String> _entities = ['صيدلية', 'مستشفى'];
 
-  final List<String> _issues = [
+  // قائمة المشاكل للصيدليات
+  final List<String> _pharmacyIssues = [
     'تسعير غير منطقي / مخالف',
     'دواء فاسد',
     'الخدمة غير جيدة',
     'عدم احترام المواعيد',
+    'أخرى',
+  ];
+
+  // قائمة المشاكل للمستشفيات
+  final List<String> _hospitalIssues = [
+    'الخدمة الطبية غير جيدة',
+    'تأخير العمليات الجراحية',
+    'عدم نظافة المستشفى',
+    'سوء معاملة الطاقم الطبي',
+    'مشاكل في الفواتير والتأمين',
+    'عدم توفر الأدوية والمعدات',
+    'عدم احترام الخصوصية',
+    'أخرى',
+  ];
+
+  // قائمة المستشفيات
+  final List<String> _hospitals = [
+    'مستشفى الملك فهد التخصصي',
+    'مستشفى الحرس الوطني',
+    'عيادات النخبة الطبية',
+    'مركز الأمل الطبي',
+    'مستشفى الرحمة',
+    'مستشفى الجامعة',
+    'عيادات الأمان الطبية',
     'أخرى',
   ];
 
@@ -28,6 +54,9 @@ class _ReportScreenState extends State<ReportScreen> {
     super.dispose();
   }
 
+  List<String> get _issues =>
+      _selectedEntity == 'مستشفى' ? _hospitalIssues : _pharmacyIssues;
+
   void _submitReport() {
     ScaffoldMessenger.of(
       context,
@@ -35,7 +64,8 @@ class _ReportScreenState extends State<ReportScreen> {
     _descriptionController.clear();
     setState(() {
       _selectedEntity = 'صيدلية';
-      _selectedIssue = 'تسعير غير منطقي / مخالف';
+      _selectedIssue = _pharmacyIssues.first;
+      _selectedHospital = null;
     });
   }
 
@@ -149,12 +179,63 @@ class _ReportScreenState extends State<ReportScreen> {
                       if (value != null) {
                         setState(() {
                           _selectedEntity = value;
+                          _selectedIssue = value == 'مستشفى'
+                              ? _hospitalIssues.first
+                              : _pharmacyIssues.first;
+                          _selectedHospital = value == 'مستشفى'
+                              ? _hospitals.first
+                              : null;
                         });
                       }
                     },
                   ),
                 ),
               ),
+              if (_selectedEntity == 'مستشفى') ...[
+                const SizedBox(height: 20),
+                Text(
+                  'اختيار المستشفى',
+                  style: theme.textTheme.labelMedium?.copyWith(
+                    color: colorScheme.onSurfaceVariant,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 14),
+                  decoration: BoxDecoration(
+                    color: colorScheme.surface,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: colorScheme.outline),
+                  ),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton<String>(
+                      value: _selectedHospital,
+                      hint: const Text('اختر مستشفى'),
+                      isExpanded: true,
+                      icon: Icon(
+                        Icons.expand_more,
+                        color: colorScheme.onSurfaceVariant,
+                      ),
+                      items: _hospitals
+                          .map(
+                            (hospital) => DropdownMenuItem(
+                              value: hospital,
+                              child: Text(hospital),
+                            ),
+                          )
+                          .toList(),
+                      onChanged: (value) {
+                        if (value != null) {
+                          setState(() {
+                            _selectedHospital = value;
+                          });
+                        }
+                      },
+                    ),
+                  ),
+                ),
+              ],
               const SizedBox(height: 20),
               Text(
                 'نوع المشكلة',

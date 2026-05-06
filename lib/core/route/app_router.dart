@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'package:mobile_dev_hakathon/core/models/pharmacy.dart';
 import 'package:mobile_dev_hakathon/core/route/routes.dart';
@@ -99,7 +101,6 @@ class AppRouter {
 
       case Routes.reportScreen:
         return _slideRoute(const ReportScreen(), settings);
-      // =======
       case Routes.mapScreen:
         final args = settings.arguments as Map<String, dynamic>?;
         return _slideRoute(
@@ -113,6 +114,15 @@ class AppRouter {
         return _slideRoute(const DoctorsScreen(), settings);
       case Routes.favoritesScreen:
         return _slideRoute(const FavoritesScreen(), settings);
+      case Routes.opportunityDetailScreen:
+        final pharmacy = settings.arguments;
+        if (pharmacy is Pharmacy) {
+          return _slideRoute(
+            OpportunityDetailScreen(pharmacy: pharmacy),
+            settings,
+          );
+        }
+        return null;
 
       default:
         return null;

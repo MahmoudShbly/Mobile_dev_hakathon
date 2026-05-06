@@ -21,7 +21,6 @@ class Routes {
   static const String favoritesScreen = '/favorites';
 
   // Hospital & Doctor Routes
-  // <<<<<<< HEAD
   static const String hospitalDetailScreen = '/hospital-detail';
   static const String doctorDetailScreen = '/doctor-detail';
   static const String doctorsListScreen = '/doctors-list';
@@ -29,7 +28,4 @@ class Routes {
   static const String applicationFormScreen = '/application-form';
   static const String reportScreen = '/report';
   static const String editProfileScreen = '/editProfile';
-  // =======
-
-  // >>>>>>> 7e3a522efadd6697fa381efcecdfcd323076b326
 }
