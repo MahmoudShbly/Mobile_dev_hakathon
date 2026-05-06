@@ -2,6 +2,8 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        maven(url = "https://maven.google.com")
+        maven(url = "https://repo1.maven.org/maven2/")
     }
 }
 
