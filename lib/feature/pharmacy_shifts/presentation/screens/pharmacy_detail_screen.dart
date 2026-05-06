@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:mobile_dev_hakathon/core/route/routes.dart';
 import 'package:mobile_dev_hakathon/core/shared%20widgets/custom_button.dart';
 import 'package:mobile_dev_hakathon/feature/pharmacy_shifts/model/pharmacy_model.dart';
@@ -165,23 +166,8 @@ class PharmacyDetailScreen extends StatelessWidget {
                                 ],
                               ),
                               const SizedBox(height: 12),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.star,
-                                    size: 18,
-                                    color: const Color(0xFFF59E0B),
-                                  ),
-                                  const SizedBox(width: 6),
-                                  // Text(
-                                  //   '${pharmacy.rating.toStringAsFixed(1)} (120+ تقييم)',
-                                  //   style: theme.textTheme.bodyMedium?.copyWith(
-                                  //     fontWeight: FontWeight.w600,
-                                  //     color: colorScheme.onSurfaceVariant,
-                                  //   ),
-                                  // ),
-                                ],
-                              ),
+                              const SizedBox(height: 12),
+
                               const SizedBox(height: 18),
                               Wrap(
                                 runSpacing: 12,
@@ -275,44 +261,46 @@ class PharmacyDetailScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20),
                               child: AspectRatio(
                                 aspectRatio: 16 / 9,
-                                child: Image.network(
-                                  pharmacy.mapImageUrl,
-                                  fit: BoxFit.cover,
-                                  width: double.infinity,
-                                  loadingBuilder:
-                                      (context, child, loadingProgress) {
-                                        if (loadingProgress == null) {
-                                          return child;
-                                        }
-
-                                        return Center(
-                                          child: CircularProgressIndicator(
-                                            value:
-                                                loadingProgress
-                                                        .expectedTotalBytes !=
-                                                    null
-                                                ? loadingProgress
-                                                          .cumulativeBytesLoaded /
-                                                      loadingProgress
-                                                          .expectedTotalBytes!
-                                                : null,
+                                child: pharmacy.latitude != null && pharmacy.longitude != null
+                                    ? FlutterMap(
+                                        options: MapOptions(
+                                          initialCenter: LatLng(pharmacy.latitude!, pharmacy.longitude!),
+                                          initialZoom: 15,
+                                          interactionOptions: const InteractionOptions(
+                                            flags: InteractiveFlag.none, // تعطيل التفاعل للمعاينة الصغيرة
+                                          ),
+                                        ),
+                                        children: [
+                                          TileLayer(
+                                            urlTemplate: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+                                            subdomains: const ['a', 'b', 'c', 'd'],
+                                          ),
+                                          MarkerLayer(
+                                            markers: [
+                                              Marker(
+                                                point: LatLng(pharmacy.latitude!, pharmacy.longitude!),
+                                                width: 40,
+                                                height: 40,
+                                                child: const Icon(
+                                                  Icons.location_on,
+                                                  color: Colors.red,
+                                                  size: 40,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      )
+                                    : Container(
+                                        color: colorScheme.surfaceContainer,
+                                        child: Center(
+                                          child: Icon(
+                                            Icons.map,
+                                            size: 40,
                                             color: colorScheme.primary,
                                           ),
-                                        );
-                                      },
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Container(
-                                      color: colorScheme.surfaceContainer,
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.map,
-                                          size: 40,
-                                          color: colorScheme.primary,
                                         ),
                                       ),
-                                    );
-                                  },
-                                ),
                               ),
                             ),
                           ],

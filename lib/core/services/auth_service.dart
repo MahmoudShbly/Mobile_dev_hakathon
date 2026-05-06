@@ -12,67 +12,58 @@ class MockUser {
 }
 
 class AuthService {
-  // حالياً نستخدم الوضع الوهمي (Mock Mode) لتجاوز مشاكل الاتصال والفيبيز
-  // عند الربط الكامل مع Firebase، قم بتغيير هذه القيمة إلى false
+  // حالياً نستخدم الوضع الوهمي (Mock Mode) لبعض العمليات في حالة عدم الربط الكامل
   static const bool _isMockMode = true;
 
-  // تسجيل مستخدم وهمي حالي
+  // تسجيل مستخدم حالي (حقيقي أو وهمي)
   static MockUser? _currentUser;
 
-  // Google Sign-In instance مع Client ID المقدم
+  // Google Sign-In instance
   static final GoogleSignIn _googleSignIn = GoogleSignIn(
-    serverClientId: '385014701118-4lc4qe6gd80p25meusb3ncv3l398h0nb.apps.googleusercontent.com',
     scopes: ['email', 'profile'],
   );
 
-  // بيانات المستخدمين الوهمية حسب الأدوار
+  // بيانات المستخدمين الوهمية للاختبار
   final Map<String, Map<String, dynamic>> _mockUsersData = {
-    '0938337165': {
+    'khaled@example.com': {
       'uid': 'user_123',
       'name': 'خالد خالد',
       'role': 'user',
       'email': 'khaled@example.com',
       'password': '12345678',
     },
-    '0912345678': {
-      'uid': 'pharm_456',
-      'name': 'د. سارة المنصور',
-      'role': 'pharmacist',
-      'email': 'sara@pharmacy.com',
-      'password': '12345678',
+    'test@test.com': {
+      'uid': 'user_456',
+      'name': 'مستخدم تجريبي',
+      'role': 'user',
+      'email': 'test@test.com',
+      'password': 'password123',
     },
   };
 
   // ══════════════════════════════════════════════
-  // تسجيل الدخول بحساب Google
+  // تسجيل الدخول بحساب Google (حقيقي)
   // ══════════════════════════════════════════════
-  Future<dynamic> signInWithGoogle() async {
+  Future<MockUser?> signInWithGoogle() async {
     try {
-      // بدء عملية تسجيل الدخول بحساب Google
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
 
       if (googleUser == null) {
-        // المستخدم ألغى عملية تسجيل الدخول
         debugPrint('Google Sign-In: المستخدم ألغى العملية');
         return null;
       }
 
-      // الحصول على بيانات المصادقة
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
-      // إنشاء credential لـ Firebase
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
-      // تسجيل الدخول في Firebase
       try {
-        final UserCredential userCredential =
-            await FirebaseAuth.instance.signInWithCredential(credential);
-
+        final UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
         final firebaseUser = userCredential.user;
+        
         if (firebaseUser != null) {
           _currentUser = MockUser(
             uid: firebaseUser.uid,
@@ -80,11 +71,9 @@ class AuthService {
             displayName: firebaseUser.displayName,
             photoURL: firebaseUser.photoURL,
           );
-          debugPrint('Google Sign-In: تم تسجيل الدخول بنجاح - ${firebaseUser.email}');
           return _currentUser;
         }
       } catch (firebaseError) {
-        // في حالة فشل Firebase، نستخدم بيانات Google مباشرة
         debugPrint('Firebase Auth failed, using Google data directly: $firebaseError');
         _currentUser = MockUser(
           uid: googleUser.id,
@@ -103,34 +92,42 @@ class AuthService {
   }
 
   // ══════════════════════════════════════════════
-  // Sign Up (Mock)
+  // إنشاء حساب (Email/Password)
   // ══════════════════════════════════════════════
   Future<dynamic> signUp({
     required String name,
-    required String phone,
     required String email,
     required String password,
   }) async {
     if (_isMockMode) {
-      await Future.delayed(const Duration(seconds: 1)); // محاكاة تأخير الشبكة
-      _currentUser = MockUser(uid: 'new_user_${DateTime.now().millisecondsSinceEpoch}', displayName: name);
+      await Future.delayed(const Duration(seconds: 1));
+      _currentUser = MockUser(
+        uid: 'new_user_${DateTime.now().millisecondsSinceEpoch}',
+        displayName: name,
+        email: email,
+      );
       return _currentUser;
+    } else {
+      final UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+      await userCredential.user?.updateDisplayName(name);
+      return userCredential.user;
     }
-    return null;
   }
 
   // ══════════════════════════════════════════════
-  // Login (Mock)
+  // تسجيل الدخول (Email/Password)
   // ══════════════════════════════════════════════
   Future<dynamic> login({
-    required String phone,
+    required String email,
     required String password,
   }) async {
     if (_isMockMode) {
       await Future.delayed(const Duration(seconds: 1));
       
-      final userData = _mockUsersData[phone.trim()];
-      if (userData != null && userData['password'] == password) {
+      final String trimmedEmail = email.trim();
+      if (_mockUsersData.containsKey(trimmedEmail) && _mockUsersData[trimmedEmail]?['password'] == password) {
+        final userData = _mockUsersData[trimmedEmail]!;
         _currentUser = MockUser(
           uid: userData['uid'],
           displayName: userData['name'],
@@ -139,20 +136,19 @@ class AuthService {
         return _currentUser;
       }
       throw Exception('wrong-password');
+    } else {
+      final UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      return userCredential.user;
     }
-    return null;
   }
 
   // ══════════════════════════════════════════════
-  // Logout (يشمل Google Sign-Out)
-  // ══════════════════════════════════════════════
   Future<void> logout() async {
     try {
-      // تسجيل الخروج من Google
       if (await _googleSignIn.isSignedIn()) {
         await _googleSignIn.signOut();
       }
-      // تسجيل الخروج من Firebase
       try {
         await FirebaseAuth.instance.signOut();
       } catch (_) {}
@@ -163,27 +159,31 @@ class AuthService {
   }
 
   // ══════════════════════════════════════════════
-  // Get current user data (Mock)
+  // الحصول على بيانات المستخدم الحالي
   // ══════════════════════════════════════════════
   Future<Map<String, dynamic>> getUserData() async {
-    if (_isMockMode) {
-      if (_currentUser == null) throw Exception('No user logged in');
-      
-      Map<String, dynamic>? foundData;
-      _mockUsersData.forEach((key, value) {
-        if (value['uid'] == _currentUser!.uid) {
-          foundData = value;
-        }
-      });
-      
-      return foundData ?? {
-        'name': _currentUser!.displayName ?? 'مستخدم جديد',
+    final firebaseUser = FirebaseAuth.instance.currentUser;
+    if (firebaseUser != null) {
+      return {
+        'uid': firebaseUser.uid,
+        'name': firebaseUser.displayName ?? 'مستخدم جوجل',
+        'email': firebaseUser.email ?? '',
+        'photoURL': firebaseUser.photoURL ?? '',
         'role': 'user',
-        'email': _currentUser!.email ?? '',
-        'photoURL': _currentUser!.photoURL ?? '',
       };
     }
-    throw Exception('Not implemented in mock');
+
+    if (_currentUser != null) {
+      return {
+        'uid': _currentUser!.uid,
+        'name': _currentUser!.displayName ?? 'مستخدم دواء',
+        'email': _currentUser!.email ?? '',
+        'photoURL': _currentUser!.photoURL ?? '',
+        'role': 'user',
+      };
+    }
+    
+    throw Exception('No user logged in');
   }
 
   // الحصول على المستخدم الحالي
