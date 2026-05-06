@@ -37,19 +37,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF9FAFF),
-      appBar: AppBar(
-        title: Text(
-          'الدواء',
-          style: TextStyle(
-            fontSize: 20.sp,
-            fontWeight: FontWeight.bold,
-            color: const Color(0xFF00408B),
-          ),
-        ),
-        centerTitle: false,
-        backgroundColor: Colors.white,
-        elevation: 0.5,
-      ),
+
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -72,7 +60,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ],
                       image: const DecorationImage(
-                        image: NetworkImage('https://images.unsplash.com/photo-1633332755192-727a05c4013d?auto=format&fit=crop&w=400&q=80'), // Professional user avatar
+                        image: NetworkImage(
+                          'https://images.unsplash.com/photo-1633332755192-727a05c4013d?auto=format&fit=crop&w=400&q=80',
+                        ), // Professional user avatar
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -81,7 +71,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Text(
                     _userName,
                     style: TextStyle(
-
                       fontSize: 18.sp,
                       fontWeight: FontWeight.bold,
                       color: const Color(0xFF191C22),
@@ -102,7 +91,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onTap: () {
                       Navigator.pushNamed(context, Routes.editProfileScreen);
                     },
-
                   ),
                   SizedBox(height: 16.h),
                   _buildMenuItem(
@@ -148,17 +136,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     },
                   ),
                   SizedBox(height: 16.h),
-                   _buildMenuItem(
-                    icon:  Icons.logout,
+                  _buildMenuItem(
+                    icon: Icons.logout,
                     title: 'تسجيل الخروج',
                     color: Colors.red,
                     onTap: () {
-                      Navigator.pushNamedAndRemoveUntil(context, Routes.loginScreen, (route) => false);
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        Routes.loginScreen,
+                        (route) => false,
+                      );
                     },
                   ),
                   SizedBox(height: 40.h),
+
                   // Logout
-                 
                 ],
               ),
             ),
@@ -196,9 +188,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: <Widget>[
             Icon(icon, size: 24, color: color ?? const Color(0xFF00408B)),
             SizedBox(width: 16),
-            Text(title, style: TextStyle(fontSize: 16, color: color ?? const Color(0xFF191C22))),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 16,
+                color: color ?? const Color(0xFF191C22),
+              ),
+            ),
             Spacer(),
-            Icon(Icons.arrow_forward_ios, size: 16,color: color, ),
+            Icon(Icons.arrow_forward_ios, size: 16, color: color),
           ],
         ),
       ),

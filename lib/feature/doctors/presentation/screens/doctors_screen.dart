@@ -14,7 +14,8 @@ class DoctorsScreen extends StatelessWidget {
         rating: 4.9,
         status: 'متاح الآن',
         isAvailable: true,
-        imageUrl: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=400&q=80', // Professional doctor image
+        imageUrl:
+            'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=400&q=80', // Professional doctor image
       ),
       const Doctor(
         name: 'د. سارة المنصور',
@@ -22,7 +23,8 @@ class DoctorsScreen extends StatelessWidget {
         rating: 4.8,
         status: 'متاح ابتداءً من الساعة 4 مساءً',
         isAvailable: false,
-        imageUrl: 'https://images.unsplash.com/photo-1594824401543-98276f7f6a6c?auto=format&fit=crop&w=400&q=80', // Female doctor image
+        imageUrl:
+            'https://images.unsplash.com/photo-1594824401543-98276f7f6a6c?auto=format&fit=crop&w=400&q=80', // Female doctor image
       ),
       const Doctor(
         name: 'د. فيصل الحربي',
@@ -30,7 +32,8 @@ class DoctorsScreen extends StatelessWidget {
         rating: 5.0,
         status: 'متاح الآن',
         isAvailable: true,
-        imageUrl: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=400&q=80', // Professional doctor image
+        imageUrl:
+            'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=400&q=80', // Professional doctor image
       ),
     ];
 
@@ -39,16 +42,17 @@ class DoctorsScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF0057B8)),
-          onPressed: () => Navigator.pop(context),
-        ),
+
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
               'قسم العيون',
-              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: const Color(0xFF00408B)),
+              style: TextStyle(
+                fontSize: 18.sp,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xFF00408B),
+              ),
             ),
             Text(
               'مشفى المدينة الطبي',
@@ -57,7 +61,10 @@ class DoctorsScreen extends StatelessWidget {
           ],
         ),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert, color: Colors.grey)),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.more_vert, color: Colors.grey),
+          ),
         ],
       ),
       body: SingleChildScrollView(
@@ -67,20 +74,31 @@ class DoctorsScreen extends StatelessWidget {
           children: [
             Text(
               'الأطباء والمتخصصون',
-              style: TextStyle(fontSize: 28.sp, fontWeight: FontWeight.bold, color: const Color(0xFF00408B)),
+              style: TextStyle(
+                fontSize: 28.sp,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xFF00408B),
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 12.w,
+                    vertical: 4.h,
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0xFF26D7F3).withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(20.r),
                   ),
                   child: Text(
                     '12 طبيب',
-                    style: TextStyle(color: const Color(0xFF26D7F3), fontWeight: FontWeight.bold, fontSize: 12.sp),
+                    style: TextStyle(
+                      color: const Color(0xFF26D7F3),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12.sp,
+                    ),
                   ),
                 ),
                 SizedBox(width: 10.w),
@@ -96,7 +114,8 @@ class DoctorsScreen extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: doctors.length,
               separatorBuilder: (context, index) => SizedBox(height: 20.h),
-              itemBuilder: (context, index) => _buildDoctorCard(context, doctors[index]),
+              itemBuilder: (context, index) =>
+                  _buildDoctorCard(context, doctors[index]),
             ),
           ],
         ),
@@ -131,22 +150,39 @@ class DoctorsScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8.w,
+                            vertical: 2.h,
+                          ),
                           decoration: BoxDecoration(
                             color: Colors.amber.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(8.r),
                           ),
                           child: Row(
                             children: [
-                              Text(doctor.rating.toString(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp)),
-                              const Icon(Icons.star, color: Colors.amber, size: 14),
+                              Text(
+                                doctor.rating.toString(),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12.sp,
+                                ),
+                              ),
+                              const Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                                size: 14,
+                              ),
                             ],
                           ),
                         ),
                         const Spacer(),
                         Text(
                           doctor.name,
-                          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: const Color(0xFF191C22)),
+                          style: TextStyle(
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.bold,
+                            color: const Color(0xFF191C22),
+                          ),
                         ),
                       ],
                     ),
@@ -163,13 +199,17 @@ class DoctorsScreen extends StatelessWidget {
                           doctor.status,
                           style: TextStyle(
                             fontSize: 12.sp,
-                            color: doctor.isAvailable ? Colors.green : Colors.grey,
+                            color: doctor.isAvailable
+                                ? Colors.green
+                                : Colors.grey,
                           ),
                         ),
                         SizedBox(width: 6.w),
                         CircleAvatar(
                           radius: 4,
-                          backgroundColor: doctor.isAvailable ? Colors.green : Colors.grey,
+                          backgroundColor: doctor.isAvailable
+                              ? Colors.green
+                              : Colors.grey,
                         ),
                       ],
                     ),
@@ -188,22 +228,33 @@ class DoctorsScreen extends StatelessWidget {
             onPressed: () {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('سيتم تفعيل ميزة المراسلة والاتصال في التحديث القادم!', style: TextStyle(fontFamily: 'Cairo')),
+                  content: Text(
+                    'سيتم تفعيل ميزة المراسلة والاتصال في التحديث القادم!',
+                    style: TextStyle(fontFamily: 'Cairo'),
+                  ),
                   backgroundColor: const Color(0xFF00408B),
                   behavior: SnackBarBehavior.floating,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
               );
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF0057B8),
               minimumSize: Size(double.infinity, 50.h),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16.r),
+              ),
               elevation: 0,
             ),
             child: Text(
               'تواصل',
-              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.white),
+              style: TextStyle(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ),
         ],

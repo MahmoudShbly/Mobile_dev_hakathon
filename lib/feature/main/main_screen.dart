@@ -5,6 +5,7 @@ import 'package:mobile_dev_hakathon/feature/pharmacy_shifts/presentation/screens
 import 'package:mobile_dev_hakathon/feature/profile/presentation/screens/profile_screen.dart';
 import 'package:mobile_dev_hakathon/feature/search/presentation/screens/search_screen.dart';
 import 'package:mobile_dev_hakathon/feature/map/presentation/screens/map_screen.dart';
+import 'package:mobile_dev_hakathon/feature/trainings/presentation/screens/trainings_screen.dart';
 
 class MainScreen extends StatefulWidget {
   final int initialIndex;
@@ -25,8 +26,9 @@ class _MainScreenState extends State<MainScreen> {
 
   static const List<Widget> _screens = <Widget>[
     SearchScreen(),
-    PharmacyShiftsScreen(),
+    TrainingsScreen(),
     MapScreen(),
+    PharmacyShiftsScreen(),
     ProfileScreen(),
   ];
 
@@ -46,7 +48,7 @@ class _MainScreenState extends State<MainScreen> {
         // backgroundColor: colorScheme.onPrimary,
         elevation: 0,
         leading: Container(
-          padding: const EdgeInsets.all(14.0),
+          padding: const EdgeInsets.symmetric(horizontal: 14.0),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -57,21 +59,37 @@ class _MainScreenState extends State<MainScreen> {
               ),
               const SizedBox(width: 8),
               Flexible(
-                child: Text(
-                  'أحمد خالد',
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: colorScheme.onSurface,
-                    fontWeight: FontWeight.w600,
-                  ),
+                fit: FlexFit.loose,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'أحمد خالد',
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: colorScheme.onSurface,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      'أهلا بعودتك',
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: colorScheme.onSurfaceVariant,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              Spacer(),
             ],
           ),
         ),
-        leadingWidth: 180,
+        leadingWidth: 260,
         actions: [
           Row(
             children: [
@@ -99,39 +117,46 @@ class _MainScreenState extends State<MainScreen> {
         ],
       ),
       body: _screens[_selectedIndex],
-      bottomNavigationBar: Container(
-        height: 70.h,
-        decoration: BoxDecoration(
-          color: colorScheme.onPrimary,
-          border: Border(
-            top: BorderSide(color: colorScheme.outline.withValues(alpha: 0.1)),
+      bottomNavigationBar: SafeArea(
+        top: false,
+        child: Container(
+          margin: EdgeInsets.only(
+            top: 8.h,
+            bottom: MediaQuery.of(context).padding.bottom + 8.h,
           ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.05),
-              blurRadius: 20,
-              offset: const Offset(0, -4),
-            ),
-          ],
-        ),
-        child: Row(
-          textDirection: TextDirection.rtl,
-          children: [
-            // <<<<<<< HEAD
-            Expanded(child: _buildNavItem(1, Icons.work_outline, 'فرص')),
-            // =======
-            Expanded(child: _buildNavItem(0, Icons.home_outlined, 'الرئيسية')),
-            // >>>>>>> 7e3a522efadd6697fa381efcecdfcd323076b326
-            Expanded(
-              child: _buildNavItem(
-                1,
-                Icons.medical_services_outlined,
-                'المناوبة',
+          decoration: BoxDecoration(
+            color: colorScheme.onPrimary,
+            border: Border(
+              top: BorderSide(
+                color: colorScheme.outline.withValues(alpha: 0.1),
               ),
             ),
-            Expanded(child: _buildNavItem(2, Icons.map_outlined, 'الخريطة')),
-            Expanded(child: _buildNavItem(3, Icons.person_outline, 'حسابي')),
-          ],
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.05),
+                blurRadius: 20,
+                offset: const Offset(0, -4),
+              ),
+            ],
+          ),
+          child: Row(
+            textDirection: TextDirection.rtl,
+            children: [
+              Expanded(
+                child: _buildNavItem(0, Icons.home_outlined, 'الرئيسية'),
+              ),
+              Expanded(child: _buildNavItem(1, Icons.work_outline, 'فرص')),
+              Expanded(
+                child: _buildNavItem(
+                  3,
+                  Icons.medical_services_outlined,
+                  'المناوبة',
+                ),
+              ),
+              Expanded(child: _buildNavItem(2, Icons.map_outlined, 'الخريطة')),
+              Expanded(child: _buildNavItem(4, Icons.person_outline, 'حسابي')),
+            ],
+          ),
         ),
       ),
     );
