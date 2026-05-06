@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_dev_hakathon/core/route/routes.dart';
+import 'package:mobile_dev_hakathon/core/shared%20widgets/custom_button.dart';
 import 'package:mobile_dev_hakathon/feature/pharmacy_shifts/model/pharmacy_model.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:latlong2/latlong.dart';
-// <<<<<<< HEAD
 import 'package:mobile_dev_hakathon/feature/trainings/presentation/screens/application_form_screen.dart';
-// =======
-import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:latlong2/latlong.dart';
-// >>>>>>> 7e3a522efadd6697fa381efcecdfcd323076b326
+
 
 class PharmacyDetailScreen extends StatelessWidget {
   final Pharmacy pharmacy;
@@ -411,6 +407,18 @@ class PharmacyDetailScreen extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 96),
+                        CustomButton(
+                          text: 'تواصل',
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const ApplicationFormScreen(),
+                              ),
+                            );
+                          },
+                          icon: Icons.chat_bubble,
+                        ),
                       ],
                     ),
                   ),
@@ -418,29 +426,6 @@ class PharmacyDetailScreen extends StatelessWidget {
               },
             ),
           ),
-        ),
-      ),
-      bottomNavigationBar: Container(
-        color: colorScheme.surface,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        child: ElevatedButton.icon(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: colorScheme.primary,
-            foregroundColor: colorScheme.onPrimary,
-            minimumSize: const Size.fromHeight(56),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-          ),
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const ApplicationFormScreen(),
-              ),
-            );
-          },
-          icon: const Icon(Icons.chat_bubble),
-          label: const Text('تواصل'),
         ),
       ),
     );

@@ -166,42 +166,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
-      appBar: AppBar(
-        title: const Text('الدواء'),
-        centerTitle: false,
-        elevation: 0,
-        backgroundColor: colorScheme.onPrimary,
-        foregroundColor: colorScheme.onSurface,
-        actions: [
-          IconButton(
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('قريباً: ميزة التصفية المتقدمة!', style: TextStyle(fontFamily: 'Cairo')),
-                  behavior: SnackBarBehavior.floating,
-                ),
-              );
-            },
-            icon: Icon(Icons.tune, color: colorScheme.onSurfaceVariant),
-            tooltip: 'التصفية',
-          ),
-          IconButton(
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('لا توجد إشعارات جديدة حالياً', style: TextStyle(fontFamily: 'Cairo')),
-                  behavior: SnackBarBehavior.floating,
-                ),
-              );
-            },
-            icon: Icon(
-              Icons.notifications,
-              color: colorScheme.onSurfaceVariant,
-            ),
-            tooltip: 'الإشعارات',
-          ),
-        ],
-      ),
+
       body: SafeArea(
         child: Align(
           alignment: Alignment.topCenter,

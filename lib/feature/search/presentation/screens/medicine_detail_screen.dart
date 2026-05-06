@@ -19,7 +19,7 @@ class MedicineDetailScreen extends StatelessWidget {
         foregroundColor: colorScheme.onSurface,
         leading: IconButton(
           onPressed: () => Navigator.of(context).pop(),
-          icon: const Icon(Icons.arrow_forward),
+          icon: const Icon(Icons.arrow_back),
           tooltip: 'رجوع',
         ),
         title: Text(
@@ -29,13 +29,7 @@ class MedicineDetailScreen extends StatelessWidget {
           ),
         ),
         centerTitle: false,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.favorite_border, color: colorScheme.primary),
-            tooltip: 'مفضل',
-          ),
-        ],
+
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -181,27 +175,6 @@ class MedicineDetailScreen extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-        ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
-        child: ElevatedButton.icon(
-          onPressed: () {},
-          icon: const Icon(Icons.local_pharmacy),
-          label: Text(
-            'البحث عن الصيدليات',
-            style: theme.textTheme.titleMedium?.copyWith(
-              color: colorScheme.onPrimary,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: colorScheme.primary,
-            minimumSize: const Size.fromHeight(56),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
           ),
         ),
       ),

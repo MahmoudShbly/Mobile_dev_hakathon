@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_dev_hakathon/feature/pharmacy_shifts/model/pharmacy_model.dart';
 
-class PharmacyCard extends StatelessWidget {
+class PharmacyCard extends StatefulWidget {
   final Pharmacy pharmacy;
   final VoidCallback? onTap;
 
   const PharmacyCard({super.key, required this.pharmacy, this.onTap});
+
+  @override
+  State<PharmacyCard> createState() => _PharmacyCardState();
+}
+
+class _PharmacyCardState extends State<PharmacyCard> {
+  late bool isFavorite;
+
+  @override
+  void initState() {
+    super.initState();
+    isFavorite = widget.pharmacy.isFavorite;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +28,7 @@ class PharmacyCard extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: onTap,
+        onTap: widget.onTap,
         borderRadius: BorderRadius.circular(16),
         splashColor: colorScheme.primary.withValues(alpha: 0.12),
         highlightColor: colorScheme.primary.withValues(alpha: 0.08),
@@ -44,7 +57,7 @@ class PharmacyCard extends StatelessWidget {
                 ),
                 clipBehavior: Clip.antiAlias,
                 child: Image.network(
-                  pharmacy.imageUrl,
+                  widget.pharmacy.imageUrl,
                   fit: BoxFit.cover,
                   loadingBuilder: (context, child, loadingProgress) {
                     if (loadingProgress == null) return child;
@@ -78,7 +91,7 @@ class PharmacyCard extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            pharmacy.name,
+                            widget.pharmacy.name,
                             style: theme.textTheme.bodyMedium?.copyWith(
                               fontWeight: FontWeight.w700,
                               color: colorScheme.onSurface,
@@ -87,68 +100,6 @@ class PharmacyCard extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        // <<<<<<< HEAD
-
-                        // if (pharmacy.isOnDuty)
-                        //   Container(
-                        //     padding: const EdgeInsets.symmetric(
-                        //       horizontal: 8,
-                        //       vertical: 4,
-                        //     ),
-                        //     decoration: BoxDecoration(
-                        //       color: const Color(0xFF10B981).withOpacity(0.1),
-                        //       borderRadius: BorderRadius.circular(999),
-                        //     ),
-                        //     child: Row(
-                        //       children: [
-                        //         Icon(
-                        //           Icons.auto_awesome,
-                        //           size: 14,
-                        //           color: const Color(0xFF10B981),
-                        //         ),
-                        //         const SizedBox(width: 4),
-                        //         Text(
-                        //           'مناوبة',
-                        //           style: theme.textTheme.labelSmall?.copyWith(
-                        //             fontWeight: FontWeight.w700,
-                        //             color: const Color(0xFF10B981),
-                        //           ),
-                        //         ),
-                        //       ],
-                        //     ),
-                        //   ),
-                        // =======
-                        // if (pharmacy.isOnDuty)
-                        //   Container(
-                        //     padding: const EdgeInsets.symmetric(
-                        //       horizontal: 8,
-                        //       vertical: 4,
-                        //     ),
-                        //     decoration: BoxDecoration(
-                        //       color: const Color(
-                        //         0xFF10B981,
-                        //       ).withValues(alpha: 0.1),
-                        //       borderRadius: BorderRadius.circular(999),
-                        //     ),
-                        //     child: Row(
-                        //       children: [
-                        //         Icon(
-                        //           Icons.auto_awesome,
-                        //           size: 14,
-                        //           color: const Color(0xFF10B981),
-                        //         ),
-                        //         const SizedBox(width: 4),
-                        //         Text(
-                        //           'مناوبة',
-                        //           style: theme.textTheme.labelSmall?.copyWith(
-                        //             fontWeight: FontWeight.w700,
-                        //             color: const Color(0xFF10B981),
-                        //           ),
-                        //         ),
-                        //       ],
-                        //     ),
-                        //   ),
-                        // // >>>>>>> fcac4cbd139e09b86577e8dd75c3c8a2465412bc
                       ],
                     ),
                     const SizedBox(height: 8),
@@ -161,7 +112,7 @@ class PharmacyCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 6),
                         Text(
-                          pharmacy.distance,
+                          widget.pharmacy.distance,
                           style: theme.textTheme.labelSmall?.copyWith(
                             fontWeight: FontWeight.w600,
                             color: colorScheme.primary,
@@ -171,7 +122,7 @@ class PharmacyCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      pharmacy.address,
+                      widget.pharmacy.address,
                       style: theme.textTheme.labelSmall?.copyWith(
                         color: colorScheme.onSurfaceVariant,
                       ),
@@ -180,10 +131,14 @@ class PharmacyCard extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    isFavorite = !isFavorite;
+                  });
+                },
                 icon: Icon(
-                  pharmacy.isFavorite ? Icons.favorite : Icons.favorite_border,
-                  color: pharmacy.isFavorite
+                  isFavorite ? Icons.favorite : Icons.favorite_border,
+                  color: isFavorite
                       ? Colors.red
                       : colorScheme.onSurfaceVariant,
                 ),
