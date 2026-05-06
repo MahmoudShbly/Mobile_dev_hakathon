@@ -8,8 +8,6 @@ class HospitalList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
 
     return ListView.builder(
       itemCount: hospitals.length,
@@ -21,10 +19,10 @@ class HospitalList extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(24),
-            border: Border.all(color: const Color(0xFFE2E8F0).withOpacity(0.8)),
+            border: Border.all(color: const Color(0xFFE2E8F0).withValues(alpha: 0.8)),
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFF0040A1).withOpacity(0.08),
+                color: const Color(0xFF0040A1).withValues(alpha: 0.08),
                 blurRadius: 40,
                 offset: const Offset(0, 10),
               ),
@@ -75,7 +73,7 @@ class HospitalList extends StatelessWidget {
                     width: 56,
                     height: 56,
                     decoration: BoxDecoration(
-                      color: const Color(0xFF0040A1).withOpacity(0.05),
+                      color: const Color(0xFF0040A1).withValues(alpha: 0.05),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: const Icon(
@@ -133,7 +131,7 @@ class HospitalList extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  shadowColor: const Color(0xFF0040A1).withOpacity(0.2),
+                  shadowColor: const Color(0xFF0040A1).withValues(alpha: 0.2),
                   elevation: 8,
                 ),
                 child: const Text(

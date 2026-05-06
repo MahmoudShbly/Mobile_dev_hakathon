@@ -14,12 +14,12 @@ import 'package:mobile_dev_hakathon/feature/search/model/medicine_model.dart';
 import 'package:mobile_dev_hakathon/feature/search/model/hospital_model.dart';
 import 'package:mobile_dev_hakathon/feature/search/model/doctor_model.dart';
 import 'package:mobile_dev_hakathon/feature/search/presentation/screens/medicine_detail_screen.dart';
-// <<<<<<< HEAD
 import 'package:mobile_dev_hakathon/feature/search/presentation/screens/hospital_detail_screen.dart';
 import 'package:mobile_dev_hakathon/feature/search/presentation/screens/doctors_list_screen.dart';
-// =======
 import 'package:mobile_dev_hakathon/feature/profile/presentation/screens/edit_profile_screen.dart';
-// >>>>>>> fcac4cbd139e09b86577e8dd75c3c8a2465412bc
+import 'package:mobile_dev_hakathon/feature/map/presentation/screens/map_screen.dart';
+import 'package:mobile_dev_hakathon/feature/doctors/presentation/screens/doctors_screen.dart';
+import 'package:mobile_dev_hakathon/feature/profile/presentation/screens/favorites_screen.dart';
 
 class AppRouter {
   static Route? generateRoute(RouteSettings settings) {
@@ -41,12 +41,10 @@ class AppRouter {
       case Routes.verifyEmailScreen:
         return _slideRoute(const EmailVerificationScreen(), settings);
       case Routes.homeScreen:
-        return _fadeRoute(const MainScreen(), settings);
-      // <<<<<<< HEAD
-      // =======
+        final index = settings.arguments as int? ?? 3;
+        return _fadeRoute(MainScreen(initialIndex: index), settings);
       case Routes.editProfileScreen:
         return _slideRoute(const EditProfileScreen(), settings);
-      // >>>>>>> fcac4cbd139e09b86577e8dd75c3c8a2465412bc
       case Routes.pharmacyDetailScreen:
         final pharmacy = settings.arguments;
         if (pharmacy is Pharmacy) {
@@ -65,7 +63,6 @@ class AppRouter {
           );
         }
         return null;
-      // <<<<<<< HEAD
       case Routes.hospitalDetailScreen:
         final hospital = settings.arguments;
         if (hospital is Hospital) {
@@ -88,8 +85,19 @@ class AppRouter {
           );
         }
         return null;
-      // =======
-      // >>>>>>> fcac4cbd139e09b86577e8dd75c3c8a2465412bc
+      case Routes.mapScreen:
+        final mapArgs = settings.arguments as Map<String, dynamic>?;
+        return _slideRoute(
+          MapScreen(
+            initialLocation: mapArgs?['location'],
+            targetPharmacyName: mapArgs?['pharmacyName'],
+          ),
+          settings,
+        );
+      case Routes.doctorsScreen:
+        return _slideRoute(const DoctorsScreen(), settings);
+      case Routes.favoritesScreen:
+        return _slideRoute(const FavoritesScreen(), settings);
       default:
         return null;
     }

@@ -13,6 +13,9 @@ class Pharmacy {
   final String description;
   final String mapImageUrl;
 
+  final double? latitude;
+  final double? longitude;
+
   const Pharmacy({
     required this.name,
     required this.imageUrl,
@@ -29,6 +32,8 @@ class Pharmacy {
         'نحن في هذه الصيدلية نقدم أفضل خدمات الرعاية الصحية والمعلومات الدوائية مع فريق صيدلي متخصص متوفر دائماً.',
     this.mapImageUrl =
         'https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?auto=format&fit=crop&w=900&q=80',
+    this.latitude,
+    this.longitude,
   });
 }
 
@@ -41,6 +46,8 @@ final List<Pharmacy> pharmacies = [
     address: 'حي الروضة، شارع الأمير محمد بن عبدالعزيز، جدة',
     isOnDuty: true,
     services: ['توصيل منزلي', 'دفع إلكتروني', 'فحص سكري', 'قياس ضغط'],
+    latitude: 21.5433,
+    longitude: 39.1728,
   ),
   const Pharmacy(
     name: 'صيدلية المجتمع الرئيسية',
@@ -50,6 +57,8 @@ final List<Pharmacy> pharmacies = [
     address: 'شارع التحلية، بجانب مستشفى التخصصي، جدة',
     isOnDuty: true,
     services: ['توصيل منزلي', 'دفع إلكتروني', 'فحص سكري', 'قياس ضغط'],
+    latitude: 21.5500,
+    longitude: 39.1800,
   ),
   const Pharmacy(
     name: 'صيدلية الدواء المتميزة',
@@ -59,6 +68,8 @@ final List<Pharmacy> pharmacies = [
     address: 'حي السلامة، طريق المدينة المنورة، جدة',
     isOnDuty: true,
     services: ['توصيل منزلي', 'دفع إلكتروني', 'فحص سكري', 'قياس ضغط'],
+    latitude: 21.5800,
+    longitude: 39.1600,
   ),
   const Pharmacy(
     name: 'صيدلية وايتس',
@@ -68,5 +79,7 @@ final List<Pharmacy> pharmacies = [
     address: 'شارع صاري، تقاطع طريق الملك، جدة',
     isOnDuty: true,
     services: ['توصيل منزلي', 'دفع إلكتروني', 'فحص سكري', 'قياس ضغط'],
+    latitude: 21.5900,
+    longitude: 39.1500,
   ),
 ];

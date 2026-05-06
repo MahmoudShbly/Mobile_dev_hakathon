@@ -17,6 +17,9 @@ class Routes {
   // <<<<<<< HEAD
   static const String pharmacyDetailScreen = '/pharmacy-detail';
   static const String medicineDetailScreen = '/medicine-detail';
+  static const String mapScreen = '/map';
+  static const String doctorsScreen = '/doctors';
+  static const String favoritesScreen = '/favorites';
 
   // Hospital & Doctor Routes
   static const String hospitalDetailScreen = '/hospital-detail';

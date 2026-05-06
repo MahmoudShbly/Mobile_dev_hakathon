@@ -2,21 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:mobile_dev_hakathon/feature/pharmacy_shifts/presentation/screens/pharmacy_shifts_screen.dart';
 import 'package:mobile_dev_hakathon/feature/profile/presentation/screens/profile_screen.dart';
 import 'package:mobile_dev_hakathon/feature/search/presentation/screens/search_screen.dart';
-import 'package:mobile_dev_hakathon/feature/trainings/presentation/screens/trainings_screen.dart';
+import 'package:mobile_dev_hakathon/feature/map/presentation/screens/map_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+  final int initialIndex;
+  const MainScreen({super.key, this.initialIndex = 3});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _selectedIndex = 3;
+  late int _selectedIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.initialIndex;
+  }
 
   static const List<Widget> _screens = <Widget>[
     ProfileScreen(),
-    TrainingsScreen(),
+    MapScreen(),
     PharmacyShiftsScreen(),
     SearchScreen(),
   ];
@@ -42,7 +49,7 @@ class _MainScreenState extends State<MainScreen> {
             children: [
               CircleAvatar(
                 radius: 18,
-                backgroundColor: colorScheme.primary.withOpacity(0.1),
+                backgroundColor: colorScheme.primary.withValues(alpha: 0.1),
                 child: Icon(Icons.person, size: 20, color: colorScheme.primary),
               ),
               const SizedBox(width: 8),
@@ -87,12 +94,12 @@ class _MainScreenState extends State<MainScreen> {
         child: Row(
           textDirection: TextDirection.rtl,
           children: [
-            Expanded(child: _buildNavItem(0, Icons.person, 'حسابي')),
-            Expanded(child: _buildNavItem(1, Icons.school, 'تدريب')),
+            Expanded(child: _buildNavItem(0, Icons.person_outline, 'حسابي')),
+            Expanded(child: _buildNavItem(1, Icons.map_outlined, 'الخريطة')),
             Expanded(
-              child: _buildNavItem(2, Icons.medical_services, 'المناوبة'),
+              child: _buildNavItem(2, Icons.medical_services_outlined, 'المناوبة'),
             ),
-            Expanded(child: _buildNavItem(3, Icons.search, 'بحث')),
+            Expanded(child: _buildNavItem(3, Icons.home_outlined, 'الرئيسية')),
           ],
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+// تم تحديث اسم الملف إلى my_app.dart
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/route/app_router.dart';
