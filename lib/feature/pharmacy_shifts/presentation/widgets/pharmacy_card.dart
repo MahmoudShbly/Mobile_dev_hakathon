@@ -118,37 +118,37 @@ class PharmacyCard extends StatelessWidget {
                         //     ),
                         //   ),
                         // =======
-                        if (pharmacy.isOnDuty)
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: const Color(
-                                0xFF10B981,
-                              ).withValues(alpha: 0.1),
-                              borderRadius: BorderRadius.circular(999),
-                            ),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.auto_awesome,
-                                  size: 14,
-                                  color: const Color(0xFF10B981),
-                                ),
-                                const SizedBox(width: 4),
-                                Text(
-                                  'مناوبة',
-                                  style: theme.textTheme.labelSmall?.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                    color: const Color(0xFF10B981),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        // >>>>>>> fcac4cbd139e09b86577e8dd75c3c8a2465412bc
+                        // if (pharmacy.isOnDuty)
+                        //   Container(
+                        //     padding: const EdgeInsets.symmetric(
+                        //       horizontal: 8,
+                        //       vertical: 4,
+                        //     ),
+                        //     decoration: BoxDecoration(
+                        //       color: const Color(
+                        //         0xFF10B981,
+                        //       ).withValues(alpha: 0.1),
+                        //       borderRadius: BorderRadius.circular(999),
+                        //     ),
+                        //     child: Row(
+                        //       children: [
+                        //         Icon(
+                        //           Icons.auto_awesome,
+                        //           size: 14,
+                        //           color: const Color(0xFF10B981),
+                        //         ),
+                        //         const SizedBox(width: 4),
+                        //         Text(
+                        //           'مناوبة',
+                        //           style: theme.textTheme.labelSmall?.copyWith(
+                        //             fontWeight: FontWeight.w700,
+                        //             color: const Color(0xFF10B981),
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // // >>>>>>> fcac4cbd139e09b86577e8dd75c3c8a2465412bc
                       ],
                     ),
                     const SizedBox(height: 8),

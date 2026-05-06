@@ -1,21 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_dev_hakathon/core/models/pharmacy.dart';
 import 'package:mobile_dev_hakathon/core/route/routes.dart';
-import 'package:mobile_dev_hakathon/feature/auth/email_verification_screen.dart';
-import 'package:mobile_dev_hakathon/feature/auth/forgot_password_screen.dart';
-import 'package:mobile_dev_hakathon/feature/auth/login_screen.dart';
-import 'package:mobile_dev_hakathon/feature/auth/register_screen.dart';
-import 'package:mobile_dev_hakathon/feature/auth/reset_password_screen.dart';
+import 'package:mobile_dev_hakathon/feature/auth/presentation/screens/email_verification_screen.dart';
+import 'package:mobile_dev_hakathon/feature/auth/presentation/screens/forgot_password_screen.dart';
+import 'package:mobile_dev_hakathon/feature/auth/presentation/screens/login_screen.dart';
+import 'package:mobile_dev_hakathon/feature/auth/presentation/screens/register_screen.dart';
+import 'package:mobile_dev_hakathon/feature/auth/presentation/screens/reset_password_screen.dart';
 import 'package:mobile_dev_hakathon/feature/main/main_screen.dart';
 import 'package:mobile_dev_hakathon/feature/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:mobile_dev_hakathon/feature/startup/startup_error_screen.dart';
-import 'package:mobile_dev_hakathon/feature/pharmacy_shifts/model/pharmacy_model.dart';
+import 'package:mobile_dev_hakathon/feature/pharmacy_shifts/model/pharmacy_model.dart'
+    as shift_pharmacy;
 import 'package:mobile_dev_hakathon/feature/pharmacy_shifts/presentation/screens/pharmacy_detail_screen.dart';
 import 'package:mobile_dev_hakathon/feature/search/model/medicine_model.dart';
 import 'package:mobile_dev_hakathon/feature/search/model/hospital_model.dart';
 import 'package:mobile_dev_hakathon/feature/search/model/doctor_model.dart';
 import 'package:mobile_dev_hakathon/feature/search/presentation/screens/medicine_detail_screen.dart';
 import 'package:mobile_dev_hakathon/feature/search/presentation/screens/hospital_detail_screen.dart';
+import 'package:mobile_dev_hakathon/feature/search/presentation/screens/doctor_detail_screen.dart';
 import 'package:mobile_dev_hakathon/feature/search/presentation/screens/doctors_list_screen.dart';
+<<<<<<< HEAD
+=======
+import 'package:mobile_dev_hakathon/feature/report/presentation/screens/report_screen.dart';
+import 'package:mobile_dev_hakathon/feature/trainings/presentation/screens/opportunity_detail_screen.dart';
+>>>>>>> 81fa06a8be69707ef4de658aa9736ab496ca50a1
 import 'package:mobile_dev_hakathon/feature/profile/presentation/screens/edit_profile_screen.dart';
 import 'package:mobile_dev_hakathon/feature/map/presentation/screens/map_screen.dart';
 import 'package:mobile_dev_hakathon/feature/doctors/presentation/screens/doctors_screen.dart';
@@ -47,7 +55,7 @@ class AppRouter {
         return _slideRoute(const EditProfileScreen(), settings);
       case Routes.pharmacyDetailScreen:
         final pharmacy = settings.arguments;
-        if (pharmacy is Pharmacy) {
+        if (pharmacy is shift_pharmacy.Pharmacy) {
           return _slideRoute(
             PharmacyDetailScreen(pharmacy: pharmacy),
             settings,
@@ -72,6 +80,12 @@ class AppRouter {
           );
         }
         return null;
+      case Routes.doctorDetailScreen:
+        final doctor = settings.arguments;
+        if (doctor is Doctor) {
+          return _slideRoute(DoctorDetailScreen(doctor: doctor), settings);
+        }
+        return null;
       case Routes.doctorsListScreen:
         final args = settings.arguments as Map<String, dynamic>?;
         if (args != null) {
@@ -85,12 +99,33 @@ class AppRouter {
           );
         }
         return null;
+<<<<<<< HEAD
       case Routes.mapScreen:
         final mapArgs = settings.arguments as Map<String, dynamic>?;
         return _slideRoute(
           MapScreen(
             initialLocation: mapArgs?['location'],
             targetPharmacyName: mapArgs?['pharmacyName'],
+=======
+      case Routes.opportunityDetailScreen:
+        final pharmacy = settings.arguments;
+        if (pharmacy is Pharmacy) {
+          return _slideRoute(
+            OpportunityDetailScreen(pharmacy: pharmacy),
+            settings,
+          );
+        }
+        return null;
+      case Routes.reportScreen:
+        return _slideRoute(const ReportScreen(), settings);
+      // =======
+      case Routes.mapScreen:
+        final args = settings.arguments as Map<String, dynamic>?;
+        return _slideRoute(
+          MapScreen(
+            initialLocation: args?['location'],
+            targetPharmacyName: args?['pharmacyName'],
+>>>>>>> 81fa06a8be69707ef4de658aa9736ab496ca50a1
           ),
           settings,
         );
@@ -98,6 +133,10 @@ class AppRouter {
         return _slideRoute(const DoctorsScreen(), settings);
       case Routes.favoritesScreen:
         return _slideRoute(const FavoritesScreen(), settings);
+<<<<<<< HEAD
+=======
+      // >>>>>>> 7e3a522efadd6697fa381efcecdfcd323076b326
+>>>>>>> 81fa06a8be69707ef4de658aa9736ab496ca50a1
       default:
         return null;
     }

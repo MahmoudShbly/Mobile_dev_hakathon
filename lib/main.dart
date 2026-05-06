@@ -24,7 +24,12 @@ void main() async {
   // التحقق من حالة Onboarding
   bool isOnboardingCompleted = false;
   try {
+<<<<<<< HEAD
     isOnboardingCompleted = await SharedPreferencesHelper.isOnboardingCompleted();
+=======
+    isOnboardingCompleted =
+        await SharedPreferencesHelper.isOnboardingCompleted();
+>>>>>>> 81fa06a8be69707ef4de658aa9736ab496ca50a1
   } catch (e) {
     debugPrint('SharedPreferences error: $e');
   }
@@ -44,6 +49,10 @@ void main() async {
   } else {
     initialRoute = Routes.homeScreen;
   }
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 81fa06a8be69707ef4de658aa9736ab496ca50a1
   runApp(MyApp(initialRoute: initialRoute));
 }

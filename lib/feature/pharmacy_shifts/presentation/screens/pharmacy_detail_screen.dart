@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_dev_hakathon/core/route/routes.dart';
 import 'package:mobile_dev_hakathon/feature/pharmacy_shifts/model/pharmacy_model.dart';
+<<<<<<< HEAD
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:latlong2/latlong.dart';
+=======
+// <<<<<<< HEAD
+import 'package:mobile_dev_hakathon/feature/trainings/presentation/screens/application_form_screen.dart';
+// =======
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:latlong2/latlong.dart';
+// >>>>>>> 7e3a522efadd6697fa381efcecdfcd323076b326
+>>>>>>> 81fa06a8be69707ef4de658aa9736ab496ca50a1
 
 class PharmacyDetailScreen extends StatelessWidget {
   final Pharmacy pharmacy;
@@ -33,7 +43,14 @@ class PharmacyDetailScreen extends StatelessWidget {
           IconButton(
             onPressed: () {
               SharePlus.instance.share(
+<<<<<<< HEAD
                 ShareParams(text: 'صيدلية: ${pharmacy.name}\nالعنوان: ${pharmacy.address}\nتمت المشاركة من تطبيق الرعاية الطبية'),
+=======
+                ShareParams(
+                  text:
+                      'صيدلية: ${pharmacy.name}\nالعنوان: ${pharmacy.address}\nتمت المشاركة من تطبيق الرعاية الطبية',
+                ),
+>>>>>>> 81fa06a8be69707ef4de658aa9736ab496ca50a1
               );
             },
             icon: Icon(Icons.share, color: colorScheme.onSurfaceVariant),
@@ -217,12 +234,20 @@ class PharmacyDetailScreen extends StatelessWidget {
                                     colorScheme: colorScheme,
                                     onTap: () {
                                       SharePlus.instance.share(
+<<<<<<< HEAD
                                         ShareParams(text: 'صيدلية: ${pharmacy.name}\nالعنوان: ${pharmacy.address}\nتمت المشاركة من تطبيق الرعاية الطبية'),
+=======
+                                        ShareParams(
+                                          text:
+                                              'صيدلية: ${pharmacy.name}\nالعنوان: ${pharmacy.address}\nتمت المشاركة من تطبيق الرعاية الطبية',
+                                        ),
+>>>>>>> 81fa06a8be69707ef4de658aa9736ab496ca50a1
                                       );
                                     },
                                   ),
                                 ],
                               ),
+                              const SizedBox(height: 20),
                             ],
                           ),
                         ),
@@ -406,18 +431,33 @@ class PharmacyDetailScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        color: colorScheme.surface,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        child: ElevatedButton.icon(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: colorScheme.primary,
-            foregroundColor: colorScheme.onPrimary,
-            minimumSize: const Size.fromHeight(56),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            color: colorScheme.surface,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            child: ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: colorScheme.primary,
+                foregroundColor: colorScheme.onPrimary,
+                minimumSize: const Size.fromHeight(56),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ApplicationFormScreen(),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.chat_bubble),
+              label: const Text('تواصل'),
             ),
           ),
+<<<<<<< HEAD
           onPressed: () async {
             final Uri launchUri = Uri(
               scheme: 'tel',
@@ -430,6 +470,12 @@ class PharmacyDetailScreen extends StatelessWidget {
           icon: const Icon(Icons.chat_bubble),
           label: const Text('تواصل'),
         ),
+=======
+          SizedBox(
+            height: 12,
+          )
+        ],
+>>>>>>> 81fa06a8be69707ef4de658aa9736ab496ca50a1
       ),
     );
   }
@@ -520,6 +566,10 @@ class _DetailActionButton extends StatelessWidget {
                 fontWeight: FontWeight.w700,
               ),
             ),
+<<<<<<< HEAD
+=======
+            const SizedBox(height: 20),
+>>>>>>> 81fa06a8be69707ef4de658aa9736ab496ca50a1
           ],
         ),
       ),

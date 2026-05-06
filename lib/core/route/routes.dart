@@ -14,18 +14,28 @@ class Routes {
 
   // Home
   static const String homeScreen = '/home';
-  // <<<<<<< HEAD
   static const String pharmacyDetailScreen = '/pharmacy-detail';
   static const String medicineDetailScreen = '/medicine-detail';
+<<<<<<< HEAD
   static const String mapScreen = '/map';
   static const String doctorsScreen = '/doctors';
   static const String favoritesScreen = '/favorites';
 
   // Hospital & Doctor Routes
+=======
+  // <<<<<<< HEAD
+>>>>>>> 81fa06a8be69707ef4de658aa9736ab496ca50a1
   static const String hospitalDetailScreen = '/hospital-detail';
+  static const String doctorDetailScreen = '/doctor-detail';
   static const String doctorsListScreen = '/doctors-list';
-  // =======
+  static const String opportunityDetailScreen = '/opportunity-detail';
+  static const String applicationFormScreen = '/application-form';
+  static const String reportScreen = '/report';
   static const String editProfileScreen = '/editProfile';
+  // =======
+  static const String mapScreen = '/map';
+  static const String doctorsScreen = '/doctors';
+  static const String favoritesScreen = '/favorites';
 
-  // >>>>>>> fcac4cbd139e09b86577e8dd75c3c8a2465412bc
+  // >>>>>>> 7e3a522efadd6697fa381efcecdfcd323076b326
 }
