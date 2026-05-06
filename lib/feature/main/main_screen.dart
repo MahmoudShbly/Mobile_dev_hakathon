@@ -11,7 +11,7 @@ import 'package:mobile_dev_hakathon/feature/trainings/presentation/screens/train
 
 class MainScreen extends StatefulWidget {
   final int initialIndex;
-  const MainScreen({super.key, this.initialIndex = 3});
+  const MainScreen({super.key, this.initialIndex = 1});
 
   @override
   State<MainScreen> createState() => _MainScreenState();

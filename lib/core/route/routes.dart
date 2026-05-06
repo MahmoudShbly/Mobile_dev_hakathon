@@ -6,6 +6,7 @@ class Routes {
   static const String onboardingScreen = '/onboarding';
 
   // Auth Routes
+  static const String accountTypeSelectionScreen = '/account-type-selection';
   static const String loginScreen = '/login';
   static const String registerScreen = '/register';
   static const String forgotPasswordScreen = '/forgotPassword';
@@ -28,4 +29,10 @@ class Routes {
   static const String applicationFormScreen = '/application-form';
   static const String reportScreen = '/report';
   static const String editProfileScreen = '/editProfile';
+
+  // Pharmacist Routes
+  static const String pharmacistDashboardScreen = '/pharmacist-dashboard';
+  static const String pharmacistReportsScreen = '/pharmacist-reports';
+  static const String pharmacistInventoryScreen = '/pharmacist-inventory';
+  static const String pharmacistDetailScreen = '/pharmacist-detail';
 }

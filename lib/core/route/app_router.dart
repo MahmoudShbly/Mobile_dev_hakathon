@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_dev_hakathon/core/models/pharmacy.dart';
 import 'package:mobile_dev_hakathon/core/route/routes.dart';
+import 'package:mobile_dev_hakathon/feature/auth/presentation/screens/account_type_selection_screen.dart';
 import 'package:mobile_dev_hakathon/feature/auth/presentation/screens/email_verification_screen.dart';
 import 'package:mobile_dev_hakathon/feature/auth/presentation/screens/forgot_password_screen.dart';
 import 'package:mobile_dev_hakathon/feature/auth/presentation/screens/login_screen.dart';
@@ -27,6 +28,10 @@ import 'package:mobile_dev_hakathon/feature/profile/presentation/screens/edit_pr
 import 'package:mobile_dev_hakathon/feature/map/presentation/screens/map_screen.dart';
 import 'package:mobile_dev_hakathon/feature/doctors/presentation/screens/doctors_screen.dart';
 import 'package:mobile_dev_hakathon/feature/profile/presentation/screens/favorites_screen.dart';
+import 'package:mobile_dev_hakathon/feature/pharmacist/presentation/screens/pharmacist_dashboard_screen.dart';
+import 'package:mobile_dev_hakathon/feature/pharmacist/presentation/screens/pharmacist_reports_screen.dart';
+import 'package:mobile_dev_hakathon/feature/pharmacist/presentation/screens/pharmacist_inventory_screen.dart';
+import 'package:mobile_dev_hakathon/feature/pharmacist/presentation/screens/pharmacist_detail_screen.dart';
 
 class AppRouter {
   static Route? generateRoute(RouteSettings settings) {
@@ -37,6 +42,8 @@ class AppRouter {
         return _fadeRoute(const StartupErrorScreen(), settings);
       case Routes.onboardingScreen:
         return _fadeRoute(const OnboardingScreen(), settings);
+      case Routes.accountTypeSelectionScreen:
+        return _fadeRoute(const AccountTypeSelectionScreen(), settings);
       case Routes.loginScreen:
         return _slideRoute(const LoginScreen(), settings);
       case Routes.registerScreen:
@@ -123,6 +130,14 @@ class AppRouter {
           );
         }
         return null;
+      case Routes.pharmacistDashboardScreen:
+        return _slideRoute(const PharmacistDashboardScreen(), settings);
+      case Routes.pharmacistReportsScreen:
+        return _slideRoute(const PharmacistReportsScreen(), settings);
+      case Routes.pharmacistInventoryScreen:
+        return _slideRoute(const PharmacistInventoryScreen(), settings);
+      case Routes.pharmacistDetailScreen:
+        return _slideRoute(const PharmacistDetailScreen(), settings);
 
       default:
         return null;

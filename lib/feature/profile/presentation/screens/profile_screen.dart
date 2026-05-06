@@ -115,6 +115,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   SizedBox(height: 16.h),
                   _buildMenuItem(
+                    icon: Icons.dashboard,
+                    title: 'لوحة تحكم الصيدلي',
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        Routes.pharmacistDashboardScreen,
+                      );
+                    },
+                  ),
+                  SizedBox(height: 16.h),
+                  _buildMenuItem(
                     icon: Icons.help_outline,
                     title: 'حول التطبيق',
                     onTap: () {
