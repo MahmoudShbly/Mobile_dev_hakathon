@@ -14,10 +14,10 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final _nameController = TextEditingController();
-  final _phoneController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  final _phoneController = TextEditingController(); // اختياري الآن
   final _authService = AuthService();
   bool _agreeToTerms = false;
   bool _isLoading = false;
@@ -26,17 +26,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   void dispose() {
     _nameController.dispose();
-    _phoneController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
+    _phoneController.dispose();
     super.dispose();
   }
 
   void _handleSignUp() async {
-    if (_nameController.text.isEmpty || _phoneController.text.isEmpty || _passwordController.text.isEmpty) {
+    if (_nameController.text.isEmpty || _emailController.text.isEmpty || _passwordController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('يرجى ملء جميع الحقول المطلوبة')),
+        const SnackBar(content: Text('يرجى ملء جميع الحقول المطلوبة (الاسم، البريد، كلمة المرور)')),
       );
       return;
     }
@@ -59,10 +59,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
     try {
       final user = await _authService.signUp(
         name: _nameController.text,
-        phone: _phoneController.text,
         email: _emailController.text,
         password: _passwordController.text,
       );
+      
       if (!mounted) return;
       setState(() => _isLoading = false);
 
@@ -75,11 +75,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
       String message = 'فشل إنشاء الحساب. يرجى المحاولة لاحقاً.';
       
       if (e.toString().contains('email-already-in-use')) {
-        message = 'رقم الهاتف هذا مسجل مسبقاً.';
+        message = 'البريد الإلكتروني مسجل مسبقاً.';
       } else if (e.toString().contains('weak-password')) {
         message = 'كلمة المرور ضعيفة جداً.';
-      } else if (e.toString().contains('invalid-email')) {
-        message = 'البيانات المدخلة غير صحيحة.';
       }
       
       ScaffoldMessenger.of(context).showSnackBar(
@@ -88,9 +86,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
-  // ══════════════════════════════════════════════
-  // إنشاء حساب بواسطة Google
-  // ══════════════════════════════════════════════
   void _handleGoogleSignUp() async {
     setState(() => _isGoogleLoading = true);
     try {
@@ -125,7 +120,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Column(
             children: [
               SizedBox(height: 30.h),
-              // App Logo
               Column(
                 children: [
                   Text(
@@ -144,7 +138,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ],
               ),
               SizedBox(height: 40.h),
-              // Register Card
               Container(
                 padding: EdgeInsets.all(24.w),
                 decoration: BoxDecoration(
@@ -178,15 +171,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                     SizedBox(height: 24.h),
-                    // ═══════════════════════════════════════
-                    // زر إنشاء حساب بواسطة Google (في الأعلى)
-                    // ═══════════════════════════════════════
                     _GoogleSignUpButton(
                       isLoading: _isGoogleLoading,
                       onPressed: _handleGoogleSignUp,
                     ),
                     SizedBox(height: 20.h),
-                    // فاصل "أو"
                     Row(
                       children: [
                         Expanded(
@@ -222,17 +211,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     SizedBox(height: 16.h),
                     CustomTextField(
-                      hintText: 'رقم الجوال',
-                      suffixIcon: Icons.phone_android_outlined,
-                      controller: _phoneController,
-                      keyboardType: TextInputType.phone,
-                    ),
-                    SizedBox(height: 16.h),
-                    CustomTextField(
-                      hintText: 'البريد الإلكتروني (اختياري)',
+                      hintText: 'البريد الإلكتروني',
                       suffixIcon: Icons.email_outlined,
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
+                    ),
+                    SizedBox(height: 16.h),
+                    CustomTextField(
+                      hintText: 'رقم الجوال (اختياري)',
+                      suffixIcon: Icons.phone_android_outlined,
+                      controller: _phoneController,
+                      keyboardType: TextInputType.phone,
                     ),
                     SizedBox(height: 16.h),
                     CustomTextField(
@@ -317,9 +306,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 }
 
-// ═══════════════════════════════════════════════════
-// ويدجت زر Google Sign-Up - تصميم احترافي
-// ═══════════════════════════════════════════════════
 class _GoogleSignUpButton extends StatefulWidget {
   final bool isLoading;
   final VoidCallback onPressed;
@@ -415,7 +401,6 @@ class _GoogleSignUpButtonState extends State<_GoogleSignUpButton>
                           ),
                         ),
                         SizedBox(width: 12.w),
-                        // أيقونة Google بالألوان الرسمية
                         SizedBox(
                           width: 24.w,
                           height: 24.w,
@@ -433,9 +418,6 @@ class _GoogleSignUpButtonState extends State<_GoogleSignUpButton>
   }
 }
 
-// ═══════════════════════════════════════════════════
-// رسم شعار Google بالألوان الرسمية
-// ═══════════════════════════════════════════════════
 class _GoogleLogoPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
@@ -445,7 +427,6 @@ class _GoogleLogoPainter extends CustomPainter {
     final double cy = h / 2;
     final double r = w * 0.45;
 
-    // الألوان الرسمية لـ Google
     const blue = Color(0xFF4285F4);
     const red = Color(0xFFEA4335);
     const yellow = Color(0xFFFBBC05);
@@ -456,7 +437,6 @@ class _GoogleLogoPainter extends CustomPainter {
       ..strokeWidth = w * 0.18
       ..strokeCap = StrokeCap.butt;
 
-    // رسم القوس الأزرق (يمين - أعلى)
     paint.color = blue;
     canvas.drawArc(
       Rect.fromCircle(center: Offset(cx, cy), radius: r),
@@ -466,7 +446,6 @@ class _GoogleLogoPainter extends CustomPainter {
       paint,
     );
 
-    // رسم القوس الأحمر (أعلى - يسار)
     paint.color = red;
     canvas.drawArc(
       Rect.fromCircle(center: Offset(cx, cy), radius: r),
@@ -476,7 +455,6 @@ class _GoogleLogoPainter extends CustomPainter {
       paint,
     );
 
-    // رسم القوس الأصفر (يسار - أسفل)
     paint.color = yellow;
     canvas.drawArc(
       Rect.fromCircle(center: Offset(cx, cy), radius: r),
@@ -486,7 +464,6 @@ class _GoogleLogoPainter extends CustomPainter {
       paint,
     );
 
-    // رسم القوس الأخضر (أسفل - يمين)
     paint.color = green;
     canvas.drawArc(
       Rect.fromCircle(center: Offset(cx, cy), radius: r),
@@ -496,7 +473,6 @@ class _GoogleLogoPainter extends CustomPainter {
       paint,
     );
 
-    // الخط الأفقي الأزرق (يمين "G")
     final linePaint = Paint()
       ..color = blue
       ..style = PaintingStyle.fill;

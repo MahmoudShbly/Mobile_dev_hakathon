@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_dev_hakathon/core/route/routes.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile_dev_hakathon/feature/search/model/hospital_model.dart';
 
 class HospitalList extends StatelessWidget {
@@ -9,29 +9,26 @@ class HospitalList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-=======
     final theme = Theme.of(context);
-    // final colorScheme = theme.colorScheme;
->>>>>>> 81fa06a8be69707ef4de658aa9736ab496ca50a1
 
     return ListView.builder(
       itemCount: hospitals.length,
+      padding: EdgeInsets.only(bottom: 24.h),
+      physics: const BouncingScrollPhysics(),
       itemBuilder: (context, index) {
         final hospital = hospitals[index];
-<<<<<<< HEAD
         return Container(
-          margin: const EdgeInsets.only(bottom: 16),
-          padding: const EdgeInsets.all(24),
+          margin: EdgeInsets.only(bottom: 16.h),
+          padding: EdgeInsets.all(20.w),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(24),
+            borderRadius: BorderRadius.circular(24.r),
             border: Border.all(color: const Color(0xFFE2E8F0).withValues(alpha: 0.8)),
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFF0040A1).withValues(alpha: 0.08),
-                blurRadius: 40,
-                offset: const Offset(0, 10),
+                color: Colors.black.withValues(alpha: 0.04),
+                blurRadius: 20,
+                offset: const Offset(0, 4),
               ),
             ],
           ),
@@ -39,36 +36,47 @@ class HospitalList extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Container(
+                    padding: EdgeInsets.all(12.w),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF1F5F9),
+                      borderRadius: BorderRadius.circular(16.r),
+                    ),
+                    child: Icon(
+                      Icons.local_hospital,
+                      color: const Color(0xFF0040A1),
+                      size: 28.sp,
+                    ),
+                  ),
+                  SizedBox(width: 16.w),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           hospital.name,
-                          style: const TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xFF0040A1),
-                            fontFamily: 'Manrope',
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w800,
+                            color: const Color(0xFF1E293B),
+                            fontSize: 16.sp,
                           ),
                         ),
-                        const SizedBox(height: 4),
+                        SizedBox(height: 6.h),
                         Row(
                           children: [
-                            const Icon(
-                              Icons.location_on,
-                              size: 18,
-                              color: Color(0xFF424654),
-                            ),
-                            const SizedBox(width: 4),
-                            Text(
-                              hospital.location,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: Color(0xFF424654),
-                                fontFamily: 'Manrope',
+                            Icon(Icons.location_on, size: 14.sp, color: const Color(0xFF64748B)),
+                            SizedBox(width: 4.w),
+                            Expanded(
+                              child: Text(
+                                hospital.location,
+                                style: theme.textTheme.bodySmall?.copyWith(
+                                  color: const Color(0xFF64748B),
+                                  fontSize: 13.sp,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
                           ],
@@ -76,192 +84,83 @@ class HospitalList extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(
-                    width: 56,
-                    height: 56,
+                ],
+              ),
+              SizedBox(height: 16.h),
+              const Divider(height: 1, color: Color(0xFFF1F5F9)),
+              SizedBox(height: 16.h),
+              Text(
+                'الأقسام المتاحة:',
+                style: theme.textTheme.labelSmall?.copyWith(
+                  fontWeight: FontWeight.w700,
+                  color: const Color(0xFF475569),
+                  fontSize: 12.sp,
+                ),
+              ),
+              SizedBox(height: 8.h),
+              Wrap(
+                spacing: 8.w,
+                runSpacing: 8.h,
+                children: hospital.specialties.map((specialty) {
+                  return Container(
+                    padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF0040A1).withValues(alpha: 0.05),
-                      borderRadius: BorderRadius.circular(12),
+                      color: const Color(0xFFE0E7FF).withValues(alpha: 0.5),
+                      borderRadius: BorderRadius.circular(8.r),
                     ),
-                    child: const Icon(
-                      Icons.medical_services,
-                      size: 32,
-                      color: Color(0xFF0040A1),
+                    child: Text(
+                      specialty,
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        color: const Color(0xFF4338CA),
+                        fontWeight: FontWeight.w600,
+                        fontSize: 11.sp,
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+              SizedBox(height: 16.h),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF0040A1),
+                        foregroundColor: Colors.white,
+                        elevation: 0,
+                        padding: EdgeInsets.symmetric(vertical: 12.h),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.r),
+                        ),
+                      ),
+                      child: Text(
+                        'عرض الأطباء',
+                        style: TextStyle(
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 12.w),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF1F5F9),
+                      borderRadius: BorderRadius.circular(12.r),
+                    ),
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.directions_outlined,
+                        color: const Color(0xFF0040A1),
+                        size: 20.sp,
+                      ),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
-              const Text(
-                'التخصصات المتاحة',
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF737785),
-                  fontFamily: 'Manrope',
-                  letterSpacing: 1.2,
-=======
-        return GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(
-              context,
-              Routes.hospitalDetailScreen,
-              arguments: hospital,
-            );
-          },
-          child: Container(
-            margin: const EdgeInsets.only(bottom: 16),
-            padding: const EdgeInsets.all(24),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(24),
-              border: Border.all(
-                color: const Color(0xFFE2E8F0).withOpacity(0.8),
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0xFF0040A1).withOpacity(0.08),
-                  blurRadius: 40,
-                  offset: const Offset(0, 10),
->>>>>>> 81fa06a8be69707ef4de658aa9736ab496ca50a1
-                ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            hospital.name,
-                            style: const TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF0040A1),
-                              fontFamily: 'Manrope',
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.location_on,
-                                size: 18,
-                                color: Color(0xFF424654),
-                              ),
-                              const SizedBox(width: 4),
-                              Text(
-                                hospital.location,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Color(0xFF424654),
-                                  fontFamily: 'Manrope',
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-<<<<<<< HEAD
-                  );
-                }).toList(),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF0040A1),
-                  foregroundColor: Colors.white,
-                  minimumSize: const Size(double.infinity, 56),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  shadowColor: const Color(0xFF0040A1).withValues(alpha: 0.2),
-                  elevation: 8,
-=======
-                    Container(
-                      width: 56,
-                      height: 56,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF0040A1).withOpacity(0.05),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Icon(
-                        Icons.medical_services,
-                        size: 32,
-                        color: Color(0xFF0040A1),
-                      ),
-                    ),
-                  ],
->>>>>>> 81fa06a8be69707ef4de658aa9736ab496ca50a1
-                ),
-                const SizedBox(height: 20),
-                const Text(
-                  'التخصصات المتاحة',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFF737785),
-                    fontFamily: 'Manrope',
-                    letterSpacing: 1.2,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: hospital.specialties.map((specialty) {
-                    return Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFE7E7F2),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        specialty,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xFF191B23),
-                          fontFamily: 'Manrope',
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF0040A1),
-                    foregroundColor: Colors.white,
-                    minimumSize: const Size(double.infinity, 56),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    shadowColor: const Color(0xFF0040A1).withOpacity(0.2),
-                    elevation: 8,
-                  ),
-                  child: const Text(
-                    'عرض التفاصيل',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'Manrope',
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            ],
           ),
         );
       },
