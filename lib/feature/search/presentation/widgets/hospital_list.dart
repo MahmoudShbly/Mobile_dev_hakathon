@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile_dev_hakathon/core/route/routes.dart';
 import 'package:mobile_dev_hakathon/feature/search/model/hospital_model.dart';
 
@@ -10,7 +11,7 @@ class HospitalList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    // final colorScheme = theme.colorScheme;
+    final colorScheme = theme.colorScheme;
 
     return ListView.builder(
       itemCount: hospitals.length,
@@ -26,16 +27,14 @@ class HospitalList extends StatelessWidget {
           },
           child: Container(
             margin: const EdgeInsets.only(bottom: 16),
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: colorScheme.onPrimary,
               borderRadius: BorderRadius.circular(24),
-              border: Border.all(
-                color: const Color(0xFFE2E8F0).withOpacity(0.8),
-              ),
+              border: Border.all(color: colorScheme.outline.withOpacity(0.3)),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFF0040A1).withOpacity(0.08),
+                  color: colorScheme.primary.withOpacity(0.08),
                   blurRadius: 40,
                   offset: const Offset(0, 10),
                 ),
@@ -53,28 +52,28 @@ class HospitalList extends StatelessWidget {
                         children: [
                           Text(
                             hospital.name,
-                            style: const TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF0040A1),
-                              fontFamily: 'Manrope',
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: colorScheme.primary,
                             ),
                           ),
                           const SizedBox(height: 4),
                           Row(
                             children: [
-                              const Icon(
+                              Icon(
                                 Icons.location_on,
                                 size: 18,
-                                color: Color(0xFF424654),
+                                color: colorScheme.onSurfaceVariant,
                               ),
                               const SizedBox(width: 4),
-                              Text(
-                                hospital.location,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Color(0xFF424654),
-                                  fontFamily: 'Manrope',
+                              Expanded(
+                                child: Text(
+                                  hospital.location,
+                                  style: theme.textTheme.bodyMedium?.copyWith(
+                                    color: colorScheme.onSurfaceVariant,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ],
@@ -83,35 +82,33 @@ class HospitalList extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      width: 56,
-                      height: 56,
+                      width: 46,
+                      height: 46,
                       decoration: BoxDecoration(
-                        color: const Color(0xFF0040A1).withOpacity(0.05),
+                        color: colorScheme.primary.withOpacity(0.08),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.medical_services,
                         size: 32,
-                        color: Color(0xFF0040A1),
+                        color: colorScheme.primary,
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 20),
-                const Text(
+                const SizedBox(height: 10),
+                Text(
                   'التخصصات المتاحة',
-                  style: TextStyle(
-                    fontSize: 12,
+                  style: theme.textTheme.labelSmall?.copyWith(
                     fontWeight: FontWeight.w700,
-                    color: Color(0xFF737785),
-                    fontFamily: 'Manrope',
+                    color: colorScheme.onSurfaceVariant,
                     letterSpacing: 1.2,
                   ),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 7),
                 Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
+                  spacing: 6,
+                  runSpacing: 6,
                   children: hospital.specialties.map((specialty) {
                     return Container(
                       padding: const EdgeInsets.symmetric(
@@ -124,11 +121,9 @@ class HospitalList extends StatelessWidget {
                       ),
                       child: Text(
                         specialty,
-                        style: const TextStyle(
-                          fontSize: 14,
+                        style: theme.textTheme.bodySmall?.copyWith(
                           fontWeight: FontWeight.w500,
-                          color: Color(0xFF191B23),
-                          fontFamily: 'Manrope',
+                          color: const Color(0xFF191B23),
                         ),
                       ),
                     );
@@ -136,23 +131,28 @@ class HospitalList extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      Routes.hospitalDetailScreen,
+                      arguments: hospital,
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF0040A1),
+                    backgroundColor: colorScheme.primary,
                     foregroundColor: Colors.white,
                     minimumSize: const Size(double.infinity, 56),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    shadowColor: const Color(0xFF0040A1).withOpacity(0.2),
+                    shadowColor: colorScheme.primary.withOpacity(0.2),
                     elevation: 8,
                   ),
-                  child: const Text(
+                  child: Text(
                     'عرض التفاصيل',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'Manrope',
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
                     ),
                   ),
                 ),

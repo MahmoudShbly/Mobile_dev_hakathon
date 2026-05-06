@@ -19,11 +19,7 @@ class DoctorDetailScreen extends StatelessWidget {
         elevation: 0,
         centerTitle: false,
         foregroundColor: const Color(0xFF191C22),
-        leading: IconButton(
-          onPressed: () => Navigator.of(context).pop(),
-          icon: const Icon(Icons.arrow_forward),
-          tooltip: 'رجوع',
-        ),
+
         title: Text(
           doctor.name,
           style: theme.textTheme.titleLarge?.copyWith(
@@ -37,104 +33,51 @@ class DoctorDetailScreen extends StatelessWidget {
             icon: const Icon(Icons.share, color: Color(0xFF424752)),
             tooltip: 'مشاركة',
           ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.favorite_border, color: Color(0xFF424752)),
-            tooltip: 'مفضلة',
-          ),
         ],
       ),
       bottomNavigationBar: Container(
         color: backgroundColor,
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        child: Container(
-          decoration: BoxDecoration(
-            color: cardColor,
-            borderRadius: BorderRadius.circular(24),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.05),
-                blurRadius: 20,
-                offset: const Offset(0, -4),
-              ),
-            ],
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'رسوم الكشف',
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: const Color(0xFF727784),
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      '٣٥٠ ريال',
-                      style: theme.textTheme.headlineSmall?.copyWith(
-                        color: const Color(0xFF00408B),
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(Icons.call),
-                  label: const Text('اتصال هاتفـي'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: const Color(0xFF00408B),
-                    elevation: 0,
-                    side: const BorderSide(color: Color(0xFF00408B)),
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
+        child: Row(
+          children: [
+            Expanded(
+              child: ElevatedButton.icon(
+                onPressed: () {},
+                icon: const Icon(Icons.call),
+                label: const Text('اتصال هاتفـي'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: const Color(0xFF00408B),
+                  elevation: 0,
+                  side: const BorderSide(color: Color(0xFF00408B)),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
               ),
-              const SizedBox(width: 12),
-              Expanded(
-                flex: 2,
-                child: ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(Icons.calendar_today),
-                  label: const Text('حجز موعد'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF0057B8),
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.fromLTRB(24, 24, 24, 170),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               _buildHeroSection(context, theme, doctor),
               const SizedBox(height: 24),
-              _buildAboutSection(theme, doctor),
-              const SizedBox(height: 24),
-              _buildLocationsSection(theme, doctor),
+              Padding(
+                padding: const EdgeInsets.all(14.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    _buildAboutSection(theme, doctor),
+                    const SizedBox(height: 24),
+                    _buildLocationsSection(theme, doctor),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -148,53 +91,33 @@ class DoctorDetailScreen extends StatelessWidget {
     Doctor doctor,
   ) {
     final isWide = MediaQuery.of(context).size.width > 760;
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: const Color(0xFFC2C6D4).withOpacity(0.3)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 20,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: isWide
-          ? Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(child: _buildHeroText(theme, doctor)),
-                const SizedBox(width: 24),
-                _buildHeroImage(doctor),
-              ],
-            )
-          : Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _buildHeroImage(doctor),
-                const SizedBox(height: 24),
-                _buildHeroText(theme, doctor),
-              ],
-            ),
-    );
+    return isWide
+        ? Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(child: _buildHeroText(theme, doctor)),
+              const SizedBox(width: 24),
+              _buildHeroImage(doctor),
+            ],
+          )
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _buildHeroImage(doctor),
+              const SizedBox(height: 24),
+              _buildHeroText(theme, doctor),
+            ],
+          );
   }
 
   Widget _buildHeroImage(Doctor doctor) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(24),
-      child: AspectRatio(
-        aspectRatio: 4 / 5,
-        child: Image.network(
-          doctor.imageUrl,
-          fit: BoxFit.cover,
-          errorBuilder: (context, error, stackTrace) => Container(
-            color: const Color(0xFFD9D9E2),
-            child: const Center(
-              child: Icon(Icons.person, size: 64, color: Color(0xFF727784)),
-            ),
-          ),
+    return Image.network(
+      doctor.imageUrl,
+      fit: BoxFit.cover,
+      errorBuilder: (context, error, stackTrace) => Container(
+        color: const Color(0xFFD9D9E2),
+        child: const Center(
+          child: Icon(Icons.person, size: 48, color: Color(0xFF727784)),
         ),
       ),
     );
@@ -202,7 +125,7 @@ class DoctorDetailScreen extends StatelessWidget {
 
   Widget _buildHeroText(ThemeData theme, Doctor doctor) {
     return Padding(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -211,7 +134,7 @@ class DoctorDetailScreen extends StatelessWidget {
               color: const Color(0xFFD5E0F8),
               borderRadius: BorderRadius.circular(999),
             ),
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             child: Text(
               doctor.specialty,
               style: theme.textTheme.bodySmall?.copyWith(
@@ -223,7 +146,7 @@ class DoctorDetailScreen extends StatelessWidget {
           const SizedBox(height: 18),
           Text(
             doctor.name,
-            style: theme.textTheme.headlineLarge?.copyWith(
+            style: theme.textTheme.titleLarge?.copyWith(
               color: const Color(0xFF191C22),
               fontWeight: FontWeight.w700,
             ),

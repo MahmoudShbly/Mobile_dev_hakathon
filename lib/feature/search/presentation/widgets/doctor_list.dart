@@ -174,7 +174,7 @@ class DoctorList extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF0040A1),
                             foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            padding: const EdgeInsets.symmetric(vertical: 10),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16),
                             ),
@@ -186,31 +186,6 @@ class DoctorList extends StatelessWidget {
                               color: Colors.white,
                             ),
                           ),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Container(
-                        width: 52,
-                        height: 52,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: const Color(0xFF0040A1).withOpacity(0.2),
-                          ),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: IconButton(
-                          onPressed: () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('تمت الإضافة إلى المفضلة'),
-                              ),
-                            );
-                          },
-                          icon: const Icon(
-                            Icons.favorite_border,
-                            color: Color(0xFF0040A1),
-                          ),
-                          tooltip: 'إضافة إلى المفضلة',
                         ),
                       ),
                     ],
