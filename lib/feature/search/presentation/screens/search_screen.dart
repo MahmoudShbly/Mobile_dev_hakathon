@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_dev_hakathon/core/route/routes.dart';
 import 'package:mobile_dev_hakathon/feature/search/model/medicine_model.dart';
-import 'package:mobile_dev_hakathon/feature/search/model/pharmacy_model.dart';
 import 'package:mobile_dev_hakathon/feature/search/model/hospital_model.dart';
 import 'package:mobile_dev_hakathon/feature/search/model/doctor_model.dart';
 import 'package:mobile_dev_hakathon/feature/search/presentation/widgets/doctor_list.dart';
 import 'package:mobile_dev_hakathon/feature/search/presentation/widgets/medicine_list.dart';
 import 'package:mobile_dev_hakathon/feature/search/presentation/widgets/search_field.dart';
-import 'package:mobile_dev_hakathon/feature/search/presentation/widgets/result_list.dart';
 import 'package:mobile_dev_hakathon/feature/search/presentation/widgets/hospital_list.dart';
-
-import '../../../../core/models/pharmacy.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -41,18 +37,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
   bool get _hasSearchQuery => _searchQuery.isNotEmpty;
 
-  List<Pharmacy> get _filteredPharmacies {
-    if (_searchQuery.isEmpty) return searchPharmacies;
-    final lowerQuery = _searchQuery.toLowerCase();
-    return searchPharmacies.where((pharmacy) {
-      return pharmacy.name.toLowerCase().contains(lowerQuery) ||
-          pharmacy.address.toLowerCase().contains(lowerQuery) ||
-          pharmacy.distance.toLowerCase().contains(lowerQuery);
-    }).toList();
-  }
-
   List<Medicine> get _filteredMedicines {
-    if (_searchQuery.isEmpty) return const [];
+    if (_searchQuery.isEmpty) return searchMedicines;
     return searchMedicines
         .where((medicine) => medicine.matches(_searchQuery))
         .toList();
@@ -113,6 +99,13 @@ class _SearchScreenState extends State<SearchScreen> {
 
   Widget _buildCategoryChip(String category, ThemeData theme) {
     final isSelected = _selectedCategory == category;
+    final iconColor = isSelected ? Colors.white : const Color(0xFF191B23);
+    final iconData = category == 'أدوية'
+        ? Icons.medical_services_outlined
+        : category == 'أجهزة طبية'
+        ? Icons.settings_overscan
+        : Icons.medical_information;
+
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -120,26 +113,29 @@ class _SearchScreenState extends State<SearchScreen> {
         });
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
           color: isSelected ? const Color(0xFF0040A1) : const Color(0xFFE7E7F2),
           borderRadius: BorderRadius.circular(20),
         ),
-        child: Text(
-          category,
-          style: TextStyle(
-            color: isSelected ? Colors.white : const Color(0xFF191B23),
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            fontFamily: 'Manrope',
-          ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(iconData, size: 18, color: iconColor),
+            const SizedBox(width: 8),
+            Text(
+              category,
+              style: TextStyle(
+                color: iconColor,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                fontFamily: 'Manrope',
+              ),
+            ),
+          ],
         ),
       ),
     );
-  }
-
-  Widget _buildPharmacyList(ThemeData theme) {
-    return ResultList(pharmacies: _filteredPharmacies);
   }
 
   Widget _buildMedicineList(ThemeData theme) {
@@ -170,7 +166,42 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
-
+      appBar: AppBar(
+        title: const Text('الدواء'),
+        centerTitle: false,
+        elevation: 0,
+        backgroundColor: colorScheme.onPrimary,
+        foregroundColor: colorScheme.onSurface,
+        actions: [
+          IconButton(
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('قريباً: ميزة التصفية المتقدمة!', style: TextStyle(fontFamily: 'Cairo')),
+                  behavior: SnackBarBehavior.floating,
+                ),
+              );
+            },
+            icon: Icon(Icons.tune, color: colorScheme.onSurfaceVariant),
+            tooltip: 'التصفية',
+          ),
+          IconButton(
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('لا توجد إشعارات جديدة حالياً', style: TextStyle(fontFamily: 'Cairo')),
+                  behavior: SnackBarBehavior.floating,
+                ),
+              );
+            },
+            icon: Icon(
+              Icons.notifications,
+              color: colorScheme.onSurfaceVariant,
+            ),
+            tooltip: 'الإشعارات',
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Align(
           alignment: Alignment.topCenter,
@@ -191,7 +222,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       _selectedCategory == 'أدوية'
                           ? (_hasSearchQuery
                                 ? 'نتائج البحث عن دواء'
-                                : 'نتائج البحث عن دواء في الصيدليات المجاورة')
+                                : 'قائمة الأدوية المتاحة')
                           : _selectedCategory == 'أطباء'
                           ? (_hasSearchQuery
                                 ? 'نتائج البحث عن الأطباء'
@@ -205,9 +236,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   const SizedBox(height: 16),
                   Expanded(
                     child: _selectedCategory == 'أدوية'
-                        ? (_hasSearchQuery
-                              ? _buildMedicineList(theme)
-                              : _buildPharmacyList(theme))
+                        ? _buildMedicineList(theme)
                         : _selectedCategory == 'أطباء'
                         ? _buildDoctorList(theme)
                         : _buildHospitalList(theme),

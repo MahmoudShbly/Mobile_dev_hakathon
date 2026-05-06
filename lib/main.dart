@@ -40,7 +40,7 @@ void main() async {
   String initialRoute;
   if (!isOnboardingCompleted) {
     initialRoute = Routes.onboardingScreen;
-  } else if (!isUserLoggedIn) {
+  } else if (isUserLoggedIn) {
     initialRoute = Routes.loginScreen;
   } else {
     initialRoute = Routes.homeScreen;

@@ -34,7 +34,7 @@ class _SearchFieldState extends State<SearchField> {
         color: theme.colorScheme.onSurface,
       ),
       decoration: InputDecoration(
-        hintText: 'ابحث عن دواء...',
+        hintText: 'ابحث  ...',
         hintStyle: theme.textTheme.bodyMedium?.copyWith(
           color: theme.colorScheme.onSurfaceVariant,
         ),

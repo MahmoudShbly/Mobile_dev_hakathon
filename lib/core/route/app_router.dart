@@ -68,7 +68,6 @@ class AppRouter {
           );
         }
         return null;
-      // <<<<<<< HEAD
       case Routes.hospitalDetailScreen:
         final hospital = settings.arguments;
         if (hospital is Hospital) {
@@ -97,15 +96,7 @@ class AppRouter {
           );
         }
         return null;
-      case Routes.opportunityDetailScreen:
-        final pharmacy = settings.arguments;
-        if (pharmacy is Pharmacy) {
-          return _slideRoute(
-            OpportunityDetailScreen(pharmacy: pharmacy),
-            settings,
-          );
-        }
-        return null;
+
       case Routes.reportScreen:
         return _slideRoute(const ReportScreen(), settings);
       // =======
@@ -122,7 +113,7 @@ class AppRouter {
         return _slideRoute(const DoctorsScreen(), settings);
       case Routes.favoritesScreen:
         return _slideRoute(const FavoritesScreen(), settings);
-      // >>>>>>> 7e3a522efadd6697fa381efcecdfcd323076b326
+
       default:
         return null;
     }

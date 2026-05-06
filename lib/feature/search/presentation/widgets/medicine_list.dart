@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile_dev_hakathon/feature/search/model/medicine_model.dart';
 
 class MedicineList extends StatelessWidget {
@@ -32,7 +33,7 @@ class MedicineList extends StatelessWidget {
         final badgeColor =
             medicine.availability == MedicineAvailability.available
             ? theme.colorScheme.secondaryContainer
-            : theme.colorScheme.errorContainer;
+            : Colors.red.withValues(alpha: 0.8);
         final badgeTextColor =
             medicine.availability == MedicineAvailability.available
             ? theme.colorScheme.onSecondaryContainer
@@ -45,6 +46,7 @@ class MedicineList extends StatelessWidget {
         return GestureDetector(
           onTap: onTap == null ? null : () => onTap!(medicine),
           child: Container(
+            height: 135.h,
             decoration: BoxDecoration(
               color: theme.colorScheme.onPrimary,
               borderRadius: BorderRadius.circular(24),
@@ -103,51 +105,50 @@ class MedicineList extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          medicine.name,
-                          style: theme.textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.w800,
-                            color: theme.colorScheme.onSurface,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                        Row(
+                          children: [
+                            Text(
+                              medicine.name,
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.w800,
+                                color: theme.colorScheme.primary,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            Spacer(),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 7,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: badgeColor,
+                                borderRadius: BorderRadius.circular(999),
+                              ),
+                              child: Text(
+                                badgeLabel,
+                                style: theme.textTheme.labelSmall?.copyWith(
+                                  color: badgeTextColor,
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 6),
                         Text(
                           medicine.description,
                           style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.colorScheme.onSurfaceVariant,
+                            fontSize: 14.sp,
                           ),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        const SizedBox(height: 10),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: badgeColor,
-                            borderRadius: BorderRadius.circular(999),
-                          ),
-                          child: Text(
-                            badgeLabel,
-                            style: theme.textTheme.labelSmall?.copyWith(
-                              color: badgeTextColor,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
                       ],
                     ),
-                  ),
-                  const SizedBox(width: 12),
-                  Icon(
-                    Icons.arrow_back_ios,
-                    size: 20,
-                    color: theme.colorScheme.primary,
-                    textDirection: TextDirection.rtl,
                   ),
                 ],
               ),
