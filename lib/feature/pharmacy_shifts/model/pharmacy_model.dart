@@ -12,6 +12,7 @@ class Pharmacy {
   final String fridayHours;
   final String description;
   final String mapImageUrl;
+  final String phoneNumber;
 
   final double? latitude;
   final double? longitude;
@@ -32,6 +33,7 @@ class Pharmacy {
         'نحن في هذه الصيدلية نقدم أفضل خدمات الرعاية الصحية والمعلومات الدوائية مع فريق صيدلي متخصص متوفر دائماً.',
     this.mapImageUrl =
         'https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?auto=format&fit=crop&w=900&q=80',
+    this.phoneNumber = '',
     this.latitude,
     this.longitude,
   });
@@ -46,6 +48,7 @@ final List<Pharmacy> pharmacies = [
     address: 'حي الروضة، شارع الأمير محمد بن عبدالعزيز، جدة',
     isOnDuty: true,
     services: ['توصيل منزلي', 'دفع إلكتروني', 'فحص سكري', 'قياس ضغط'],
+    phoneNumber: '920000111',
     latitude: 21.5433,
     longitude: 39.1728,
   ),
@@ -57,6 +60,7 @@ final List<Pharmacy> pharmacies = [
     address: 'شارع التحلية، بجانب مستشفى التخصصي، جدة',
     isOnDuty: true,
     services: ['توصيل منزلي', 'دفع إلكتروني', 'فحص سكري', 'قياس ضغط'],
+    phoneNumber: '920000222',
     latitude: 21.5500,
     longitude: 39.1800,
   ),
@@ -68,6 +72,7 @@ final List<Pharmacy> pharmacies = [
     address: 'حي السلامة، طريق المدينة المنورة، جدة',
     isOnDuty: true,
     services: ['توصيل منزلي', 'دفع إلكتروني', 'فحص سكري', 'قياس ضغط'],
+    phoneNumber: '920000333',
     latitude: 21.5800,
     longitude: 39.1600,
   ),
@@ -79,6 +84,7 @@ final List<Pharmacy> pharmacies = [
     address: 'شارع صاري، تقاطع طريق الملك، جدة',
     isOnDuty: true,
     services: ['توصيل منزلي', 'دفع إلكتروني', 'فحص سكري', 'قياس ضغط'],
+    phoneNumber: '920000444',
     latitude: 21.5900,
     longitude: 39.1500,
   ),

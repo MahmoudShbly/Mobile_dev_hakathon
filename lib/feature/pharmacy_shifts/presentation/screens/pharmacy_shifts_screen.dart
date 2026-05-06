@@ -19,6 +19,7 @@ class _PharmacyShiftsScreenState extends State<PharmacyShiftsScreen> {
           'https://lh3.googleusercontent.com/aida-public/AB6AXuBf1LKllmaCP27q4I-dYsDXiKo-5p1hvQTwtrlY51m07mll6qHcKHr8TWDUp6tWJ4e2fy475oZQmOUeMd_kfAgdPXL0PdXU6vCdCym7trk9iB5K4kXjaV8P9E7qbVqbHwv5r1FlH9H3tx9eFYlNqtT1GR7AAdS1XMrRSSo7dFt04XOFEJrBRI2irCK_NAVYArGAEibbkSgKNP7KpBrnDBBUu4izoJgFRayJtd5s2n0Om6db3x0hT3EOajxEuRfQ8jAwU1V_sCkkvU3Q',
       distance: 'على بعد 450 متر',
       address: 'حي الروضة، شارع الأمير محمد بن عبدالعزيز، جدة',
+      phoneNumber: '920000111',
       isOnDuty: true,
     ),
     const Pharmacy(
@@ -27,6 +28,7 @@ class _PharmacyShiftsScreenState extends State<PharmacyShiftsScreen> {
           'https://lh3.googleusercontent.com/aida-public/AB6AXuBE6zinbdsuCevSMNpeKhg7_yp3c18L08P-Xsx59VK0fh8yLX8C3ONtVZoiH4p_H_7DxaUepHA8Fl985fg7WJrwXFolzUDL-53fDunQSFBlY1YqFz13aVCPGWoZ9aG9MqcJ57lfQbemHFReY7UxO1pfqnaIGaJwUOt2rYBhWmzqSntpbZQ6VogJUrwwyih-5q4MUm91AJ96xnuA1sWAS-gAMicQZbLlqjcMKKgjRbuOkz9RqB4swc5DHjLd5pTEOn5itjsfOqouGCef',
       distance: 'على بعد 1.2 كم',
       address: 'شارع التحلية، بجانب مستشفى التخصصي، جدة',
+      phoneNumber: '920000222',
       isOnDuty: true,
     ),
     const Pharmacy(
@@ -35,6 +37,7 @@ class _PharmacyShiftsScreenState extends State<PharmacyShiftsScreen> {
           'https://lh3.googleusercontent.com/aida-public/AB6AXuAz2UldmKwg1_XB1r9dZz2npq5S9THVssZ_24X0jXXSKmibLQABIlw60nLZXkPnmVX7xp3fBZOBOnPg7Q_xtc1QfbDYRVjZlOFT92bsgPVV1W8atfiTHvYlzZ-fUDBZcGQhk4B9Pn41huN-ZUrb_2l5kDkVXvg8ogN2sNFn-n3SGMcU4UR8QtiH8oQRXreSIkDW_C4WUapaKNZ6R9rUQA0cSofAWytVSolFotunuLwcC6Ha8nDjvWVtyjjUKWwg9qV5VDJQVXBz3F9k',
       distance: 'على بعد 2.4 كم',
       address: 'حي السلامة، طريق المدينة المنورة، جدة',
+      phoneNumber: '920000333',
       isOnDuty: true,
     ),
     const Pharmacy(
@@ -43,6 +46,7 @@ class _PharmacyShiftsScreenState extends State<PharmacyShiftsScreen> {
           'https://lh3.googleusercontent.com/aida-public/AB6AXuDJbrXiZ_80XvZss182MeIVcjDOS0VJH2DNNVF5KLcCZvgEJJD5tOoWon0WQxkP5Ttag83JZHPV3CV__zpM8MdsVn-rXVxRv3ZCAGFPPFy4ZfL7jeonn-IvPETnTd5QisH4ruQt-OfJ2Rz-2Jo9bOTHYSK0AgJwRtrO-m0-e_pdaQijIzvfkbYJgMWZGQrUXCSV0T53D8GoIi-gKqHJwCMxKUkJsco0BJmqJmfvtJzrWK1kb85S6O44re3fN1Mom59W9MmHvLZHkZOy',
       distance: 'على بعد 3.1 كم',
       address: 'شارع صاري، تقاطع طريق الملك، جدة',
+      phoneNumber: '920000444',
       isOnDuty: true,
     ),
   ];
