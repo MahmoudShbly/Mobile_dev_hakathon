@@ -2,10 +2,12 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("dev.flutter.flutter-gradle-plugin")
+    id("com.google.gms.google-services")
 }
 
+
 android {
-    namespace = "com.example.mobile_dev_hakathon"
+    namespace = "com.hakk.hack"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -20,7 +22,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.mobile_dev_hakathon"
+        applicationId = "com.hakk.hack"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode

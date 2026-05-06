@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_dev_hakathon/core/route/routes.dart';
 import 'package:mobile_dev_hakathon/feature/pharmacy_shifts/model/pharmacy_model.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:latlong2/latlong.dart';
 
 class PharmacyDetailScreen extends StatelessWidget {
   final Pharmacy pharmacy;
@@ -27,7 +31,11 @@ class PharmacyDetailScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              SharePlus.instance.share(
+                ShareParams(text: 'صيدلية: ${pharmacy.name}\nالعنوان: ${pharmacy.address}\nتمت المشاركة من تطبيق الرعاية الطبية'),
+              );
+            },
             icon: Icon(Icons.share, color: colorScheme.onSurfaceVariant),
           ),
         ],
@@ -103,7 +111,7 @@ class PharmacyDetailScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(24),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.05),
+                                color: Colors.black.withValues(alpha: 0.05),
                                 blurRadius: 24,
                                 offset: const Offset(0, 10),
                               ),
@@ -135,7 +143,7 @@ class PharmacyDetailScreen extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         color: const Color(
                                           0xFF10B981,
-                                        ).withOpacity(0.14),
+                                        ).withValues(alpha: 0.14),
                                         borderRadius: BorderRadius.circular(
                                           999,
                                         ),
@@ -178,11 +186,40 @@ class PharmacyDetailScreen extends StatelessWidget {
                                     icon: Icons.location_on,
                                     label: 'الموقع',
                                     colorScheme: colorScheme,
+                                    onTap: () {
+                                      if (pharmacy.latitude != null &&
+                                          pharmacy.longitude != null) {
+                                        Navigator.pushNamed(
+                                          context,
+                                          Routes.mapScreen,
+                                          arguments: {
+                                            'location': LatLng(
+                                              pharmacy.latitude!,
+                                              pharmacy.longitude!,
+                                            ),
+                                            'pharmacyName': pharmacy.name,
+                                          },
+                                        );
+                                      } else {
+                                        // Fallback to external map if no coordinates
+                                        launchUrl(
+                                          Uri.parse(
+                                            'https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent("${pharmacy.name} ${pharmacy.address}")}',
+                                          ),
+                                          mode: LaunchMode.externalApplication,
+                                        );
+                                      }
+                                    },
                                   ),
                                   _DetailActionButton(
                                     icon: Icons.share,
                                     label: 'مشاركة',
                                     colorScheme: colorScheme,
+                                    onTap: () {
+                                      SharePlus.instance.share(
+                                        ShareParams(text: 'صيدلية: ${pharmacy.name}\nالعنوان: ${pharmacy.address}\nتمت المشاركة من تطبيق الرعاية الطبية'),
+                                      );
+                                    },
                                   ),
                                 ],
                               ),
@@ -193,6 +230,8 @@ class PharmacyDetailScreen extends StatelessWidget {
                         _SectionCard(
                           title: 'أوقات العمل',
                           icon: Icons.schedule,
+                          colorScheme: colorScheme,
+                          theme: theme,
                           children: [
                             Text(
                               pharmacy.hours,
@@ -208,13 +247,13 @@ class PharmacyDetailScreen extends StatelessWidget {
                               ),
                             ),
                           ],
-                          colorScheme: colorScheme,
-                          theme: theme,
                         ),
                         const SizedBox(height: 16),
                         _SectionCard(
                           title: 'الموقع',
                           icon: Icons.near_me,
+                          colorScheme: colorScheme,
+                          theme: theme,
                           children: [
                             Text(
                               pharmacy.address,
@@ -233,8 +272,10 @@ class PharmacyDetailScreen extends StatelessWidget {
                                   width: double.infinity,
                                   loadingBuilder:
                                       (context, child, loadingProgress) {
-                                        if (loadingProgress == null)
+                                        if (loadingProgress == null) {
                                           return child;
+                                        }
+
                                         return Center(
                                           child: CircularProgressIndicator(
                                             value:
@@ -266,13 +307,13 @@ class PharmacyDetailScreen extends StatelessWidget {
                               ),
                             ),
                           ],
-                          colorScheme: colorScheme,
-                          theme: theme,
                         ),
                         const SizedBox(height: 16),
                         _SectionCard(
                           title: 'الخدمات المتاحة',
                           icon: Icons.medical_services,
+                          colorScheme: colorScheme,
+                          theme: theme,
                           children: [
                             GridView.builder(
                               shrinkWrap: true,
@@ -293,13 +334,13 @@ class PharmacyDetailScreen extends StatelessWidget {
                               },
                             ),
                           ],
-                          colorScheme: colorScheme,
-                          theme: theme,
                         ),
                         const SizedBox(height: 16),
                         _SectionCard(
                           title: 'عن الصيدلية',
                           icon: Icons.info,
+                          colorScheme: colorScheme,
+                          theme: theme,
                           children: [
                             Text(
                               pharmacy.description,
@@ -319,8 +360,10 @@ class PharmacyDetailScreen extends StatelessWidget {
                                   width: double.infinity,
                                   loadingBuilder:
                                       (context, child, loadingProgress) {
-                                        if (loadingProgress == null)
+                                        if (loadingProgress == null) {
                                           return child;
+                                        }
+
                                         return Center(
                                           child: CircularProgressIndicator(
                                             value:
@@ -352,8 +395,6 @@ class PharmacyDetailScreen extends StatelessWidget {
                               ),
                             ),
                           ],
-                          colorScheme: colorScheme,
-                          theme: theme,
                         ),
                         const SizedBox(height: 96),
                       ],
@@ -377,7 +418,15 @@ class PharmacyDetailScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
             ),
           ),
-          onPressed: () {},
+          onPressed: () async {
+            final Uri launchUri = Uri(
+              scheme: 'tel',
+              path: '+966500000000', // رقم افتراضي للتواصل
+            );
+            if (await canLaunchUrl(launchUri)) {
+              await launchUrl(launchUri);
+            }
+          },
           icon: const Icon(Icons.chat_bubble),
           label: const Text('تواصل'),
         ),
@@ -407,7 +456,7 @@ class _SectionCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: colorScheme.onPrimary,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: colorScheme.outline.withOpacity(0.14)),
+        border: Border.all(color: colorScheme.outline.withValues(alpha: 0.14)),
       ),
       padding: const EdgeInsets.all(20),
       child: Column(
@@ -438,35 +487,41 @@ class _DetailActionButton extends StatelessWidget {
   final IconData icon;
   final String label;
   final ColorScheme colorScheme;
+  final VoidCallback onTap;
 
   const _DetailActionButton({
     required this.icon,
     required this.label,
     required this.colorScheme,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 148,
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
-      decoration: BoxDecoration(
-        color: colorScheme.surfaceContainer,
-        borderRadius: BorderRadius.circular(18),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(icon, color: colorScheme.primary, size: 24),
-          const SizedBox(height: 10),
-          Text(
-            label,
-            style: TextStyle(
-              color: colorScheme.onSurface,
-              fontWeight: FontWeight.w700,
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(18),
+      child: Container(
+        width: 148,
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
+        decoration: BoxDecoration(
+          color: colorScheme.surfaceContainer,
+          borderRadius: BorderRadius.circular(18),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(icon, color: colorScheme.primary, size: 24),
+            const SizedBox(height: 10),
+            Text(
+              label,
+              style: TextStyle(
+                color: colorScheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -499,10 +554,10 @@ class _ServiceTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: colorScheme.onPrimary,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: colorScheme.outline.withOpacity(0.14)),
+        border: Border.all(color: colorScheme.outline.withValues(alpha: 0.16)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             blurRadius: 14,
             offset: const Offset(0, 6),
           ),
@@ -516,7 +571,7 @@ class _ServiceTile extends StatelessWidget {
             width: 56,
             height: 56,
             decoration: BoxDecoration(
-              color: colorScheme.primary.withOpacity(0.12),
+              color: colorScheme.primary.withValues(alpha: 0.12),
               shape: BoxShape.circle,
             ),
             child: Center(

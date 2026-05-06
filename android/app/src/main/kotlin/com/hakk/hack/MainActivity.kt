@@ -1,4 +1,4 @@
-package com.example.mobile_dev_hakathon
+package com.hakk.hack
 
 import io.flutter.embedding.android.FlutterActivity
 

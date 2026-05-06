@@ -1,0 +1,202 @@
+import 'package:flutter/foundation.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+class MockUser {
+  final String uid;
+  final String? email;
+  final String? displayName;
+  final String? photoURL;
+
+  MockUser({required this.uid, this.email, this.displayName, this.photoURL});
+}
+
+class AuthService {
+  // حالياً نستخدم الوضع الوهمي (Mock Mode) لتجاوز مشاكل الاتصال والفيبيز
+  // عند الربط الكامل مع Firebase، قم بتغيير هذه القيمة إلى false
+  static const bool _isMockMode = true;
+
+  // تسجيل مستخدم وهمي حالي
+  static MockUser? _currentUser;
+
+  // Google Sign-In instance مع Client ID المقدم
+  static final GoogleSignIn _googleSignIn = GoogleSignIn(
+    serverClientId: '385014701118-4lc4qe6gd80p25meusb3ncv3l398h0nb.apps.googleusercontent.com',
+    scopes: ['email', 'profile'],
+  );
+
+  // بيانات المستخدمين الوهمية حسب الأدوار
+  final Map<String, Map<String, dynamic>> _mockUsersData = {
+    '0938337165': {
+      'uid': 'user_123',
+      'name': 'خالد خالد',
+      'role': 'user',
+      'email': 'khaled@example.com',
+      'password': '12345678',
+    },
+    '0912345678': {
+      'uid': 'pharm_456',
+      'name': 'د. سارة المنصور',
+      'role': 'pharmacist',
+      'email': 'sara@pharmacy.com',
+      'password': '12345678',
+    },
+  };
+
+  // ══════════════════════════════════════════════
+  // تسجيل الدخول بحساب Google
+  // ══════════════════════════════════════════════
+  Future<dynamic> signInWithGoogle() async {
+    try {
+      // بدء عملية تسجيل الدخول بحساب Google
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+
+      if (googleUser == null) {
+        // المستخدم ألغى عملية تسجيل الدخول
+        debugPrint('Google Sign-In: المستخدم ألغى العملية');
+        return null;
+      }
+
+      // الحصول على بيانات المصادقة
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+
+      // إنشاء credential لـ Firebase
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      // تسجيل الدخول في Firebase
+      try {
+        final UserCredential userCredential =
+            await FirebaseAuth.instance.signInWithCredential(credential);
+
+        final firebaseUser = userCredential.user;
+        if (firebaseUser != null) {
+          _currentUser = MockUser(
+            uid: firebaseUser.uid,
+            email: firebaseUser.email,
+            displayName: firebaseUser.displayName,
+            photoURL: firebaseUser.photoURL,
+          );
+          debugPrint('Google Sign-In: تم تسجيل الدخول بنجاح - ${firebaseUser.email}');
+          return _currentUser;
+        }
+      } catch (firebaseError) {
+        // في حالة فشل Firebase، نستخدم بيانات Google مباشرة
+        debugPrint('Firebase Auth failed, using Google data directly: $firebaseError');
+        _currentUser = MockUser(
+          uid: googleUser.id,
+          email: googleUser.email,
+          displayName: googleUser.displayName,
+          photoURL: googleUser.photoUrl,
+        );
+        return _currentUser;
+      }
+
+      return null;
+    } catch (error) {
+      debugPrint('Google Sign-In Error: $error');
+      rethrow;
+    }
+  }
+
+  // ══════════════════════════════════════════════
+  // Sign Up (Mock)
+  // ══════════════════════════════════════════════
+  Future<dynamic> signUp({
+    required String name,
+    required String phone,
+    required String email,
+    required String password,
+  }) async {
+    if (_isMockMode) {
+      await Future.delayed(const Duration(seconds: 1)); // محاكاة تأخير الشبكة
+      _currentUser = MockUser(uid: 'new_user_${DateTime.now().millisecondsSinceEpoch}', displayName: name);
+      return _currentUser;
+    }
+    return null;
+  }
+
+  // ══════════════════════════════════════════════
+  // Login (Mock)
+  // ══════════════════════════════════════════════
+  Future<dynamic> login({
+    required String phone,
+    required String password,
+  }) async {
+    if (_isMockMode) {
+      await Future.delayed(const Duration(seconds: 1));
+      
+      final userData = _mockUsersData[phone.trim()];
+      if (userData != null && userData['password'] == password) {
+        _currentUser = MockUser(
+          uid: userData['uid'],
+          displayName: userData['name'],
+          email: userData['email'],
+        );
+        return _currentUser;
+      }
+      throw Exception('wrong-password');
+    }
+    return null;
+  }
+
+  // ══════════════════════════════════════════════
+  // Logout (يشمل Google Sign-Out)
+  // ══════════════════════════════════════════════
+  Future<void> logout() async {
+    try {
+      // تسجيل الخروج من Google
+      if (await _googleSignIn.isSignedIn()) {
+        await _googleSignIn.signOut();
+      }
+      // تسجيل الخروج من Firebase
+      try {
+        await FirebaseAuth.instance.signOut();
+      } catch (_) {}
+    } catch (e) {
+      debugPrint('Logout error: $e');
+    }
+    _currentUser = null;
+  }
+
+  // ══════════════════════════════════════════════
+  // Get current user data (Mock)
+  // ══════════════════════════════════════════════
+  Future<Map<String, dynamic>> getUserData() async {
+    if (_isMockMode) {
+      if (_currentUser == null) throw Exception('No user logged in');
+      
+      Map<String, dynamic>? foundData;
+      _mockUsersData.forEach((key, value) {
+        if (value['uid'] == _currentUser!.uid) {
+          foundData = value;
+        }
+      });
+      
+      return foundData ?? {
+        'name': _currentUser!.displayName ?? 'مستخدم جديد',
+        'role': 'user',
+        'email': _currentUser!.email ?? '',
+        'photoURL': _currentUser!.photoURL ?? '',
+      };
+    }
+    throw Exception('Not implemented in mock');
+  }
+
+  // الحصول على المستخدم الحالي
+  dynamic get currentUser => _currentUser ?? FirebaseAuth.instance.currentUser;
+
+  // التحقق مما إذا كان المستخدم مسجل عبر Google
+  bool get isGoogleUser {
+    final firebaseUser = FirebaseAuth.instance.currentUser;
+    if (firebaseUser != null) {
+      return firebaseUser.providerData.any(
+        (provider) => provider.providerId == 'google.com',
+      );
+    }
+    return false;
+  }
+}

@@ -12,12 +12,13 @@ import 'package:mobile_dev_hakathon/feature/pharmacy_shifts/model/pharmacy_model
 import 'package:mobile_dev_hakathon/feature/pharmacy_shifts/presentation/screens/pharmacy_detail_screen.dart';
 import 'package:mobile_dev_hakathon/feature/search/model/medicine_model.dart';
 import 'package:mobile_dev_hakathon/feature/search/presentation/screens/medicine_detail_screen.dart';
+import 'package:mobile_dev_hakathon/feature/profile/presentation/screens/edit_profile_screen.dart';
+import 'package:mobile_dev_hakathon/feature/map/presentation/screens/map_screen.dart';
+import 'package:mobile_dev_hakathon/feature/doctors/presentation/screens/doctors_screen.dart';
+import 'package:mobile_dev_hakathon/feature/profile/presentation/screens/favorites_screen.dart';
 
 class AppRouter {
   static Route? generateRoute(RouteSettings settings) {
-    // ✅ SECURITY: Validate protected routes before creating them
-    // Prevents deep-linking to sensitive screens without authenticati
-
     switch (settings.name) {
       case "/":
         return _fadeRoute(const OnboardingScreen(), settings);
@@ -25,7 +26,6 @@ class AppRouter {
         return _fadeRoute(const StartupErrorScreen(), settings);
       case Routes.onboardingScreen:
         return _fadeRoute(const OnboardingScreen(), settings);
-      // ========================== Auth Routes ==========================
       case Routes.loginScreen:
         return _slideRoute(const LoginScreen(), settings);
       case Routes.registerScreen:
@@ -37,32 +37,40 @@ class AppRouter {
       case Routes.verifyEmailScreen:
         return _slideRoute(const EmailVerificationScreen(), settings);
       case Routes.homeScreen:
-        return _fadeRoute(const MainScreen(), settings);
-      // <<<<<<< HEAD
+        final index = settings.arguments as int? ?? 3;
+        return _fadeRoute(MainScreen(initialIndex: index), settings);
+      case Routes.editProfileScreen:
+        return _slideRoute(const EditProfileScreen(), settings);
       case Routes.pharmacyDetailScreen:
         final pharmacy = settings.arguments;
         if (pharmacy is Pharmacy) {
-          return _slideRoute(
-            PharmacyDetailScreen(pharmacy: pharmacy),
-            settings,
-          );
+          return _slideRoute(PharmacyDetailScreen(pharmacy: pharmacy), settings);
         }
         return null;
       case Routes.medicineDetailScreen:
         final medicine = settings.arguments;
         if (medicine is Medicine) {
-          return _slideRoute(
-            MedicineDetailScreen(medicine: medicine),
-            settings,
-          );
+          return _slideRoute(MedicineDetailScreen(medicine: medicine), settings);
         }
         return null;
-      // =======
-      // >>>>>>> 807f8a359ecd9a04e1594c8097541d4baffe67c3
+      case Routes.mapScreen:
+        final args = settings.arguments as Map<String, dynamic>?;
+        return _slideRoute(
+          MapScreen(
+            initialLocation: args?['location'],
+            targetPharmacyName: args?['pharmacyName'],
+          ),
+          settings,
+        );
+      case Routes.doctorsScreen:
+        return _slideRoute(const DoctorsScreen(), settings);
+      case Routes.favoritesScreen:
+        return _slideRoute(const FavoritesScreen(), settings);
       default:
         return null;
     }
   }
+
 
   static PageRouteBuilder _slideRoute(Widget page, RouteSettings settings) {
     return PageRouteBuilder(
