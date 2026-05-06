@@ -31,7 +31,7 @@ class OnboardingPage extends StatelessWidget {
     final colorScheme = theme.colorScheme;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFFF9FAFF),
       body: SafeArea(
         child: Column(
           children: [
@@ -42,12 +42,12 @@ class OnboardingPage extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: TextButton(
                     onPressed: onSkipPressed,
-                    child: Text(
+                    child: const Text(
                       'تخطي',
                       style: TextStyle(
-                        color: colorScheme.onSecondaryContainer,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
+                        color: Color(0xFF727784),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
@@ -79,12 +79,11 @@ class OnboardingPage extends StatelessWidget {
                     // Title
                     Text(
                       title,
-                      style: TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.w700,
-                        color: colorScheme.inverseSurface,
-                        height: 1.2,
-                        letterSpacing: -0.01,
+                      style: const TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF00408B),
+                        height: 1.3,
                       ),
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
@@ -94,10 +93,10 @@ class OnboardingPage extends StatelessWidget {
                     // Description
                     Text(
                       description,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                        color: colorScheme.onSecondaryContainer,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xFF545F73),
                         height: 1.6,
                       ),
                       textAlign: TextAlign.center,
@@ -116,16 +115,17 @@ class OnboardingPage extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: onButtonPressed,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: colorScheme.primaryContainer,
-                    foregroundColor: colorScheme.onPrimary,
+                    backgroundColor: const Color(0xFF0057B8),
+                    foregroundColor: Colors.white,
+                    elevation: 2,
                     minimumSize: const Size(double.infinity, 56),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(16),
                     ),
                   ),
                   child: Text(
                     buttonText!,
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
