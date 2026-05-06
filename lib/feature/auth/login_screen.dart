@@ -13,7 +13,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _phoneController = TextEditingController();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _authService = AuthService();
   bool _isLoading = false;
@@ -21,26 +21,26 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    _phoneController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
 
   void _handleLogin() async {
-    if (_phoneController.text.isEmpty || _passwordController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('يرجى إدخال جميع البيانات')),
-      );
+    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('يرجى إدخال جميع البيانات')));
       return;
     }
 
     setState(() => _isLoading = true);
     try {
       final user = await _authService.login(
-        phone: _phoneController.text,
+        phone: _emailController.text,
         password: _passwordController.text,
       );
-      
+
       if (!mounted) return;
       setState(() => _isLoading = false);
 
@@ -51,29 +51,26 @@ class _LoginScreenState extends State<LoginScreen> {
       if (!mounted) return;
       setState(() => _isLoading = false);
       String message = 'خطأ في تسجيل الدخول. يرجى التحقق من البيانات.';
-      
+
       if (e.toString().contains('user-not-found')) {
         message = 'المستخدم غير موجود. يرجى إنشاء حساب جديد.';
       } else if (e.toString().contains('wrong-password')) {
         message = 'كلمة المرور غير صحيحة.';
-      } else if (e.toString().contains('invalid-phone-number')) {
-        message = 'رقم الهاتف غير صحيح.';
+      } else if (e.toString().contains('invalid-email')) {
+        message = 'البيانات المدخلة غير صحيحة.';
       }
-      
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(message)),
-      );
+
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(message)));
     }
   }
 
-  // ══════════════════════════════════════════════
-  // تسجيل الدخول بحساب Google
-  // ══════════════════════════════════════════════
   void _handleGoogleSignIn() async {
     setState(() => _isGoogleLoading = true);
     try {
       final user = await _authService.signInWithGoogle();
-      
+
       if (!mounted) return;
       setState(() => _isGoogleLoading = false);
 
@@ -83,10 +80,12 @@ class _LoginScreenState extends State<LoginScreen> {
     } catch (e) {
       if (!mounted) return;
       setState(() => _isGoogleLoading = false);
-      
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('فشل تسجيل الدخول بحساب Google: ${e.toString().split(']').last}'),
+          content: Text(
+            'فشل تسجيل الدخول بحساب Google: ${e.toString().split(']').last}',
+          ),
           backgroundColor: Colors.red.shade600,
         ),
       );
@@ -103,7 +102,6 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             children: [
               SizedBox(height: 40.h),
-              // App Logo/Title
               Column(
                 children: [
                   Text(
@@ -122,7 +120,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
               SizedBox(height: 60.h),
-              // Login Card
               Container(
                 padding: EdgeInsets.all(24.w),
                 decoration: BoxDecoration(
@@ -157,11 +154,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(height: 32.h),
                     CustomTextField(
-                      labelText: 'رقم الجوال',
-                      hintText: '05xxxxxxxx',
-                      suffixIcon: Icons.phone_outlined,
-                      controller: _phoneController,
-                      keyboardType: TextInputType.phone,
+                      labelText: 'البريد الإلكتروني',
+                      hintText: 'example@mail.com',
+                      suffixIcon: Icons.email_outlined,
+                      controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
                     ),
                     SizedBox(height: 20.h),
                     CustomTextField(
@@ -174,7 +171,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: 12.h),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, Routes.forgotPasswordScreen);
+                        Navigator.pushNamed(
+                          context,
+                          Routes.forgotPasswordScreen,
+                        );
                       },
                       child: Text(
                         'نسيت كلمة المرور؟',
@@ -192,9 +192,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: _handleLogin,
                     ),
                     SizedBox(height: 24.h),
-                    // ═══════════════════════════════════════
-                    // فاصل "أو"
-                    // ═══════════════════════════════════════
                     Row(
                       children: [
                         Expanded(
@@ -223,9 +220,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                     SizedBox(height: 20.h),
-                    // ═══════════════════════════════════════
-                    // زر تسجيل الدخول بحساب Google
-                    // ═══════════════════════════════════════
                     _GoogleSignInButton(
                       isLoading: _isGoogleLoading,
                       onPressed: _handleGoogleSignIn,
@@ -268,17 +262,11 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-// ═══════════════════════════════════════════════════
-// ويدجت زر Google Sign-In - تصميم احترافي
-// ═══════════════════════════════════════════════════
 class _GoogleSignInButton extends StatefulWidget {
   final bool isLoading;
   final VoidCallback onPressed;
 
-  const _GoogleSignInButton({
-    required this.isLoading,
-    required this.onPressed,
-  });
+  const _GoogleSignInButton({required this.isLoading, required this.onPressed});
 
   @override
   State<_GoogleSignInButton> createState() => _GoogleSignInButtonState();
@@ -312,10 +300,7 @@ class _GoogleSignInButtonState extends State<_GoogleSignInButton>
     return AnimatedBuilder(
       animation: _scaleAnimation,
       builder: (context, child) {
-        return Transform.scale(
-          scale: _scaleAnimation.value,
-          child: child,
-        );
+        return Transform.scale(scale: _scaleAnimation.value, child: child);
       },
       child: SizedBox(
         width: double.infinity,
@@ -324,22 +309,21 @@ class _GoogleSignInButtonState extends State<_GoogleSignInButton>
           color: Colors.white,
           borderRadius: BorderRadius.circular(28.r),
           child: InkWell(
-            onTap: widget.isLoading ? null : () {
-              _animationController.forward().then((_) {
-                _animationController.reverse();
-              });
-              widget.onPressed();
-            },
+            onTap: widget.isLoading
+                ? null
+                : () {
+                    _animationController.forward().then((_) {
+                      _animationController.reverse();
+                    });
+                    widget.onPressed();
+                  },
             borderRadius: BorderRadius.circular(28.r),
             splashColor: const Color(0xFF4285F4).withValues(alpha: 0.1),
             highlightColor: const Color(0xFF4285F4).withValues(alpha: 0.05),
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(28.r),
-                border: Border.all(
-                  color: const Color(0xFFE1E2EB),
-                  width: 1.5,
-                ),
+                border: Border.all(color: const Color(0xFFE1E2EB), width: 1.5),
               ),
               child: widget.isLoading
                   ? Center(
@@ -366,13 +350,10 @@ class _GoogleSignInButtonState extends State<_GoogleSignInButton>
                           ),
                         ),
                         SizedBox(width: 12.w),
-                        // أيقونة Google بالألوان الرسمية
                         SizedBox(
                           width: 24.w,
                           height: 24.w,
-                          child: CustomPaint(
-                            painter: _GoogleLogoPainter(),
-                          ),
+                          child: CustomPaint(painter: _GoogleLogoPainter()),
                         ),
                       ],
                     ),
@@ -384,9 +365,6 @@ class _GoogleSignInButtonState extends State<_GoogleSignInButton>
   }
 }
 
-// ═══════════════════════════════════════════════════
-// رسم شعار Google بالألوان الرسمية
-// ═══════════════════════════════════════════════════
 class _GoogleLogoPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
@@ -396,7 +374,6 @@ class _GoogleLogoPainter extends CustomPainter {
     final double cy = h / 2;
     final double r = w * 0.45;
 
-    // الألوان الرسمية لـ Google
     const blue = Color(0xFF4285F4);
     const red = Color(0xFFEA4335);
     const yellow = Color(0xFFFBBC05);
@@ -407,17 +384,15 @@ class _GoogleLogoPainter extends CustomPainter {
       ..strokeWidth = w * 0.18
       ..strokeCap = StrokeCap.butt;
 
-    // رسم القوس الأزرق (يمين - أعلى)
     paint.color = blue;
     canvas.drawArc(
       Rect.fromCircle(center: Offset(cx, cy), radius: r),
-      -0.4, // بداية من اليمين العلوي
-      -1.2, // قوس نحو الأعلى
+      -0.4,
+      -1.2,
       false,
       paint,
     );
 
-    // رسم القوس الأحمر (أعلى - يسار)
     paint.color = red;
     canvas.drawArc(
       Rect.fromCircle(center: Offset(cx, cy), radius: r),
@@ -427,7 +402,6 @@ class _GoogleLogoPainter extends CustomPainter {
       paint,
     );
 
-    // رسم القوس الأصفر (يسار - أسفل)
     paint.color = yellow;
     canvas.drawArc(
       Rect.fromCircle(center: Offset(cx, cy), radius: r),
@@ -437,7 +411,6 @@ class _GoogleLogoPainter extends CustomPainter {
       paint,
     );
 
-    // رسم القوس الأخضر (أسفل - يمين)
     paint.color = green;
     canvas.drawArc(
       Rect.fromCircle(center: Offset(cx, cy), radius: r),
@@ -447,7 +420,6 @@ class _GoogleLogoPainter extends CustomPainter {
       paint,
     );
 
-    // الخط الأفقي الأزرق (يمين "G")
     final linePaint = Paint()
       ..color = blue
       ..style = PaintingStyle.fill;

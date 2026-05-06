@@ -41,7 +41,6 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     const backgroundColor = Color(0xfff2f3fc);
-    const cardColor = Color(0xffededf6);
     const borderColor = Color(0xffc2c6d4);
 
     return Scaffold(
@@ -49,29 +48,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            Container(
-              color: backgroundColor,
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-              child: Row(
-                textDirection: TextDirection.rtl,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    icon: const Icon(Icons.close),
-                    color: const Color(0xff00408b),
-                  ),
-                  Text(
-                    'نموذج التقديم',
-                    style: theme.textTheme.headlineSmall?.copyWith(
-                      color: const Color(0xff00408b),
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  Icon(Icons.notifications, color: const Color(0xff00408b)),
-                ],
-              ),
-            ),
+
             Expanded(
               child: SingleChildScrollView(
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
@@ -81,7 +58,6 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                     Container(
                       padding: EdgeInsets.all(20.w),
                       decoration: BoxDecoration(
-                        color: cardColor,
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Column(
@@ -164,7 +140,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                   child: Text(
                                     'إرسال طلب التوظيف / التدريب',
                                     style: theme.textTheme.titleMedium
-                                        ?.copyWith(fontWeight: FontWeight.w700),
+                                        ?.copyWith(fontWeight: FontWeight.w700,color: Colors.white),
                                   ),
                                 ),
                               ],

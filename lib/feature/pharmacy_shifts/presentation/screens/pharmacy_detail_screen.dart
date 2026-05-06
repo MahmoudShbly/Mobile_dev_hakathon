@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_dev_hakathon/core/route/routes.dart';
 import 'package:mobile_dev_hakathon/feature/pharmacy_shifts/model/pharmacy_model.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:latlong2/latlong.dart';
 // <<<<<<< HEAD
 import 'package:mobile_dev_hakathon/feature/trainings/presentation/screens/application_form_screen.dart';
 // =======
@@ -233,6 +236,7 @@ class PharmacyDetailScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
+                              const SizedBox(height: 20),
                             ],
                           ),
                         ),
@@ -528,6 +532,7 @@ class _DetailActionButton extends StatelessWidget {
                 fontWeight: FontWeight.w700,
               ),
             ),
+            const SizedBox(height: 20),
           ],
         ),
       ),

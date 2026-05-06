@@ -109,7 +109,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         context,
                         Routes.homeScreen,
                         (route) => false,
-                        arguments: 1,
+                        arguments: 2,
                       );
                     },
                   ),
