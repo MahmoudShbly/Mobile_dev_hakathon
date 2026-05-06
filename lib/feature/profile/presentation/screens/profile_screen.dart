@@ -121,7 +121,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         context,
                         Routes.homeScreen,
                         (route) => false,
-                        arguments: 2,
+                        arguments: 1,
                       );
                     },
                   ),

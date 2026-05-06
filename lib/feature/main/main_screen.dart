@@ -6,7 +6,7 @@ import 'package:mobile_dev_hakathon/feature/map/presentation/screens/map_screen.
 
 class MainScreen extends StatefulWidget {
   final int initialIndex;
-  const MainScreen({super.key, this.initialIndex = 3});
+  const MainScreen({super.key, this.initialIndex = 0});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -22,10 +22,10 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   static const List<Widget> _screens = <Widget>[
-    ProfileScreen(),
-    MapScreen(),
-    PharmacyShiftsScreen(),
     SearchScreen(),
+    PharmacyShiftsScreen(),
+    MapScreen(),
+    ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -59,12 +59,12 @@ class _MainScreenState extends State<MainScreen> {
         child: Row(
           textDirection: TextDirection.rtl,
           children: [
-            Expanded(child: _buildNavItem(0, Icons.person_outline, 'حسابي')),
-            Expanded(child: _buildNavItem(1, Icons.map_outlined, 'الخريطة')),
+            Expanded(child: _buildNavItem(0, Icons.home_outlined, 'الرئيسية')),
             Expanded(
-              child: _buildNavItem(2, Icons.medical_services_outlined, 'المناوبة'),
+              child: _buildNavItem(1, Icons.medical_services_outlined, 'المناوبة'),
             ),
-            Expanded(child: _buildNavItem(3, Icons.home_outlined, 'الرئيسية')),
+            Expanded(child: _buildNavItem(2, Icons.map_outlined, 'الخريطة')),
+            Expanded(child: _buildNavItem(3, Icons.person_outline, 'حسابي')),
           ],
         ),
       ),
