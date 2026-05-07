@@ -37,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() => _isLoading = true);
     try {
       final user = await _authService.login(
-        phone: _emailController.text,
+        email: _emailController.text,
         password: _passwordController.text,
       );
 
@@ -105,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Column(
                 children: [
                   Text(
-                    'دواء',
+                    'بلسم',
                     style: TextStyle(
                       fontSize: 32.sp,
                       fontWeight: FontWeight.bold,

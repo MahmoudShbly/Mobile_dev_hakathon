@@ -17,27 +17,27 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final List<Map<String, dynamic>> _pages = [
     {
       'imageUrl': 'assets/image/image-removebg-preview (8).png',
-      'title': 'ابحث عن صيدلية للتدريب',
+      'title': 'انطلق في مسيرتك المهنية',
       'description':
-          'اكتشف أفضل الفرص التدريبية في كبرى الصيدليات القريبة منك، تواصل مع المشرفين مباشرة، وابدأ رحلتك المهنية في بيئة تعليمية متميزة تدعم طموحاتك العلمية والعملية.',
+          'نوفر لطلاب وخريجي الصيدلة وصولاً مباشراً لأفضل فرص التدريب الميداني في كبرى الصيدليات. تواصل، تدرب، وابنِ خبرتك العملية في بيئة احترافية.',
       'showSkipButton': true,
-      'buttonText': 'ابدأ الآن',
+      'buttonText': 'التالي',
     },
     {
       'imageUrl': 'assets/image/image-removebg-preview (9).png',
-      'title': 'البحث عن الدواء',
+      'title': 'أدويتك بين يديك',
       'description':
-          'استكشف مخزون آلاف الصيدليات المعتمدة بضغطة واحدة. يوفر لك تطبيقنا وصولاً فورياً للمخزون الحقيقي والأسعار الرسمية المحدثة، مما يضمن لك العثور على دوائك بأمان وسهولة في منطقتك.',
+          'وفر وقتك وجهدك. ابحث عن الأدوية التي تحتاجها، واستعرض توفرها وأسعارها الرسمية في الصيدليات القريبة منك بخطوات بسيطة وسريعة.',
       'showSkipButton': true,
       'buttonText': 'التالي',
     },
     {
       'imageUrl': 'assets/image/image-removebg-preview (10).png',
-      'title': 'الصيدليات المناوبة',
+      'title': 'رعاية مستمرة على مدار الساعة',
       'description':
-          'اعثر على أقرب صيدلية مفتوحة في أي وقت من اليوم، حتى في الساعات المتأخرة من الليل مع تحديثات لحظية للمواقع وتفاصيل الاتصال المباشرة لضمان وصولك السريع للأدوية الضرورية.',
-      'showSkipButton': true,
-      'buttonText': 'التالي',
+          'صحتك لا تنتظر. اكتشف الصيدليات المناوبة القريبة منك في أي وقت، واحصل على المواقع الدقيقة وأرقام التواصل لتلبية احتياجاتك الطارئة.',
+      'showSkipButton': false,
+      'buttonText': 'ابدأ رحلتك',
     },
   ];
 
@@ -65,7 +65,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   void _completeOnboarding() async {
     await SharedPreferencesHelper.setOnboardingCompleted(true);
     if (mounted) {
-      Navigator.pushReplacementNamed(context, Routes.homeScreen);
+      Navigator.pushReplacementNamed(
+        context,
+        Routes.accountTypeSelectionScreen,
+      );
     }
   }
 

@@ -27,18 +27,32 @@ class AuthService {
 
   // بيانات المستخدمين الوهمية حسب الأدوار
   final Map<String, Map<String, dynamic>> _mockUsersData = {
-    '0938337165': {
-      'uid': 'user_123',
-      'name': 'خالد خالد',
+    'user_account': {
+      'uid': 'mock_user_1',
+      'name': 'مريض تجريبي',
       'role': 'user',
-      'email': 'khaled@example.com',
+      'email': 'user@gmail.com',
       'password': '12345678',
     },
-    '0912345678': {
-      'uid': 'pharm_456',
-      'name': 'د. سارة المنصور',
+    'pharmacist_account': {
+      'uid': 'mock_pharm_1',
+      'name': 'صيدلي تجريبي',
       'role': 'pharmacist',
-      'email': 'sara@pharmacy.com',
+      'email': 'pharmacist@gmail.com',
+      'password': '12345678',
+    },
+    'doctor_account': {
+      'uid': 'mock_doc_1',
+      'name': 'طبيب تجريبي',
+      'role': 'doctor',
+      'email': 'doctor@gmail.com',
+      'password': '12345678',
+    },
+    'admin_account': {
+      'uid': 'mock_admin_1',
+      'name': 'مدير النظام',
+      'role': 'admin',
+      'email': 'admin@gmail.com',
       'password': '12345678',
     },
   };
@@ -123,22 +137,33 @@ class AuthService {
   // Login (Mock)
   // ══════════════════════════════════════════════
   Future<dynamic> login({
-    required String phone,
+    required String email,
     required String password,
   }) async {
     if (_isMockMode) {
       await Future.delayed(const Duration(seconds: 1));
       
-      final userData = _mockUsersData[phone.trim()];
-      if (userData != null && userData['password'] == password) {
-        _currentUser = MockUser(
-          uid: userData['uid'],
-          displayName: userData['name'],
-          email: userData['email'],
-        );
-        return _currentUser;
+      Map<String, dynamic>? userData;
+      for (var user in _mockUsersData.values) {
+        if (user['email'] == email.trim()) {
+          userData = user;
+          break;
+        }
       }
-      throw Exception('wrong-password');
+
+      if (userData != null) {
+        if (userData['password'] == password) {
+          _currentUser = MockUser(
+            uid: userData['uid'],
+            displayName: userData['name'],
+            email: userData['email'],
+          );
+          return _currentUser;
+        } else {
+          throw Exception('wrong-password');
+        }
+      }
+      throw Exception('user-not-found');
     }
     return null;
   }
