@@ -27,7 +27,6 @@ class SearchSection extends StatelessWidget {
               ),
               filled: true,
               fillColor: colorScheme.onPrimary,
-              prefixIcon: Icon(Icons.mic, color: colorScheme.primary),
               suffixIcon: Icon(Icons.search, color: colorScheme.primary),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -41,19 +40,6 @@ class SearchSection extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 12),
-        Container(
-          width: 48,
-          height: 48,
-          decoration: BoxDecoration(
-            color: colorScheme.onPrimary,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: colorScheme.outline.withValues(alpha: 0.2)),
-          ),
-          child: IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.tune, color: colorScheme.onSurfaceVariant),
-          ),
-        ),
       ],
     );
   }

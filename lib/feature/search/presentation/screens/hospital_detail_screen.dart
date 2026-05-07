@@ -16,7 +16,18 @@ class HospitalDetailScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: colorScheme.surface,
-
+      appBar: AppBar(
+        backgroundColor: colorScheme.surface,
+        elevation: 0,
+        centerTitle: true,
+        toolbarHeight: 32,
+        title: Text(
+          hospital.name,
+          style: theme.textTheme.bodyLarge?.copyWith(
+            color: colorScheme.primary,
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(top: 10.0),

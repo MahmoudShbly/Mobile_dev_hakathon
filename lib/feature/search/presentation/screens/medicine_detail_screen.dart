@@ -365,12 +365,7 @@ class MedicineDetailScreen extends StatelessWidget {
                             ),
                             tooltip: 'الاتجاهات',
                           ),
-                          const SizedBox(height: 2),
-                          Icon(
-                            Icons.check_circle,
-                            color: const Color(0xFF065F46),
-                            size: 22,
-                          ),
+                       
                         ],
                       ),
                     ],
