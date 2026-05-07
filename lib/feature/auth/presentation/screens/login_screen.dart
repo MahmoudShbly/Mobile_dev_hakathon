@@ -127,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'تسجيل الدخول',
