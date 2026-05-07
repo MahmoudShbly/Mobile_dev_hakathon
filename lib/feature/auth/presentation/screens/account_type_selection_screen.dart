@@ -251,7 +251,7 @@ class _AccountTypeSelectionScreenState
                         ),
                       ),
                     ),
-
+          
                     SizedBox(height: 24.h),
                     Container(
                       padding: EdgeInsets.all(20.w),
@@ -277,12 +277,12 @@ class _AccountTypeSelectionScreenState
                                   _selectedType,
                                 );
                                 if (_selectedType == 'user') {
-                                  Navigator.pushNamed(
+                                  Navigator.pushReplacementNamed(
                                     context,
                                     Routes.loginScreen,
                                   );
                                 } else {
-                                  Navigator.pushNamed(
+                                  Navigator.pushReplacementNamed(
                                     context,
                                     Routes.pharmacistDashboardScreen,
                                   );

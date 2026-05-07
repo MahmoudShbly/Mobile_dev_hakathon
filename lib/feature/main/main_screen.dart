@@ -45,94 +45,101 @@ class _MainScreenState extends State<MainScreen> {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
-    return Scaffold(
-      appBar: AppBar(
-        // backgroundColor: colorScheme.onPrimary,
-        elevation: 0,
-        leading: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14.0),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CircleAvatar(
-                radius: 18,
-                backgroundColor: colorScheme.primary.withValues(alpha: 0.1),
-                child: Icon(Icons.person, size: 20, color: colorScheme.primary),
-              ),
-              const SizedBox(width: 8),
-              Flexible(
-                fit: FlexFit.loose,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'أحمد خالد',
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: colorScheme.onSurface,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      'أهلا بعودتك',
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: colorScheme.onSurfaceVariant,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        appBar: AppBar(
+          // backgroundColor: colorScheme.onPrimary,
+          elevation: 0,
+          leading: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircleAvatar(
+                  radius: 18,
+                  backgroundColor: colorScheme.primary.withValues(alpha: 0.1),
+                  child: Icon(
+                    Icons.person,
+                    size: 20,
+                    color: colorScheme.primary,
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ),
-        leadingWidth: 260,
-      ),
-      body: _screens[_selectedIndex],
-      bottomNavigationBar: SafeArea(
-        top: false,
-        child: Container(
-          margin: EdgeInsets.only(
-            top: 8.h,
-            bottom: MediaQuery.of(context).padding.bottom + 8.h,
-          ),
-          decoration: BoxDecoration(
-            color: colorScheme.onPrimary,
-            border: Border(
-              top: BorderSide(
-                color: colorScheme.outline.withValues(alpha: 0.1),
-              ),
+                const SizedBox(width: 8),
+                Flexible(
+                  fit: FlexFit.loose,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'أحمد خالد',
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: colorScheme.onSurface,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        'أهلا بعودتك',
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.05),
-                blurRadius: 20,
-                offset: const Offset(0, -4),
-              ),
-            ],
           ),
-          child: Row(
-            textDirection: TextDirection.rtl,
-            children: [
-              Expanded(
-                child: _buildNavItem(0, Icons.home_outlined, 'الرئيسية'),
-              ),
-              Expanded(child: _buildNavItem(1, Icons.work_outline, 'فرص')),
-              Expanded(
-                child: _buildNavItem(
-                  3,
-                  Icons.medical_services_outlined,
-                  'المناوبة',
+          leadingWidth: 260,
+        ),
+        body: _screens[_selectedIndex],
+        bottomNavigationBar: SafeArea(
+          top: false,
+          child: Container(
+            margin: EdgeInsets.only(
+              top: 8.h,
+              bottom: MediaQuery.of(context).padding.bottom + 8.h,
+            ),
+            decoration: BoxDecoration(
+              color: colorScheme.onPrimary,
+              border: Border(
+                top: BorderSide(
+                  color: colorScheme.outline.withValues(alpha: 0.1),
                 ),
               ),
-              Expanded(child: _buildNavItem(2, Icons.map_outlined, 'الخريطة')),
-              Expanded(child: _buildNavItem(4, Icons.person_outline, 'حسابي')),
-            ],
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.05),
+                  blurRadius: 20,
+                  offset: const Offset(0, -4),
+                ),
+              ],
+            ),
+            child: Row(
+              textDirection: TextDirection.rtl,
+              children: [
+                Expanded(
+                  child: _buildNavItem(0, Icons.home_outlined, 'الرئيسية'),
+                ),
+                Expanded(child: _buildNavItem(1, Icons.work_outline, 'فرص')),
+                Expanded(
+                  child: _buildNavItem(
+                    3,
+                    Icons.medical_services_outlined,
+                    'المناوبة',
+                  ),
+                ),
+                Expanded(child: _buildNavItem(2, Icons.map_outlined, 'الخريطة')),
+                Expanded(child: _buildNavItem(4, Icons.person_outline, 'حسابي')),
+              ],
+            ),
           ),
         ),
       ),

@@ -43,7 +43,7 @@ void main() async {
   } else if (isUserLoggedIn) {
     initialRoute = Routes.homeScreen;
   } else {
-    initialRoute = Routes.loginScreen;
+    initialRoute = Routes.accountTypeSelectionScreen;
   }
 
   runApp(MyApp(initialRoute: initialRoute));
